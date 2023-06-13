@@ -1,6 +1,6 @@
-from .db import db, environment, SCHEMA, add_prefix_for_prod, backref
+from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
-from .share_privileges import share_privileges
+
 
 
 class Post(db.Model):

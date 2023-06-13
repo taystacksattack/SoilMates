@@ -1,5 +1,5 @@
 from app.models import db, Post, SCHEMA, environment
-from sqlalchemy.sql import Text
+from sqlalchemy.sql import text
 
 def seed_posts():
 
@@ -37,7 +37,7 @@ def seed_posts():
     db.session.commit()
 
 def undo_posts():
-        if environment == "production":
+    if environment == "production":
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.posts RESTART IDENTITY CASCADE;")
     else:

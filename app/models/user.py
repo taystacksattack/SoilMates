@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 
 
+
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
@@ -16,7 +17,7 @@ class User(db.Model, UserMixin):
 
     #relationship
     # how we did it on everynote
-    posts = db.relationship("Post", back_populates="owner", secondary=share_privileges, cascade="all, delete-orphan", single_parent=True)
+    posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan", single_parent=True)
     # posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
 
     @property

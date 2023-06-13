@@ -18,3 +18,29 @@ def posts():
     posts = Post.query.filter(Post.ownerId == current_user.id).all()
 
     return {"posts": [post.to_dict() for post in posts]}
+
+
+@post_routes.route('/new')
+@login_required
+def new_post():
+    '''
+    Creates a new post and returns it as a dictionary
+    '''
+
+    form =PostForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data = form.data
+        new_post = Post(
+            title=data['title'],
+            body=data['body'],
+            ownerId=data['ownerId']
+        )
+
+        db.session.add(new_post)
+        db.session.commit()
+
+        return new_post.to_dict()
+
+    return validation_errors_to_error_messages(form.errors)

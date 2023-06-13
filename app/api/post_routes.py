@@ -14,8 +14,10 @@ def posts():
     '''
     Query for all posts and return them in a list of their dictionary form
     '''
-
+    print("current user id", current_user)
     posts = Post.query.filter(Post.ownerId == current_user.id).all()
+    # posts = Post.query.all()
+    print("posts", {"posts": [post.to_dict() for post in posts]})
 
     return {"posts": [post.to_dict() for post in posts]}
 

@@ -14,6 +14,11 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    #relationship
+    # how we did it on everynote
+    posts = db.relationship("Post", back_populates="owner", secondary=share_privileges, cascade="all, delete-orphan", single_parent=True)
+    # posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
+
     @property
     def password(self):
         return self.hashed_password

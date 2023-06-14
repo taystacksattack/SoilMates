@@ -10,8 +10,8 @@ class Post(db.Model):
         __table_args__ = {"schema": SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
-    body = db.Column(db.Text())
+    title = db.Column(db.String(255), nullable=False)
+    body = db.Column(db.Text(), nullable=False)
     ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.String, nullable=False, default=datetime.utcnow)

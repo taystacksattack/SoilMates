@@ -10,6 +10,7 @@ const SinglePost = () => {
     const {postId} = useParams()
 
     const postsObj = useSelector(state => state.posts.allPosts)
+    // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS
 
     useEffect(()=>{
         dispatch(getPostsThunk())
@@ -19,7 +20,7 @@ const SinglePost = () => {
 
 
     const post= postsObj[postId]
-    if (!postsObj || !post) return (<h2>Loading</h2>)
+    if (!postsObj || !post) return (<h2>Loading...</h2>)
     console.log("post",post)
 
     return (

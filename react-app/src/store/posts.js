@@ -14,7 +14,7 @@ const getPosts = (posts) => {
     }
 }
 
-const newPost = (post) => ({
+const createPost = (post) => ({
     type: CREATE_POST,
     post
 })
@@ -30,10 +30,12 @@ const deletePost = (postId) => ({
 })
 
 
-//these are the thunks
+//THESE ARE THE THUNKS
+
+//all posts
 export const getPostsThunk = () => async (dispatch) => {
     try {
-        const response =  await fetch("/api/posts/")
+        const response =  await fetch("/api/posts")
         const data = await response.json();
         console.log("data in the backend", data)
         dispatch(getPosts(data))
@@ -41,6 +43,28 @@ export const getPostsThunk = () => async (dispatch) => {
 
     }catch(e){
         console.log("here are the damn errors", e)
+        return e
+    }
+}
+
+//NewPost
+export const createPostThunk = (post) => async (dispatch) => {
+    let response
+    try{
+        response = await fetch("/api/posts/new", {
+            method: 'POST',
+            body: post
+        })
+        const data = await response.json()
+        dispatch(createPost(data))
+        return data
+    } catch(e){
+        const data = await response.json()
+        if(data.errors){
+            return data.errors
+        } else {
+            return ["An error has occurred. Please try again."]
+        }
     }
 }
 
@@ -52,8 +76,8 @@ export default function postsReducer (state= initialState, action){
     switch (action.type){
         case GET_POSTS:
             const newState = { allPosts: {}}
-            console.log("action",action)
-            console.log("action.posts", action.posts)
+            // console.log("action",action)
+            // console.log("action.posts", action.posts)
                 if (action.posts.length){
                     action.posts.forEach((post => {
                         newState.allPosts[post.id] = post

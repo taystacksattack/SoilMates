@@ -9,13 +9,13 @@ const CurrentPosts = () => {
     const dispatch = useDispatch()
 
     const postsObj= useSelector(state => state.posts.allPosts)
-    console.log("after fetch from state", postsObj)
+    // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS
 
     useEffect(()=>{
         dispatch(getPostsThunk())
     }, [dispatch ])
 
-    if (!postsObj) return (<h2>Loading</h2>)
+    if (!postsObj) return (<h2>Loading...</h2>)
 
     return (
         <div id="posts-whole-wrapper">
@@ -23,7 +23,7 @@ const CurrentPosts = () => {
 
                 <h2>My Posts</h2>
                 <div id="new-post">
-                    <Link exact to ={`/posts/new`}>New Task</Link>
+                    <Link exact to ={`/posts/new`}>New Post</Link>
                 </div>
                 <br></br>
 

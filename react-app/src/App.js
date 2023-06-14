@@ -7,6 +7,7 @@ import Posts from './components/Posts'
 import SinglePost from './components/SinglePost'
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
+import CreatePost from "./components/NewPost";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,9 +27,14 @@ function App() {
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+          <Route path="/posts/new">
+            <CreatePost />
+          </Route>
+
           <Route path="/posts/:postId">
             <SinglePost />
           </Route>
+
           <Route path="/posts">
             <Posts />
           </Route>

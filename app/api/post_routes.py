@@ -4,31 +4,42 @@ from app.models import Post
 from ..models.db import db
 from ..forms.post_form import PostForm
 from datetime import datetime
-from .auth_routes import validation_errors_to_error_messages
 
 post_routes = Blueprint('posts', __name__)
 
-@post_routes.route('/')
+# changed function from auth routes to work better with JS (need to jsonify data).
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = {}
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages[field] = error
+    return errorMessages
+
+
+@post_routes.route('')
 # @login_required
 def posts():
     '''
     Query for all posts and return them in a list of their dictionary form
     '''
-    print("current user id", current_user)
+    # print("current user id", current_user)
     posts = Post.query.filter(Post.ownerId == current_user.id).all()
     # posts = Post.query.all()
-    print("posts", {"posts": [post.to_dict() for post in posts]})
+    # print("posts", {"posts": [post.to_dict() for post in posts]})
 
     return [post.to_dict() for post in posts]
 
 
-@post_routes.route('/new')
+@post_routes.route('/new', methods=["GET", "POST"])
 @login_required
 def new_post():
     '''
     Creates a new post and returns it as a dictionary
     '''
-
+    print('made it to the backend!"')
     form =PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -37,7 +48,7 @@ def new_post():
         new_post = Post(
             title=data['title'],
             body=data['body'],
-            ownerId=data['ownerId']
+            ownerId=current_user.id
         )
 
         db.session.add(new_post)
@@ -45,4 +56,4 @@ def new_post():
 
         return new_post.to_dict()
 
-    return validation_errors_to_error_messages(form.errors)
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401

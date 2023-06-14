@@ -5,3 +5,19 @@
 .hidden {
   display: none;
 }
+
+#navigation-wrapper {
+  display: flex;
+  justify-content: space-between;
+  border: red solid 1px;
+  margin: 1%
+}
+
+#left-side-bar {
+  display: flex;
+  justify-content: space-between;
+  border: red solid 1px;
+  width:15%;
+  margin: 1%;
+  height: 90vh;
+}

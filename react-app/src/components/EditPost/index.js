@@ -1,15 +1,25 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from 'react';
-import { createPostThunk } from '../../store/posts'
-import { useHistory } from 'react-router-dom';
+import { editPostThunk, getPostsThunk } from '../../store/posts'
+import { useHistory, useParams } from 'react-router-dom';
 
 
-const CreatePost = () => {
+const EditPost = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const {postId} = useParams()
 
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
+    const postsObj = useSelector(state => state.posts.allPosts)
+
+    const post = postsObj[postId]
+    // console.log("here go you postId", postsObj[postId])
+
+    useEffect(()=>{
+        dispatch(getPostsThunk())
+    }, [dispatch])
+
+    const [title, setTitle] = useState(post?.title)
+    const [body, setBody] = useState(post?.body)
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
@@ -23,16 +33,17 @@ const CreatePost = () => {
             return
         }
 
-        const formData= new FormData()
-        formData.append("title", title)
-        formData.append("body", body)
+        const updatedPost ={
+            title,
+            body
+        }
 
-        const result = await dispatch(createPostThunk(formData))
+        const result = await dispatch(editPostThunk(postId, updatedPost))
 
         setHasSubmitted(false)
         setTitle('')
         setBody('')
-        history.push('/posts')
+        history.push(`/posts/${postId}`)
     }
 
     useEffect(()=>{
@@ -40,6 +51,10 @@ const CreatePost = () => {
         if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
         if(body.length < 5 || body.length >=2000) errors['body']="Please provide a post between 5 and 2000 characters"
         setValidationErrors(errors)
+        console.log(title)
+        // Object.values(validationErrors).length ? setDisabled(true) : setDisabled(false)
+        // console.log(disabled)
+        // console.log(validationErrors)
     }, [title, body])
 
     const errorLength = Object.values(validationErrors).length
@@ -100,4 +115,4 @@ const CreatePost = () => {
     )
 }
 
-export default CreatePost
+export default EditPost

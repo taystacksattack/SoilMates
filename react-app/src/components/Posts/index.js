@@ -9,7 +9,9 @@ const CurrentPosts = () => {
     const dispatch = useDispatch()
 
     const postsObj= useSelector(state => state.posts.allPosts)
-    // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS
+    // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
+
+    //Sorting helper function
 
     useEffect(()=>{
         dispatch(getPostsThunk())
@@ -36,16 +38,7 @@ const CurrentPosts = () => {
                             <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
                             {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}
                             {/* <br></br> */}
-                            <div id="buttons-wrappers">
-                                <OpenModalButton
-                                buttonText ="Delete Post"
-                                // modalComponent ={<DeletePostModal post={post}/>}
-                                />
-                                <OpenModalButton
-                                buttonText ="Edit Post"
-                                // modalComponent ={<EditPostModal post={post}/>}
-                                />
-                            </div>
+
                             <br></br>
                         </div>
                     )

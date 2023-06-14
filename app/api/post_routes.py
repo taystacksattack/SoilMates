@@ -39,7 +39,7 @@ def new_post():
     '''
     Creates a new post and returns it as a dictionary
     '''
-    print('made it to the backend!"')
+    # print('made it to the backend!"')
     form =PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -55,5 +55,36 @@ def new_post():
         db.session.commit()
 
         return new_post.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@post_routes.route('/<int:id>/edit', methods=["PUT"])
+@login_required
+def edit_post(id):
+    '''
+    Creates a new post and returns it as a dictionary
+    '''
+    form =PostForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+
+    if form.validate_on_submit():
+        post_to_update = Post.query.get(id)
+        if(current_user.id != post_to_update.ownerId):
+            return {"error": "This is not your post to update!"}
+
+        data = form.data
+        post_to_update.title = data['title']
+        post_to_update.body = data['body']
+        post_to_update.updated_at = datetime.utcnow()
+
+
+        # db.session.add(post_to_update)
+        db.session.commit()
+
+
+        return post_to_update.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

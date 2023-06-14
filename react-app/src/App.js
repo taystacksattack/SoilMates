@@ -8,6 +8,7 @@ import SinglePost from './components/SinglePost'
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CreatePost from "./components/NewPost";
+import EditPost from './components/EditPost'
 
 function App() {
   const dispatch = useDispatch();
@@ -29,6 +30,10 @@ function App() {
           </Route>
           <Route path="/posts/new">
             <CreatePost />
+          </Route>
+
+          <Route path="/posts/:postId/edit">
+            <EditPost />
           </Route>
 
           <Route path="/posts/:postId">

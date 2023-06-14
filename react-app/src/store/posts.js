@@ -68,6 +68,23 @@ export const createPostThunk = (post) => async (dispatch) => {
     }
 }
 
+export const editPostThunk = (postId, post) => async (dispatch) => {
+    try {
+        // console.log("IN THE THUNK",postId)
+        // console.log("in the thunk ", post)
+        const response = await fetch(`/api/posts/${postId}/edit`,{
+            method: 'PUT',
+            headers: {"Content-Type": "application/json"}, // need to stringify here so that the form validator is happy
+            body: JSON.stringify(post)
+        })
+        const {result} = await response.json()
+        dispatch(editPost(result))
+        return
+    }catch(e){
+        return e
+    }
+}
+
 
 //REDUCER
 const initialState = { allPosts : {} }

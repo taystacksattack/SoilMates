@@ -1,8 +1,10 @@
 import { useDispatch, useSelector} from "react-redux"
 import { useEffect, useState} from "react"
-import {Link, useParams } from "react-router-dom"
+import {Link, NavLink, useParams } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
+import DeletePostModal from '../DeletePostModal'
+// import EditPostModal from '../EditPostModal'
 
 
 const SinglePost = () => {
@@ -10,7 +12,9 @@ const SinglePost = () => {
     const {postId} = useParams()
 
     const postsObj = useSelector(state => state.posts.allPosts)
+    // const userObj = useSe
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS
+    // disable edit/delete if not
 
     useEffect(()=>{
         dispatch(getPostsThunk())
@@ -30,6 +34,16 @@ const SinglePost = () => {
                 <h2>{post.title}</h2>
                 <p id="post-body">{post.body}</p>
 
+                <div id="buttons-wrappers">
+                                <OpenModalButton
+                                buttonText ="Delete Post"
+                                modalComponent ={<DeletePostModal post={post}/>}
+                                />
+                                <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
+                                {/* buttonText ="Edit Post"
+                                // modalComponent ={<EditPostModal post={post}/>}
+                                /> */}
+                            </div>
             </div>
         </div>
     )

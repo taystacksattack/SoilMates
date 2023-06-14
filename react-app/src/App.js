@@ -8,6 +8,10 @@ import SinglePost from './components/SinglePost'
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import CreatePost from "./components/NewPost";
+import EditPost from './components/EditPost'
+import SideBar from './components/SideBar'
+import Feed from './components/Feed'
+import './index.css'
 
 function App() {
   const dispatch = useDispatch();
@@ -19,27 +23,41 @@ function App() {
   return (
     <>
       <Navigation isLoaded={isLoaded} />
-      {isLoaded && (
-        <Switch>
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
-          <Route path="/signup">
-            <SignupFormPage />
-          </Route>
-          <Route path="/posts/new">
-            <CreatePost />
-          </Route>
+      <div id="main-body">
+        <SideBar />
+        {isLoaded && (
+          <Switch>
+            <Route path="/login" >
+              <LoginFormPage />
+            </Route>
 
-          <Route path="/posts/:postId">
-            <SinglePost />
-          </Route>
+            <Route path="/signup">
+              <SignupFormPage />
+            </Route>
 
-          <Route path="/posts">
-            <Posts />
-          </Route>
-        </Switch>
-      )}
+            <Route path="/posts/new">
+              <CreatePost />
+            </Route>
+
+            <Route path="/posts/:postId/edit">
+              <EditPost />
+            </Route>
+
+            <Route path="/posts/:postId">
+              <SinglePost />
+            </Route>
+
+            <Route path="/posts">
+              <Posts />
+            </Route>
+
+            <Route path="/feed">
+              <Feed />
+            </Route>
+
+          </Switch>
+        )}
+      </div>
     </>
   );
 }

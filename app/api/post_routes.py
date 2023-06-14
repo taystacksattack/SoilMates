@@ -4,6 +4,7 @@ from app.models import Post
 from ..models.db import db
 from ..forms.post_form import PostForm
 from datetime import datetime
+import operator
 
 post_routes = Blueprint('posts', __name__)
 
@@ -18,6 +19,24 @@ def validation_errors_to_error_messages(validation_errors):
             errorMessages[field] = error
     return errorMessages
 
+@post_routes.route('/feed')
+# @login_required
+def feed():
+    '''
+    Query for all posts and return them in a list of their dictionary form
+    '''
+    posts = Post.query.all()
+    # print("posts", posts)
+    post_dicts = [post.to_dict() for post in posts]
+    # print(post_dicts)
+    # sorted_posts = sorted(post_dicts, key=lambda post:post['title']) # doesn't work though....
+    # print("sorted_dicts", sorted_posts)
+    # posts = Post.query.all()
+    # print("posts", {"posts": [post.to_dict() for post in posts]})
+
+    return [post.to_dict() for post in posts]
+    # return sorted_posts
+
 
 @post_routes.route('')
 # @login_required
@@ -25,9 +44,9 @@ def posts():
     '''
     Query for all posts and return them in a list of their dictionary form
     '''
-    # print("current user id", current_user)
-    posts = Post.query.filter(Post.ownerId == current_user.id).all()
-    # posts = Post.query.all()
+
+    # posts = Post.query.filter(Post.ownerId == current_user.id).all()
+    posts = Post.query.all()
     # print("posts", {"posts": [post.to_dict() for post in posts]})
 
     return [post.to_dict() for post in posts]
@@ -39,7 +58,7 @@ def new_post():
     '''
     Creates a new post and returns it as a dictionary
     '''
-    print('made it to the backend!"')
+    # print('made it to the backend!"')
     form =PostForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
@@ -57,3 +76,46 @@ def new_post():
         return new_post.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@post_routes.route('/<int:id>/edit', methods=["PUT"])
+@login_required
+def edit_post(id):
+    '''
+    Creates a new post and returns it as a dictionary
+    '''
+    form =PostForm()
+
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+
+    if form.validate_on_submit():
+        post_to_update = Post.query.get(id)
+        if(current_user.id != post_to_update.ownerId):
+            return {"error": "This is not your post to update!"}
+
+        data = form.data
+        post_to_update.title = data['title']
+        post_to_update.body = data['body']
+        post_to_update.updated_at = datetime.utcnow()
+
+
+        # db.session.add(post_to_update)
+        db.session.commit()
+
+
+        return post_to_update.to_dict()
+
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@post_routes.route('/<int:id>/delete', methods=["DELETE"])
+@login_required
+def delete_post(id):
+    post_to_delete = Post.query.get(id)
+    if(current_user.id != post_to_delete.ownerId):
+        return {"error": "This is not your post to delete!"}
+
+    db.session.delete(post_to_delete)
+    db.session.commit()
+    return {"status": "Sucessful deletion"}

@@ -1,4 +1,5 @@
 //actions
+const GET_FEED = 'posts/GET_FEED'
 const GET_POSTS = 'posts/GET_POSTS'
 const CREATE_POST = 'posts/CREATE_POST'
 const EDIT_POST = 'posts/EDIT_POST'
@@ -6,6 +7,13 @@ const DELETE_POST = 'posts/DELETE_POST'
 
 
 //action collectors
+
+const getFeed = (posts) => {
+    return {
+        type: GET_FEED,
+        posts
+    }
+}
 
 const getPosts = (posts) => {
     return {
@@ -32,17 +40,32 @@ const deletePost = (postId) => ({
 
 //THESE ARE THE THUNKS
 
-//all posts
+// export const getAllPostsThunk = () => async (dispatch) => {
+//     try {
+//         const response =  await fetch("/api/posts/feed")
+//         const data = await response.json();
+//         console.log("data in the backend", data)
+//         dispatch(getFeed(data))
+//         return data
+
+//     }catch(e){
+//         console.log("here are the errors", e)
+//         return e
+//     }
+// }
+
+
+//all of user's posts
 export const getPostsThunk = () => async (dispatch) => {
     try {
         const response =  await fetch("/api/posts")
         const data = await response.json();
-        console.log("data in the backend", data)
+        // console.log("data in the backend", data)
         dispatch(getPosts(data))
         return data
 
     }catch(e){
-        console.log("here are the damn errors", e)
+        console.log("here are the errors", e)
         return e
     }
 }
@@ -86,6 +109,21 @@ export const editPostThunk = (postId, post) => async (dispatch) => {
 }
 
 
+export const deletePostThunk = (postId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/posts/${postId}/delete`, {
+            method: "DELETE"
+        })
+        const result = await response.json()
+        dispatch(deletePost(postId))
+        return result
+    }catch(e){
+        return e
+    }
+}
+
+
+
 //REDUCER
 const initialState = { allPosts : {} }
 
@@ -101,6 +139,10 @@ export default function postsReducer (state= initialState, action){
                     }))
                 }
             return newState
+        case DELETE_POST:
+            const deleteState= {...state, allposts:{...state.allPosts}}
+            delete deleteState.allPosts[action.postId]
+            return deleteState
         default:
             return state
     }

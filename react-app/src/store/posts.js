@@ -33,7 +33,7 @@ const deletePost = (postId) => ({
 //these are the thunks
 export const getPostsThunk = () => async (dispatch) => {
     try {
-        const response =  await fetch("/api/posts")
+        const response =  await fetch("/api/posts/")
         const data = await response.json();
         console.log("data in the backend", data)
         dispatch(getPosts(data))
@@ -52,6 +52,8 @@ export default function postsReducer (state= initialState, action){
     switch (action.type){
         case GET_POSTS:
             const newState = { allPosts: {}}
+            console.log("action",action)
+            console.log("action.posts", action.posts)
                 if (action.posts.length){
                     action.posts.forEach((post => {
                         newState.allPosts[post.id] = post

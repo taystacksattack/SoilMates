@@ -9,7 +9,7 @@ from .auth_routes import validation_errors_to_error_messages
 post_routes = Blueprint('posts', __name__)
 
 @post_routes.route('/')
-@login_required
+# @login_required
 def posts():
     '''
     Query for all posts and return them in a list of their dictionary form
@@ -19,7 +19,7 @@ def posts():
     # posts = Post.query.all()
     print("posts", {"posts": [post.to_dict() for post in posts]})
 
-    return {"posts": [post.to_dict() for post in posts]}
+    return [post.to_dict() for post in posts]
 
 
 @post_routes.route('/new')

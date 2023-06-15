@@ -55,7 +55,7 @@ const deletePost = (postId) => ({
 // }
 
 
-//all of user's posts
+//all of posts - this has been re-purpopsed to grab all the posts ever, and then the front end sorts by user
 export const getPostsThunk = () => async (dispatch) => {
     try {
         const response =  await fetch("/api/posts")

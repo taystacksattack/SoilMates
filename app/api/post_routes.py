@@ -4,7 +4,7 @@ from app.models import Post
 from ..models.db import db
 from ..forms.post_form import PostForm
 from datetime import datetime
-import operator
+# import operator
 
 post_routes = Blueprint('posts', __name__)
 
@@ -45,7 +45,12 @@ def posts():
     Query for all posts and return them in a list of their dictionary form
     '''
 
+    #note that the line below gets the one associated with the user.
     # posts = Post.query.filter(Post.ownerId == current_user.id).all()
+
+    # please note, it is set up on front end to filter through the whole list which is coming from the feed.
+    #THIS WILL BECOME A PROBLEM FOR WHEN WE HAVE TO IMPLEMENT INFINITE SCROLL OR PAGES
+    # will need to restructure...
     posts = Post.query.all()
     # print("posts", {"posts": [post.to_dict() for post in posts]})
 

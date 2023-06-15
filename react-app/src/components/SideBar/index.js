@@ -14,6 +14,10 @@ function Navigation({ isLoaded }){
 					<li>
 						<NavLink exact to="/feed">Home</NavLink>
 					</li>
+
+					{/* new post button? */}
+					{/* new soil request button? */}
+					
                     <br></br>
 					<p>PUBLIC</p>
 					{/* <li>

@@ -37,6 +37,6 @@ class Soil(db.Model):
             "bdod": self.bdod,
             "nitrogen": self.nitrogen,
             "soc": self.soc,
-            "pph2o": self.pph2o,
+            "phh2o": self.phh2o,
             "created_at": self.created_at,
         }

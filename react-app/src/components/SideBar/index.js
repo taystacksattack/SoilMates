@@ -23,7 +23,7 @@ function Navigation({ isLoaded }){
 						<NavLink exact to="/posts">My Questions</NavLink>
 					</li>
 					<li>
-						<NavLink exact to="/soil-data">Soil Data</NavLink>
+						<NavLink exact to="/soils">Soil Data</NavLink>
 					</li>
 
 

@@ -67,7 +67,7 @@ export const socParse = (data) => {
     return (reducedMedians / objData.length) / 10
 }
 
-export const pph2oParse = (data) => {
+export const phh2oParse = (data) => {
     const objData =data.properties.layers[4].depths
     const reducedMedians = objData.reduce((acc, median) => acc + median.values["Q0.5"], 0)
     return (reducedMedians / objData.length) / 10

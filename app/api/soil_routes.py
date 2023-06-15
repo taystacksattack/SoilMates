@@ -27,7 +27,7 @@ def soils():
     return soil_dicts
 
 
-@soil_routes.route('/new')
+@soil_routes.route('/new', methods = ["GET", "POST"])
 def new_soil():
     print('made it to the backend!')
     form = SoilForm()
@@ -46,12 +46,11 @@ def new_soil():
             bdod=data['bdod'],
             nitrogen=data['nitrogen'],
             soc=data['soc'],
-            phh20=data['phh20'],
-            title=data['title'],
+            phh2o=data['phh2o']
         )
 
         db.session.add(new_soil)
         db.session.commit()
         return new_soil.to_dict()
-        
+
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401

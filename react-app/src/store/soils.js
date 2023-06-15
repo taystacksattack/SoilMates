@@ -36,6 +36,7 @@ export const getSoilsThunk = () => async (dispatch) => {
 //let's post a new one
 export const createSoilThunk = (soil) => async (dispatch) => {
     let response
+    console.log(soil)
     try{
         response = await fetch("/api/soils/new", {
             method: 'POST',

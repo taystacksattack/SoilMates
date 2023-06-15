@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react';
 import { createSoilThunk } from '../../store/soils'
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
-import { getSoilData, dataProperties, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, pph2oParse } from "./dataParsers";
+import { getSoilData, dataProperties, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
 
 
 const SoilsFetch = () => {
@@ -19,12 +19,13 @@ const SoilsFetch = () => {
     const [bdod, setBdod] = useState('')
     const [nitrogen, setNitrogen] = useState('')
     const [soc, setSoc] = useState('')
-    const [pph2o, setPph2o] = useState('')
+    const [phh2o, setPhh2o] = useState('')
 
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
     const [display, setDisplay]= useState(false)
+    const [success, setSuccess]= useState(false)
 
 
     const submitSoil = async (e) => {
@@ -39,7 +40,7 @@ const SoilsFetch = () => {
         //sample data for testing purposes (so you're not doing API calls everytime)
         const data = sampleData
 
-        //actual data collection IRL
+        //actual data collection IRL. Uncomment when you're ready...
         // const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
@@ -51,8 +52,8 @@ const SoilsFetch = () => {
         setCec(cecParse(data))
         setBdod(bdodParse(data))
         setNitrogen(nitrogenParse(data))
-        setSoc(siltParse(data))
-        setPph2o(pph2oParse(data))
+        setSoc(socParse(data))
+        setPhh2o(phh2oParse(data))
 
 
         setDisplay(true)
@@ -75,10 +76,19 @@ const SoilsFetch = () => {
         formData.append("bdod", bdod)
         formData.append("nitrogen", nitrogen)
         formData.append("soc", soc)
-        formData.append("pph2o", pph2o)
+        formData.append("phh2o", phh2o)
+
 
 
         const result = await dispatch(createSoilThunk(formData))
+
+        setSuccess(true)
+    }
+
+    const postSoil = async (e) => {
+        e.preventDefault()
+        //need to save to db first
+        saveSoil(e)
 
     }
 
@@ -138,7 +148,7 @@ const SoilsFetch = () => {
 
                     <br></br>
                     <div>
-                        <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
+                        <button disabled={disabled} id="submit-button" type='submit'>Fetch!</button>
                     </div>
                 </form>
 
@@ -151,9 +161,12 @@ const SoilsFetch = () => {
                         <p>Bulk Density: {bdod}</p>
                         <p>Nitrogen: {nitrogen}</p>
                         <p>Soil Organic Content: {soc}</p>
-                        <p>pH: {pph2o}</p>
+                        <p>pH: {phh2o}</p>
                         <button onClick={e => saveSoil(e)}>Save data</button>
-                        <button>Make post with data</button>
+                        <button onClick={e => postSoil(e)}>Make post with data</button>
+                        {success && (
+                            <p id="save-success">Saved Successfully!</p>
+                        )}
                     </div>
                 )}
                 <br></br>

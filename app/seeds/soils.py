@@ -1,7 +1,7 @@
 from app.models import db, Soil, SCHEMA, environment
 from sqlalchemy.sql import text
 
-def seed_posts():
+def seed_soils():
 
     soil_1 = Soil(
         ownerId = 1,
@@ -77,7 +77,7 @@ def seed_posts():
     db.session.commit()
 
 
-def undo_posts():
+def undo_soils():
     if environment == "production":
         db.session.execute(
             f"TRUNCATE table {SCHEMA}.soils RESTART IDENTITY CASCADE;")

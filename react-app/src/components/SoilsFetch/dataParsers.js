@@ -13,14 +13,6 @@ export const getSoilData = async (longitude, latitude) => {
 }
 
 
-
-
-
-
-
-// this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
-export const dataProperties = sampleData.properties
-
 // free free to comment/uncomment things
 export const sandParse = (data) => {
     const objData =data.properties.layers[5].depths

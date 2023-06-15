@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState,useEffect } from 'react';
-// import { createPostThunk } from '../../store/posts'
+import { createSoilThunk } from '../../store/soils'
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
 import { getSoilData, dataProperties, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, pph2oParse } from "./dataParsers";
@@ -36,11 +36,14 @@ const SoilsFetch = () => {
             return
         }
 
-        // const data = sampleData
-        const data = await getSoilData(longitude, latitude)
+        //sample data for testing purposes (so you're not doing API calls everytime)
+        const data = sampleData
 
-        console.log("WHOLE DATA S@#%SHOW", data)
-        console.log("data data data", dataProperties)
+        //actual data collection IRL
+        // const data = await getSoilData(longitude, latitude)
+
+        // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
+        console.log("WHOLE DATA SHEBANG", data.properties)
 
         setSand(sandParse(data))
         setSilt(siltParse(data))
@@ -52,19 +55,31 @@ const SoilsFetch = () => {
         setPph2o(pph2oParse(data))
 
 
-
-        // FORM STUFF WHEN READY TO GO TO BACKEND
-        // const formData= new FormData()
-        // formData.append("title", title)
-        // formData.append("body", body)
-
-        // const result = await dispatch(createPostThunk(formData))
-
         setDisplay(true)
-        // setHasSubmitted(false)
+        setHasSubmitted(false)
         // setLatitude('')
         // setLongitude('')
         // history.push('/soils')
+    }
+
+    const saveSoil = async (e) =>{
+        e.preventDefault()
+        // FORM STUFF WHEN READY TO GO TO BACKEND
+        const formData= new FormData()
+        formData.append("latitude", latitude)
+        formData.append("longitude", longitude)
+        formData.append("percent_sand", sand)
+        formData.append("percent_silt", silt)
+        formData.append("percent_clay", clay)
+        formData.append("cec", cec)
+        formData.append("bdod", bdod)
+        formData.append("nitrogen", nitrogen)
+        formData.append("soc", soc)
+        formData.append("pph2o", pph2o)
+
+
+        const result = await dispatch(createSoilThunk(formData))
+
     }
 
     useEffect(()=>{
@@ -133,13 +148,16 @@ const SoilsFetch = () => {
                         <p>% Silt: {silt}</p>
                         <p>% Clay: {clay}</p>
                         <p>CEC: {cec}</p>
-                        <p>Bulk Density: {silt}</p>
+                        <p>Bulk Density: {bdod}</p>
                         <p>Nitrogen: {nitrogen}</p>
                         <p>Soil Organic Content: {soc}</p>
                         <p>pH: {pph2o}</p>
+                        <button onClick={e => saveSoil(e)}>Save data</button>
+                        <button>Make post with data</button>
                     </div>
                 )}
-                <p>*Note that data are calculated as averages of median values at depths 0-5cm, 5-15cm, 15-30cm, 30-60cm. This accounts for why the percentages do not add up to 100%. For more comprehensive data for your sample, further soil depths, or just more information about the ISRIC API, please submit the latitude and longitude coordinates for your location <a href="https://rest.isric.org/soilgrids/v2.0/docs#/default/query_layer_properties_properties_query_get">here</a>, or visit their data resource FAQs at <a href="https://www.isric.org/explore/soilgrids/faq-soilgrids">here</a>.</p>
+                <br></br>
+                <p>*Note that data are calculated as averages of median values at depths 0-5cm, 5-15cm, 15-30cm, 30-60cm. This accounts for why the percentages do not add up to 100%. For more comprehensive data for your sample, further soil depths, or just more information about the ISRIC API, please submit the latitude and longitude coordinates for your location <a href="https://rest.isric.org/soilgrids/v2.0/docs#/default/query_layer_properties_properties_query_get">here</a>, or visit their data resource FAQs <a href="https://www.isric.org/explore/soilgrids/faq-soilgrids">here</a>.</p>
             </div>
         </div>
     )

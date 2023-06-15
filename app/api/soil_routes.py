@@ -25,3 +25,33 @@ def soils():
     soils = Soil.query.filter(Soil.ownerId == current_user.id).all()
     soil_dicts = [soil.to_dict() for soil in soils]
     return soil_dicts
+
+
+@soil_routes.route('/new')
+def new_soil():
+    print('made it to the backend!')
+    form = SoilForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data = form.data
+        new_soil = Soil(
+            ownerId=current_user.id,
+            latitude=data['latitude'],
+            longitude=data['longitude'],
+            percent_sand=data['percent_sand'],
+            percent_silt=data['percent_silt'],
+            percent_clay=data['percent_clay'],
+            cec=data['cec'],
+            bdod=data['bdod'],
+            nitrogen=data['nitrogen'],
+            soc=data['soc'],
+            phh20=data['phh20'],
+            title=data['title'],
+        )
+
+        db.session.add(new_soil)
+        db.session.commit()
+        return new_soil.to_dict()
+        
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401

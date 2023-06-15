@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, Sort  } from "react-redux"
-import { useEffect, useState} from "react"
+import { useEffect } from "react"
 import {Link } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
@@ -10,10 +10,11 @@ const CurrentPosts = () => {
 
     const postsObj= useSelector(state => state.posts.allPosts)
     const user = useSelector(state => state.session.user)
-    console.log(user)
+    // console.log(user)
+
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
 
-    //Sorting helper function
+    //Sorting helper function will go here
 
     useEffect(()=>{
         dispatch(getPostsThunk())

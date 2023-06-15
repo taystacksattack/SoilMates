@@ -18,6 +18,7 @@ class User(db.Model, UserMixin):
     #relationship
     # how we did it on everynote
     posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
+    soils = db.relationship("Soil", back_populates="owner", cascade="all, delete-orphan")
     # posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
 
     @property

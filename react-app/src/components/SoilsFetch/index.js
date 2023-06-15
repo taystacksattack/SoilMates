@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react';
 // import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
-import { test } from "./dataParsers";
+import { sandParse } from "./dataParsers";
 
 
 const SoilsFetch = () => {
@@ -12,9 +12,11 @@ const SoilsFetch = () => {
 
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
+    const [sand, setSand] = useState('')
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
+    const [display, setDisplay]= useState(false)
 
 
     const submitSoil = async (e) => {
@@ -31,7 +33,7 @@ const SoilsFetch = () => {
         // console.log("here is the jsonified data", data)
 
         // console.log("SAMPLE DATA S@#%SHOW", sampleData)
-        test()
+        setSand(sand())
 
 
 
@@ -43,6 +45,7 @@ const SoilsFetch = () => {
         // const result = await dispatch(createPostThunk(formData))
 
         // setHasSubmitted(false)
+
         // setLatitude('')
         // setLongitude('')
         // history.push('/soils')
@@ -107,6 +110,8 @@ const SoilsFetch = () => {
                         <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
                     </div>
                 </form>
+
+                {}
             </div>
         </div>
     )

@@ -7,7 +7,7 @@ import OpenModalButton from '../OpenModalButton'
 
 const Soils = () => {
     const dispatch = useDispatch()
-    const [hidden, setHidden] = useState()
+    const [hidden, setHidden] = useState(true)
 
     const soilsObj = useSelector(state => state.soils.allSoils)
 
@@ -20,15 +20,28 @@ const Soils = () => {
     return(
         <div>
             <div id="soil-samples-wrapper">
-                <h1>My Soil Samples</h1>
+                <div id="soils-header-wrapper">
+                    <h1>My Soil Samples</h1>
+                    <div id="new-post">
+                        <Link exact to ={`/soils/new`}>Request Soil Sample</Link>
+                            <div id="new-sample-wrapper">
+                                
+
+                            </div>
+                        {/* make this also like a dropdown...? */}
+                    </div>
+                </div>
                 <br></br>
                 <div id="soil-samples-list-wrapper">
                     {soilsObj && Object.values(soilsObj).map(soil=>{
                         return (
-                            <div id={soil.id}>
-                                <h2 id="soil-title">{soil.latitude}, {soil.longitude}</h2>
+                            <div key={soil.id} id="single-soil-wrapper">
+                                {/* onClick = setHidden(true) ...? This causes infinite re-renders */}
+                                <h2 id="soil-title" >{soil.latitude}, {soil.longitude}</h2>
+                                    {hidden && (
                                     <div id="single-soil-body">
                                         <ul>
+                                            <li>Requested: {soil.created_at.slice(0,16)}</li>
                                             <li>% Sand: {soil.percent_sand}</li>
                                             <li>% Silt: {soil.percent_silt}</li>
                                             <li>% Clay: {soil.percent_clay}</li>
@@ -37,10 +50,9 @@ const Soils = () => {
                                             <li>Nitrogen: {soil.Nitrogen}</li>
                                             <li>Soil Organic Carbon: {soil.cec}</li>
                                             <li>pH: {soil.phh2o}</li>
-                                            <li>Requested at: {soil.created_at.slice(0,16)}</li>
 
                                         </ul>
-                                    </div>
+                                    </div>)}
                                 <br></br>
                             </div>
                         )

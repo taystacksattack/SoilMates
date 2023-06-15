@@ -3,7 +3,7 @@ import { useState,useEffect } from 'react';
 // import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
-import { sandParse } from "./dataParsers";
+import { test, sandParse } from "./dataParsers";
 
 
 const SoilsFetch = () => {
@@ -33,7 +33,8 @@ const SoilsFetch = () => {
         // console.log("here is the jsonified data", data)
 
         // console.log("SAMPLE DATA S@#%SHOW", sampleData)
-        setSand(sand())
+        console.log(test())
+        setSand(sandParse())
 
 
 
@@ -44,8 +45,8 @@ const SoilsFetch = () => {
 
         // const result = await dispatch(createPostThunk(formData))
 
+        setDisplay(true)
         // setHasSubmitted(false)
-
         // setLatitude('')
         // setLongitude('')
         // history.push('/soils')
@@ -111,7 +112,9 @@ const SoilsFetch = () => {
                     </div>
                 </form>
 
-                {}
+                {display && (
+                    <>{sand}</>
+                )}
             </div>
         </div>
     )

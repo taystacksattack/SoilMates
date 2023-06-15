@@ -1,9 +1,10 @@
 import { useDispatch } from "react-redux";
 import { useState,useEffect } from 'react';
 import { createSoilThunk } from '../../store/soils'
+import { createPostThunk } from "../../store/posts";
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
-import { getSoilData, dataProperties, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
+import { getSoilData, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
 
 
 const SoilsFetch = () => {
@@ -21,11 +22,14 @@ const SoilsFetch = () => {
     const [soc, setSoc] = useState('')
     const [phh2o, setPhh2o] = useState('')
 
+    const [title, setTitle] = useState('')
+    const [body, setBody] = useState('')
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
+    const [showPost, setShowPost] = useState(false)
 
 
     const submitSoil = async (e) => {
@@ -90,6 +94,31 @@ const SoilsFetch = () => {
         //need to save to db first
         saveSoil(e)
 
+        // set the default body to have the soil data
+        setShowPost(true)
+        setBody(`% Sand: ${sand}\n% Silt: ${silt}\n% Clay: ${clay} \nCEC: ${cec}\nBulk Density: ${bdod}\nNitrogen: ${nitrogen}\nSoil Organic Content: ${soc}\npH: ${phh2o}`)
+
+    }
+
+    const submitPost = async (e) => {
+        e.preventDefault()
+
+        setHasSubmitted(true)
+
+        if(Object.values(validationErrors).length) {
+            return
+        }
+
+        const formData= new FormData()
+        formData.append("title", title)
+        formData.append("body", body)
+
+        const result = await dispatch(createPostThunk(formData))
+
+        setHasSubmitted(false)
+        setTitle('')
+        setBody('')
+        history.push('/posts')
     }
 
     useEffect(()=>{
@@ -169,6 +198,51 @@ const SoilsFetch = () => {
                         )}
                     </div>
                 )}
+
+                {showPost &&(
+                    <div id='form-wrapper'>
+                <form onSubmit ={(e)=> submitPost(e)}>
+                    {hasSubmitted && validationErrors.title && (
+                        <div className="errors-info">
+                            <p>{validationErrors.title}</p>
+                        </div>
+                    )}
+                    <label>
+                        <input
+                            placeholder = "Title"
+                            id="title-input"
+                            type= "textarea"
+                            value={title}
+                            onChange={e=> setTitle(e.target.value)}
+                        >
+                        </input>
+                    </label>
+
+                    {hasSubmitted && validationErrors.body && (
+                        <div className="errors-info">
+                            <p>{validationErrors.body}</p>
+                        </div>
+                    )}
+                    <label>
+                        <textarea
+                            placeholder = "Body"
+                            id="body-input"
+                            type= "textarea"
+                            value={body}
+                            onChange={e=> setBody(e.target.value)}
+                        >
+                        </textarea>
+                    </label>
+
+                    <br></br>
+                    <div>
+                        <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
+                    </div>
+                </form>
+            </div>
+                )}
+
+
                 <br></br>
                 <p>*Note that data are calculated as averages of median values at depths 0-5cm, 5-15cm, 15-30cm, 30-60cm. This accounts for why the percentages do not add up to 100%. For more comprehensive data for your sample, further soil depths, or just more information about the ISRIC API, please submit the latitude and longitude coordinates for your location <a href="https://rest.isric.org/soilgrids/v2.0/docs#/default/query_layer_properties_properties_query_get">here</a>, or visit their data resource FAQs <a href="https://www.isric.org/explore/soilgrids/faq-soilgrids">here</a>.</p>
             </div>

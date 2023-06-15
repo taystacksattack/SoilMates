@@ -2,8 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState,useEffect } from 'react';
 // import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
-import { sampleData } from "./sampleData";
-import { test, sandParse } from "./dataParsers";
+import { dataProperties, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, pph2oParse } from "./dataParsers";
 
 
 const SoilsFetch = () => {
@@ -13,6 +12,14 @@ const SoilsFetch = () => {
     const [latitude, setLatitude] = useState('')
     const [longitude, setLongitude] = useState('')
     const [sand, setSand] = useState('')
+    const [silt, setSilt] = useState('')
+    const [clay, setClay] = useState('')
+    const [cec, setCec] = useState('')
+    const [bdod, setBdod] = useState('')
+    const [nitrogen, setNitrogen] = useState('')
+    const [soc, setSoc] = useState('')
+    const [pph2o, setPph2o] = useState('')
+
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
@@ -33,8 +40,15 @@ const SoilsFetch = () => {
         // console.log("here is the jsonified data", data)
 
         // console.log("SAMPLE DATA S@#%SHOW", sampleData)
-        console.log(test())
+        console.log("data data data", dataProperties)
         setSand(sandParse())
+        setSilt(siltParse())
+        setClay(clayParse())
+        setCec(cecParse())
+        setBdod(bdodParse())
+        setNitrogen(nitrogenParse())
+        setSoc(siltParse())
+        setPph2o(pph2oParse())
 
 
 
@@ -113,8 +127,18 @@ const SoilsFetch = () => {
                 </form>
 
                 {display && (
-                    <>{sand}</>
+                    <div id="results-wrapper">
+                        <p>% Sand: {sand}</p>
+                        <p>% Silt: {silt}</p>
+                        <p>% Clay: {clay}</p>
+                        <p>CEC: {cec}</p>
+                        <p>Bulk Density: {silt}</p>
+                        <p>Nitrogen: {nitrogen}</p>
+                        <p>Soil Organic Content: {soc}</p>
+                        <p>pH: {pph2o}</p>
+                    </div>
                 )}
+                <p>*Note that data are calculated as averages of median values at depths 0-5cm, 5-15cm, 15-30cm, 30-60cm. This accounts for why the percentages do not add up to 100%. For more comprehensive data for your sample, further soil depths, or just more information about the ISRIC API, please submit the latitude and longitude coordinates for your location <a href="https://rest.isric.org/soilgrids/v2.0/docs#/default/query_layer_properties_properties_query_get">here</a>, or visit their data resource FAQs at <a href="https://www.isric.org/explore/soilgrids/faq-soilgrids">here</a>.</p>
             </div>
         </div>
     )

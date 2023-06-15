@@ -25,7 +25,9 @@ const Soils = () => {
                     <div id="new-post">
                         <Link exact to ={`/soils/new`}>Request Soil Sample</Link>
                             <div id="new-sample-wrapper">
-                                
+                                <form>
+                                    
+                                </form>
 
                             </div>
                         {/* make this also like a dropdown...? */}

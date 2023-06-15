@@ -12,6 +12,7 @@ import EditPost from './components/EditPost'
 import SideBar from './components/SideBar'
 import Feed from './components/Feed'
 import Soils from "./components/Soils";
+import SoilsFetch from "./components/SoilsFetch";
 import './index.css'
 
 function App() {
@@ -54,6 +55,10 @@ function App() {
 
             <Route path="/feed">
               <Feed />
+            </Route>
+
+            <Route path="/soils/new">
+              <SoilsFetch />
             </Route>
 
             <Route path="/soils">

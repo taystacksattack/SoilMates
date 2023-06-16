@@ -5,22 +5,26 @@ import { createPostThunk } from "../../store/posts";
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
 import { getSoilData, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
+import CreateSoilModal from "../CreateSoilModal";
+import OpenModalButton from "../OpenModalButton";
 
 
 const SoilsFetch = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
-    const [sand, setSand] = useState('')
-    const [silt, setSilt] = useState('')
-    const [clay, setClay] = useState('')
-    const [cec, setCec] = useState('')
-    const [bdod, setBdod] = useState('')
-    const [nitrogen, setNitrogen] = useState('')
-    const [soc, setSoc] = useState('')
-    const [phh2o, setPhh2o] = useState('')
+    const [latitude, setLatitude] = useState("")
+    const [longitude, setLongitude] = useState("")
+    const [sand, setSand] = useState("")
+    const [silt, setSilt] = useState("")
+    const [clay, setClay] = useState("")
+    const [cec, setCec] = useState("")
+    const [bdod, setBdod] = useState("")
+    const [nitrogen, setNitrogen] = useState("")
+    const [soc, setSoc] = useState("")
+    const [phh2o, setPhh2o] = useState("")
+    const [soilData, setSoilData] = useState({})
+
 
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
@@ -31,6 +35,8 @@ const SoilsFetch = () => {
     const [success, setSuccess]= useState(false)
     const [showPost, setShowPost] = useState(false)
     const [emptyData, setEmptyData] = useState(false)
+
+
 
 
     const submitSoil = async (e) => {
@@ -57,6 +63,7 @@ const SoilsFetch = () => {
 
         //good data
         setSand(sandParse(data))
+        // console.log("SAND",sand)
         setSilt(siltParse(data))
         setClay(clayParse(data))
         setCec(cecParse(data))
@@ -65,13 +72,32 @@ const SoilsFetch = () => {
         setSoc(socParse(data))
         setPhh2o(phh2oParse(data))
 
+        //gets it ready to be sent to the add title modal when user wants to save the soil data
+
+        const newSoil = {
+            latitude,
+            longitude,
+            "sand": sandParse(data),
+            "silt": siltParse(data),
+            "clay": clayParse(data),
+            "cec": cecParse(data),
+            "bdod": bdodParse(data),
+            "nitrogen": nitrogenParse(data),
+            "soc": socParse(data),
+            "phh2o": phh2oParse(data)
+        }
+        console.log("newSoil in soils fetch", newSoil)
+        setSoilData(newSoil)
+        console.log("soilData in soils fetch", soilData)
+        // console.log(formData)
+        // console.log(formData === soilFormData)
 
         // if (!sand) {
         //     console.log("wtf where is the sand", sand)
         //     setEmptyData(true)
         //     return
         // }
-        
+
         setDisplay(true)
         setHasSubmitted(false)
         // setLatitude('')
@@ -82,21 +108,21 @@ const SoilsFetch = () => {
     const saveSoil = async (e) =>{
         e.preventDefault()
         // FORM STUFF WHEN READY TO GO TO BACKEND
-        const formData= new FormData()
-        formData.append("latitude", latitude)
-        formData.append("longitude", longitude)
-        formData.append("percent_sand", sand)
-        formData.append("percent_silt", silt)
-        formData.append("percent_clay", clay)
-        formData.append("cec", cec)
-        formData.append("bdod", bdod)
-        formData.append("nitrogen", nitrogen)
-        formData.append("soc", soc)
-        formData.append("phh2o", phh2o)
+        // const soilFormData= new FormData()
+        // soilFormData.append("latitude", latitude)
+        // soilFormData.append("longitude", longitude)
+        // soilFormData.append("percent_sand", sand)
+        // soilFormData.append("percent_silt", silt)
+        // soilFormData.append("percent_clay", clay)
+        // soilFormData.append("cec", cec)
+        // soilFormData.append("bdod", bdod)
+        // soilFormData.append("nitrogen", nitrogen)
+        // soilFormData.append("soc", soc)
+        // soilFormData.append("phh2o", phh2o)
 
+        // setFormData(soilFormData)
 
-
-        const result = await dispatch(createSoilThunk(formData))
+        // const result = await dispatch(createSoilThunk(formData))
 
         setSuccess(true)
     }
@@ -138,8 +164,8 @@ const SoilsFetch = () => {
         if(latitude.length > 12 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
         if(longitude.length > 12 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
-        console.log("LATITUDE FLATITUDE",latitude)
-        console.log("LONGITUDE FLONGITUDE",longitude)
+        // console.log("LATITUDE FLATITUDE",latitude)
+        // console.log("LONGITUDE FLONGITUDE",longitude)
     }, [latitude, longitude])
 
     const errorLength = Object.values(validationErrors).length
@@ -206,7 +232,13 @@ const SoilsFetch = () => {
                         <p>Nitrogen: {nitrogen}</p>
                         <p>Soil Organic Content: {soc}</p>
                         <p>pH: {phh2o}</p>
-                        <button onClick={e => saveSoil(e)}>Save data</button>
+                        {/* <button onClick={e => saveSoil(e)}>Save data</button> */}
+                        <div id="buttons-wrappers">
+                                    <OpenModalButton
+                                    buttonText ="Add Soil"
+                                    modalComponent ={<CreateSoilModal soilData={soilData}/>}
+                                    />
+                                </div>
                         <button onClick={e => postSoil(e)}>Make post with data</button>
                         {success && (
                             <p id="save-success">Saved Successfully!</p>

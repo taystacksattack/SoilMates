@@ -19,6 +19,8 @@ const deleteSoil = (soilId) => ({
 
 
 //let's get those thunks
+
+//get user's soil requests
 export const getSoilsThunk = () => async (dispatch) => {
     try {
         const response = await fetch('/api/soils')
@@ -30,6 +32,32 @@ export const getSoilsThunk = () => async (dispatch) => {
         return e
     }
 }
+
+//let's post a new one
+export const createSoilThunk = (soil) => async (dispatch) => {
+    let response
+    console.log(soil)
+    try{
+        response = await fetch("/api/soils/new", {
+            method: 'POST',
+            body: soil
+        })
+        const data = await response.json()
+        console.log("DATA IN THUNK",data)
+        dispatch(createSoil(data))
+        return data
+    } catch(e){
+        const data = await response.json()
+        if(data.errors){
+            return data.errors
+        } else {
+            return ["An error has occurred. Please try again."]
+        }
+    }
+}
+
+
+
 
 
 //how about that reducer...?

@@ -35,15 +35,15 @@ const SinglePost = () => {
                 <p id="post-body">{post.body}</p>
 
                 <div id="buttons-wrappers">
-                                <OpenModalButton
-                                buttonText ="Delete Post"
-                                modalComponent ={<DeletePostModal post={post}/>}
-                                />
-                                <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
-                                {/* buttonText ="Edit Post"
-                                // modalComponent ={<EditPostModal post={post}/>}
-                                /> */}
-                            </div>
+                    <OpenModalButton
+                    buttonText ="Delete Post"
+                    modalComponent ={<DeletePostModal post={post}/>}
+                    />
+                    <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
+                    {/* buttonText ="Edit Post"
+                    // modalComponent ={<EditPostModal post={post}/>}
+                    /> */}
+                </div>
             </div>
         </div>
     )

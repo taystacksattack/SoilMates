@@ -3,6 +3,7 @@ import {  useState, useEffect } from "react"
 import {Link } from "react-router-dom"
 import { getSoilsThunk } from "../../store/soils"
 import OpenModalButton from '../OpenModalButton'
+import DeleteSoilModal from "../DeleteSoilModal"
 
 
 const Soils = () => {
@@ -13,7 +14,7 @@ const Soils = () => {
 
     useEffect(()=>{
         dispatch(getSoilsThunk())
-    }, [dispatch])
+    }, [dispatch, soilsObj.length])
 
     if (!soilsObj) return (<h2>Loading...</h2>)
 
@@ -55,6 +56,12 @@ const Soils = () => {
 
                                         </ul>
                                     </div>)}
+                                <div id="buttons-wrappers">
+                                    <OpenModalButton
+                                    buttonText ="Delete Soil"
+                                    modalComponent ={<DeleteSoilModal soil={soil}/>}
+                                    />
+                                </div>
                                 <br></br>
                             </div>
                         )

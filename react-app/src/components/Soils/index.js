@@ -40,10 +40,11 @@ const Soils = () => {
                         return (
                             <div key={soil.id} id="single-soil-wrapper">
                                 {/* onClick = setHidden(true) ...? This causes infinite re-renders */}
-                                <h2 id="soil-title" >{soil.latitude}, {soil.longitude}</h2>
+                                <h2 id="soil-title" >{soil.title}</h2>
                                     {hidden && (
                                     <div id="single-soil-body">
                                         <ul>
+                                            <li>Latitude: {soil.latitude}, Longitude: {soil.longitude}</li>
                                             <li>Requested: {soil.created_at.slice(0,16)}</li>
                                             <li>% Sand: {soil.percent_sand}</li>
                                             <li>% Silt: {soil.percent_silt}</li>

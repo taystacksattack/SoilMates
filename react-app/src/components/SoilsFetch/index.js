@@ -28,9 +28,11 @@ const SoilsFetch = () => {
 
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
+
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
+
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
     const [showPost, setShowPost] = useState(false)
@@ -57,23 +59,7 @@ const SoilsFetch = () => {
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
 
-        //bad data for testing purposes
-        // setSand(0)
-        // setSilt(0)
-
-        //good data
-        setSand(sandParse(data))
-        // console.log("SAND",sand)
-        setSilt(siltParse(data))
-        setClay(clayParse(data))
-        setCec(cecParse(data))
-        setBdod(bdodParse(data))
-        setNitrogen(nitrogenParse(data))
-        setSoc(socParse(data))
-        setPhh2o(phh2oParse(data))
-
         //gets it ready to be sent to the add title modal when user wants to save the soil data
-
         const newSoil = {
             latitude,
             longitude,
@@ -86,17 +72,29 @@ const SoilsFetch = () => {
             "soc": socParse(data),
             "phh2o": phh2oParse(data)
         }
-        console.log("newSoil in soils fetch", newSoil)
-        setSoilData(newSoil)
-        console.log("soilData in soils fetch", soilData)
-        // console.log(formData)
-        // console.log(formData === soilFormData)
 
-        // if (!sand) {
-        //     console.log("wtf where is the sand", sand)
-        //     setEmptyData(true)
-        //     return
-        // }
+        setSoilData(newSoil)
+
+        //good data
+        setSand(newSoil.sand)
+        setSilt(newSoil.silt)
+        setClay(newSoil.clay)
+        setCec(newSoil.cec)
+        setBdod(newSoil.bdod)
+        setNitrogen(newSoil.nitrogen)
+        setSoc(newSoil.soc)
+        setPhh2o(newSoil.phh2o)
+
+        //handles bad data
+        if (!newSoil.sand) {
+            console.log("wtf where is the sand", sand)
+            setEmptyData(true)
+            return
+        }
+        //gets rid of banner when good data comes in.
+        if (newSoil.sand) {
+            setEmptyData(false)
+        }
 
         setDisplay(true)
         setHasSubmitted(false)
@@ -108,21 +106,19 @@ const SoilsFetch = () => {
     const saveSoil = async (e) =>{
         e.preventDefault()
         // FORM STUFF WHEN READY TO GO TO BACKEND
-        // const soilFormData= new FormData()
-        // soilFormData.append("latitude", latitude)
-        // soilFormData.append("longitude", longitude)
-        // soilFormData.append("percent_sand", sand)
-        // soilFormData.append("percent_silt", silt)
-        // soilFormData.append("percent_clay", clay)
-        // soilFormData.append("cec", cec)
-        // soilFormData.append("bdod", bdod)
-        // soilFormData.append("nitrogen", nitrogen)
-        // soilFormData.append("soc", soc)
-        // soilFormData.append("phh2o", phh2o)
+        const soilFormData= new FormData()
+        soilFormData.append("latitude", latitude)
+        soilFormData.append("longitude", longitude)
+        soilFormData.append("percent_sand", sand)
+        soilFormData.append("percent_silt", silt)
+        soilFormData.append("percent_clay", clay)
+        soilFormData.append("cec", cec)
+        soilFormData.append("bdod", bdod)
+        soilFormData.append("nitrogen", nitrogen)
+        soilFormData.append("soc", soc)
+        soilFormData.append("phh2o", phh2o)
 
-        // setFormData(soilFormData)
-
-        // const result = await dispatch(createSoilThunk(formData))
+        const result = await dispatch(createSoilThunk(soilFormData))
 
         setSuccess(true)
     }
@@ -222,6 +218,7 @@ const SoilsFetch = () => {
                     <h3>Unfortunately, we do not have data for this location.</h3>
                 )}
 
+
                 {display && (
                     <div id="results-wrapper">
                         <p>% Sand: {sand}</p>
@@ -240,12 +237,14 @@ const SoilsFetch = () => {
                                     />
                                 </div>
                         <button onClick={e => postSoil(e)}>Make post with data</button>
-                        {success && (
-                            <p id="save-success">Saved Successfully!</p>
-                        )}
                     </div>
                 )}
 
+                {success && (
+                    <div>
+                        <h2 id="save-success">Saved Successfully!</h2>
+                    </div>
+                )}
                 {showPost &&(
                     <div id='form-wrapper'>
                 <form onSubmit ={(e)=> submitPost(e)}>

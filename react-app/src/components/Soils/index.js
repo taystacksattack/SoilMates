@@ -49,7 +49,7 @@ const Soils = () => {
                                             <li>% Clay: {soil.percent_clay}</li>
                                             <li>CEC: {soil.cec}</li>
                                             <li>Bulk Density: {soil.bdod}</li>
-                                            <li>Nitrogen: {soil.Nitrogen}</li>
+                                            <li>Nitrogen: {soil.nitrogen}</li>
                                             <li>Soil Organic Carbon: {soil.cec}</li>
                                             <li>pH: {soil.phh2o}</li>
 

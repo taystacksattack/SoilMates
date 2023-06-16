@@ -22,7 +22,7 @@ export const sandParse = (data) => {
     // const reducedMedians = objData.forEach((median) => console.log(median))//.depths[0].values["Q0.5"], 0)
     const reducedMedians = objData.reduce((acc, median) => acc + median.values["Q0.5"], 0)
     // console.log("REDUCED MEDIANS", reducedMedians)
-    return (reducedMedians / objData.length)/10
+    return (reducedMedians / objData.length) / 10
 }
 // needs to be divided by 10 to convert from mapped unites to conventional units
 

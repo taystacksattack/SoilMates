@@ -5,6 +5,7 @@ def seed_soils():
 
     soil_1 = Soil(
         ownerId = 1,
+        title ="I am thinking about this soil to a funky beat",
         latitude = 37.719518,
         longitude = -122.433826,
         percent_sand = 43,
@@ -18,6 +19,7 @@ def seed_soils():
     )
     soil_2 = Soil(
         ownerId = 2,
+        title ="This soil is beautiful, man, daggon'",
         latitude = 32.443658,
         longitude = -83.428626,
         percent_sand = 17,
@@ -31,6 +33,7 @@ def seed_soils():
     )
     soil_3 = Soil(
         ownerId = 1,
+        title ="Area near wood lot by stream",
         latitude = 40.719518,
         longitude = -177.138126,
         percent_sand = 27,
@@ -44,6 +47,7 @@ def seed_soils():
     )
     soil_4 = Soil(
         ownerId = 3,
+        title ="test sample #33",
         latitude = 29.719518,
         longitude = -97.433826,
         percent_sand = 33,
@@ -57,6 +61,7 @@ def seed_soils():
     )
     soil_5 = Soil(
         ownerId = 2,
+        title ="soil at Tom's and Kathy's spot",
         latitude = 29.679518,
         longitude = -74.493826,
         percent_sand = 19,

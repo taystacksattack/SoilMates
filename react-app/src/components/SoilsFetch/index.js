@@ -30,6 +30,7 @@ const SoilsFetch = () => {
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
     const [showPost, setShowPost] = useState(false)
+    const [emptyData, setEmptyData] = useState(false)
 
 
     const submitSoil = async (e) => {
@@ -50,6 +51,11 @@ const SoilsFetch = () => {
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
 
+        //bad data for testing purposes
+        // setSand(0)
+        // setSilt(0)
+
+        //good data
         setSand(sandParse(data))
         setSilt(siltParse(data))
         setClay(clayParse(data))
@@ -60,6 +66,12 @@ const SoilsFetch = () => {
         setPhh2o(phh2oParse(data))
 
 
+        // if (!sand) {
+        //     console.log("wtf where is the sand", sand)
+        //     setEmptyData(true)
+        //     return
+        // }
+        
         setDisplay(true)
         setHasSubmitted(false)
         // setLatitude('')
@@ -180,6 +192,9 @@ const SoilsFetch = () => {
                         <button disabled={disabled} id="submit-button" type='submit'>Fetch!</button>
                     </div>
                 </form>
+                {emptyData && (
+                    <h3>Unfortunately, we do not have data for this location.</h3>
+                )}
 
                 {display && (
                     <div id="results-wrapper">

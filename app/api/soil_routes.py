@@ -37,6 +37,7 @@ def new_soil():
         data = form.data
         new_soil = Soil(
             ownerId=current_user.id,
+            title=data['title'],
             latitude=data['latitude'],
             longitude=data['longitude'],
             percent_sand=data['percent_sand'],

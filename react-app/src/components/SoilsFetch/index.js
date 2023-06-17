@@ -125,7 +125,7 @@ const SoilsFetch = () => {
 
     const postSoil = async (e) => {
         e.preventDefault()
-        //need to save to db first
+        //need to save to db  ONLY IF it hasn't already been saved. 
         saveSoil(e)
 
         // set the default body to have the soil data
@@ -231,11 +231,11 @@ const SoilsFetch = () => {
                         <p>pH: {phh2o}</p>
                         {/* <button onClick={e => saveSoil(e)}>Save data</button> */}
                         <div id="buttons-wrappers">
-                                    <OpenModalButton
-                                    buttonText ="Add Soil"
-                                    modalComponent ={<CreateSoilModal soilData={soilData}/>}
-                                    />
-                                </div>
+                            <OpenModalButton
+                            buttonText ="Add Soil"
+                            modalComponent ={<CreateSoilModal soilData={soilData}/>}
+                            />
+                        </div>
                         <button onClick={e => postSoil(e)}>Make post with data</button>
                     </div>
                 )}

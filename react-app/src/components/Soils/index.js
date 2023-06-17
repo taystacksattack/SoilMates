@@ -4,6 +4,7 @@ import {Link } from "react-router-dom"
 import { getSoilsThunk } from "../../store/soils"
 import OpenModalButton from '../OpenModalButton'
 import DeleteSoilModal from "../DeleteSoilModal"
+import CreatePostModal from '../CreatePostModal'
 
 
 const Soils = () => {
@@ -62,8 +63,12 @@ const Soils = () => {
                                     buttonText ="Delete Soil"
                                     modalComponent ={<DeleteSoilModal soil={soil}/>}
                                     />
+
+                                    <OpenModalButton
+                                    buttonText ="Add Soil to Post"
+                                    modalComponent ={<CreatePostModal soil={soil}/>}
+                                    />
                                 </div>
-                                <button></button>
                                 <br></br>
                             </div>
                         )

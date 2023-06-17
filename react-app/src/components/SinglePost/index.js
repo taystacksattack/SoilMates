@@ -4,6 +4,7 @@ import {Link, NavLink, useParams } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
 import DeletePostModal from '../DeletePostModal'
+import EditPostModal from "../EditPostModal"
 // import EditPostModal from '../EditPostModal'
 
 
@@ -39,7 +40,13 @@ const SinglePost = () => {
                     buttonText ="Delete Post"
                     modalComponent ={<DeletePostModal post={post}/>}
                     />
-                    <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
+                    {/* <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink> */}
+
+                    <OpenModalButton
+                        buttonText ="Edit post"
+                        modalComponent ={<EditPostModal post={post}/>}
+                    />
+
                     {/* buttonText ="Edit Post"
                     // modalComponent ={<EditPostModal post={post}/>}
                     /> */}

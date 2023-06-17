@@ -1,4 +1,4 @@
-import CreatePost from "../components/NewPost"
+// import CreatePost from "../components/NewPost"
 
 //actions
 const GET_FEED = 'posts/GET_FEED'

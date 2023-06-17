@@ -13,7 +13,7 @@ const createSoil = (soil) => ({
 })
 
 const deleteSoil = (soilId) => ({
-    type: CREATE_SOIL,
+    type: DELETE_SOIL,
     soilId
 })
 
@@ -56,6 +56,18 @@ export const createSoilThunk = (soil) => async (dispatch) => {
     }
 }
 
+export const deleteSoilThunk = (soilId) => async (dispatch) => {
+    try {
+        const response = await fetch (`/api/soils/${soilId}/delete`, {
+            method: "DELETE"
+        })
+        const result = await response.json()
+        dispatch(deleteSoil(soilId))
+        return result
+    }catch(e){
+        return e
+    }
+}
 
 
 
@@ -74,6 +86,12 @@ export default function soilsReducer (state = initialState, action){
                 })
             }
             return newState
+        case DELETE_SOIL:
+            const deleteState = {...state, allSoils:{...state.allSoils}}
+            console.log("deleteState before deletion",deleteState)
+            delete deleteState.allSoils[action.soilId]
+            console.log("deleteState after deletion",deleteState)
+            return deleteState
         default:
             return state
     }

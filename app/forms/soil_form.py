@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import (FloatField, DateField, IntegerField)
+from wtforms import (FloatField, DateField, IntegerField, StringField)
 from wtforms.validators import DataRequired
 
 
 class SoilForm(FlaskForm):
     ownerId = IntegerField('ownerId')
+    title = StringField('Title', validators=[DataRequired()])
     latitude = FloatField('Lat', validators=[DataRequired()])
     longitude = FloatField('Long', validators=[DataRequired()])
     percent_sand = FloatField('sand', validators=[DataRequired()])

@@ -3,6 +3,9 @@ import { useEffect } from "react"
 import {Link } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
+import CreatePostModal from "../CreatePostModal"
+import DeletePostModal from "../DeletePostModal"
+import EditPostModal from "../EditPostModal"
 
 
 const CurrentPosts = () => {
@@ -29,7 +32,10 @@ const CurrentPosts = () => {
                 <h2>My Posts</h2>
                 <br></br>
                 <div id="new-post">
-                    <Link exact to ={`/posts/new`}>New Post</Link>
+                    <OpenModalButton
+                        buttonText ="Create post"
+                        modalComponent ={<CreatePostModal/>}
+                    />
                 </div>
                 <br></br>
 
@@ -41,6 +47,22 @@ const CurrentPosts = () => {
                         <div key={post.id}>
                             <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
                             <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
+                            <div id="buttons-wrappers">
+                            <OpenModalButton
+                                buttonText ="Delete Post"
+                                modalComponent ={<DeletePostModal post={post}/>}
+                            />
+                            {/* <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink> */}
+
+                            <OpenModalButton
+                                buttonText ="Edit post"
+                                modalComponent ={<EditPostModal post={post}/>}
+                            />
+
+                    {/* buttonText ="Edit Post"
+                    // modalComponent ={<EditPostModal post={post}/>}
+                    /> */}
+                </div>
                             {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}
                             {/* <br></br> */}
 

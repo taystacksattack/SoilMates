@@ -1,3 +1,5 @@
+import CreatePost from "../components/NewPost"
+
 //actions
 const GET_FEED = 'posts/GET_FEED'
 const GET_POSTS = 'posts/GET_POSTS'
@@ -72,6 +74,7 @@ export const getPostsThunk = () => async (dispatch) => {
 
 //NewPost
 export const createPostThunk = (post) => async (dispatch) => {
+    console.log("in the thunk ", post)
     let response
     try{
         response = await fetch("/api/posts/new", {
@@ -79,8 +82,9 @@ export const createPostThunk = (post) => async (dispatch) => {
             body: post
         })
         const data = await response.json()
+        console.log("wasssup")
         dispatch(createPost(data))
-        return data
+        // return data
     } catch(e){
         const data = await response.json()
         if(data.errors){
@@ -139,6 +143,14 @@ export default function postsReducer (state= initialState, action){
                     }))
                 }
             return newState
+        case CREATE_POST:
+            const addState = {...state, allPosts:{...state.allPosts}}
+            addState.allPosts[action.post.id] = action.post
+            return addState
+        case EDIT_POST:
+            const editState = {...state, allPosts:{...state.allPosts}}
+            addState.allPosts[action.post.id] = action.post
+            return editState
         case DELETE_POST:
             const deleteState= {...state, allposts:{...state.allPosts}}
             delete deleteState.allPosts[action.postId]

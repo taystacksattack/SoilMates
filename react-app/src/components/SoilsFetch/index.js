@@ -5,31 +5,40 @@ import { createPostThunk } from "../../store/posts";
 import { useHistory } from 'react-router-dom';
 import { sampleData } from "./sampleData";
 import { getSoilData, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
+import CreateSoilModal from "../CreateSoilModal";
+import OpenModalButton from "../OpenModalButton";
 
 
 const SoilsFetch = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [latitude, setLatitude] = useState('')
-    const [longitude, setLongitude] = useState('')
-    const [sand, setSand] = useState('')
-    const [silt, setSilt] = useState('')
-    const [clay, setClay] = useState('')
-    const [cec, setCec] = useState('')
-    const [bdod, setBdod] = useState('')
-    const [nitrogen, setNitrogen] = useState('')
-    const [soc, setSoc] = useState('')
-    const [phh2o, setPhh2o] = useState('')
+    const [latitude, setLatitude] = useState("")
+    const [longitude, setLongitude] = useState("")
+    const [sand, setSand] = useState("")
+    const [silt, setSilt] = useState("")
+    const [clay, setClay] = useState("")
+    const [cec, setCec] = useState("")
+    const [bdod, setBdod] = useState("")
+    const [nitrogen, setNitrogen] = useState("")
+    const [soc, setSoc] = useState("")
+    const [phh2o, setPhh2o] = useState("")
+    const [soilData, setSoilData] = useState({})
+
 
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
+
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
+
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
     const [showPost, setShowPost] = useState(false)
+    const [emptyData, setEmptyData] = useState(false)
+
+
 
 
     const submitSoil = async (e) => {
@@ -42,23 +51,50 @@ const SoilsFetch = () => {
         }
 
         //sample data for testing purposes (so you're not doing API calls everytime)
-        // const data = sampleData
+        const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        const data = await getSoilData(longitude, latitude)
+        // const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
 
-        setSand(sandParse(data))
-        setSilt(siltParse(data))
-        setClay(clayParse(data))
-        setCec(cecParse(data))
-        setBdod(bdodParse(data))
-        setNitrogen(nitrogenParse(data))
-        setSoc(socParse(data))
-        setPhh2o(phh2oParse(data))
+        //gets it ready to be sent to the add title modal when user wants to save the soil data
+        const newSoil = {
+            latitude,
+            longitude,
+            "sand": sandParse(data),
+            "silt": siltParse(data),
+            "clay": clayParse(data),
+            "cec": cecParse(data),
+            "bdod": bdodParse(data),
+            "nitrogen": nitrogenParse(data),
+            "soc": socParse(data),
+            "phh2o": phh2oParse(data)
+        }
 
+        setSoilData(newSoil)
+
+        //good data
+        setSand(newSoil.sand)
+        setSilt(newSoil.silt)
+        setClay(newSoil.clay)
+        setCec(newSoil.cec)
+        setBdod(newSoil.bdod)
+        setNitrogen(newSoil.nitrogen)
+        setSoc(newSoil.soc)
+        setPhh2o(newSoil.phh2o)
+
+        //handles bad data
+        if (!newSoil.sand) {
+            console.log("wtf where is the sand", sand)
+            setEmptyData(true)
+            return
+        }
+        //gets rid of banner when good data comes in.
+        if (newSoil.sand) {
+            setEmptyData(false)
+        }
 
         setDisplay(true)
         setHasSubmitted(false)
@@ -70,28 +106,26 @@ const SoilsFetch = () => {
     const saveSoil = async (e) =>{
         e.preventDefault()
         // FORM STUFF WHEN READY TO GO TO BACKEND
-        const formData= new FormData()
-        formData.append("latitude", latitude)
-        formData.append("longitude", longitude)
-        formData.append("percent_sand", sand)
-        formData.append("percent_silt", silt)
-        formData.append("percent_clay", clay)
-        formData.append("cec", cec)
-        formData.append("bdod", bdod)
-        formData.append("nitrogen", nitrogen)
-        formData.append("soc", soc)
-        formData.append("phh2o", phh2o)
+        const soilFormData= new FormData()
+        soilFormData.append("latitude", latitude)
+        soilFormData.append("longitude", longitude)
+        soilFormData.append("percent_sand", sand)
+        soilFormData.append("percent_silt", silt)
+        soilFormData.append("percent_clay", clay)
+        soilFormData.append("cec", cec)
+        soilFormData.append("bdod", bdod)
+        soilFormData.append("nitrogen", nitrogen)
+        soilFormData.append("soc", soc)
+        soilFormData.append("phh2o", phh2o)
 
-
-
-        const result = await dispatch(createSoilThunk(formData))
+        const result = await dispatch(createSoilThunk(soilFormData))
 
         setSuccess(true)
     }
 
     const postSoil = async (e) => {
         e.preventDefault()
-        //need to save to db first
+        //need to save to db  ONLY IF it hasn't already been saved. 
         saveSoil(e)
 
         // set the default body to have the soil data
@@ -126,8 +160,8 @@ const SoilsFetch = () => {
         if(latitude.length > 12 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
         if(longitude.length > 12 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
-        console.log("LATITUDE FLATITUDE",latitude)
-        console.log("LONGITUDE FLONGITUDE",longitude)
+        // console.log("LATITUDE FLATITUDE",latitude)
+        // console.log("LONGITUDE FLONGITUDE",longitude)
     }, [latitude, longitude])
 
     const errorLength = Object.values(validationErrors).length
@@ -180,6 +214,10 @@ const SoilsFetch = () => {
                         <button disabled={disabled} id="submit-button" type='submit'>Fetch!</button>
                     </div>
                 </form>
+                {emptyData && (
+                    <h3>Unfortunately, we do not have data for this location.</h3>
+                )}
+
 
                 {display && (
                     <div id="results-wrapper">
@@ -191,14 +229,22 @@ const SoilsFetch = () => {
                         <p>Nitrogen: {nitrogen}</p>
                         <p>Soil Organic Content: {soc}</p>
                         <p>pH: {phh2o}</p>
-                        <button onClick={e => saveSoil(e)}>Save data</button>
+                        {/* <button onClick={e => saveSoil(e)}>Save data</button> */}
+                        <div id="buttons-wrappers">
+                            <OpenModalButton
+                            buttonText ="Add Soil"
+                            modalComponent ={<CreateSoilModal soilData={soilData}/>}
+                            />
+                        </div>
                         <button onClick={e => postSoil(e)}>Make post with data</button>
-                        {success && (
-                            <p id="save-success">Saved Successfully!</p>
-                        )}
                     </div>
                 )}
 
+                {success && (
+                    <div>
+                        <h2 id="save-success">Saved Successfully!</h2>
+                    </div>
+                )}
                 {showPost &&(
                     <div id='form-wrapper'>
                 <form onSubmit ={(e)=> submitPost(e)}>

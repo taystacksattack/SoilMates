@@ -37,6 +37,7 @@ def new_soil():
         data = form.data
         new_soil = Soil(
             ownerId=current_user.id,
+            title=data['title'],
             latitude=data['latitude'],
             longitude=data['longitude'],
             percent_sand=data['percent_sand'],
@@ -54,3 +55,15 @@ def new_soil():
         return new_soil.to_dict()
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@soil_routes.route('<int:id>/delete', methods=["DELETE"])
+@login_required
+def delete_soil(id):
+    soil_to_delete = Soil.query.get(id)
+    if(current_user.id != soil_to_delete.ownerId):
+        return {"error": "This is not your soil to delete!"}
+
+    db.session.delete(soil_to_delete)
+    db.session.commit()
+    return {"status": "Good job, you deleted the soil!"}

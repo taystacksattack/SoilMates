@@ -5,7 +5,7 @@ import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
 import DeletePostModal from '../DeletePostModal'
 import EditPostModal from "../EditPostModal"
-// import EditPostModal from '../EditPostModal'
+
 
 
 const SinglePost = () => {

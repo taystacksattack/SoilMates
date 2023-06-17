@@ -51,10 +51,10 @@ const SoilsFetch = () => {
         }
 
         //sample data for testing purposes (so you're not doing API calls everytime)
-        const data = sampleData
+        // const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        // const data = await getSoilData(longitude, latitude)
+        const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
@@ -125,7 +125,7 @@ const SoilsFetch = () => {
 
     const postSoil = async (e) => {
         e.preventDefault()
-        //need to save to db  ONLY IF it hasn't already been saved. 
+        //need to save to db  ONLY IF it hasn't already been saved.
         saveSoil(e)
 
         // set the default body to have the soil data

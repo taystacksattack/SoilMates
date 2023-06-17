@@ -14,6 +14,9 @@ const CreatePost = () => {
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
 
+// TESTESTESTESING this is just to be able to make the pull request
+//tudtdrtdrtudrtud
+
     const submitPost = async (e) => {
         e.preventDefault()
 

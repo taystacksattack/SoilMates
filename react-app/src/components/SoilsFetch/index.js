@@ -165,6 +165,13 @@ const SoilsFetch = () => {
         // console.log("LONGITUDE FLONGITUDE",longitude)
     }, [latitude, longitude])
 
+    useEffect(()=>{
+        const errors = {}
+        if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
+        if(body.length < 5 || body.length >=2000) errors['body']="Please provide a post between 5 and 2000 characters"
+        setValidationErrors(errors)
+    }, [title, body])
+
     const errorLength = Object.values(validationErrors).length
 
     useEffect(()=>{
@@ -243,7 +250,7 @@ const SoilsFetch = () => {
 
                 {success && (
                     <div>
-                        <h2 id="save-success">Saved Successfully!</h2>
+                        <h2 id="save-success">Soil saved successfully!</h2>
                     </div>
                 )}
                 {showPost &&(

@@ -1,6 +1,6 @@
 import { useDispatch, useSelector, Sort  } from "react-redux"
 import { useEffect } from "react"
-import {Link } from "react-router-dom"
+import {Link, NavLink } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
 import CreatePostModal from "../CreatePostModal"
@@ -31,12 +31,13 @@ const CurrentPosts = () => {
 
                 <h2>My Posts</h2>
                 <br></br>
-                <div id="new-post">
+                <NavLink exact to={`/posts/new`}>New Post</NavLink>
+                {/* <div id="new-post">
                     <OpenModalButton
                         buttonText ="Create post"
                         modalComponent ={<CreatePostModal/>}
                     />
-                </div>
+                </div> */}
                 <br></br>
 
                 {/* CONSIDER YOUR SORTING HERE */}
@@ -47,6 +48,7 @@ const CurrentPosts = () => {
                         <div key={post.id}>
                             <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
                             <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
+                            <p>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
                             <div id="buttons-wrappers">
                             <OpenModalButton
                                 buttonText ="Delete Post"

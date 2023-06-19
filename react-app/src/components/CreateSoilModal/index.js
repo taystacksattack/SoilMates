@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useModal } from '../../context/Modal'
 import { createSoilThunk } from "../../store/soils";
 import OpenModalButton from "../OpenModalButton";
@@ -14,11 +14,20 @@ const CreateSoilModal = ({soilData}) =>{
 
     const [title, setTitle] = useState('')
     const [success, setSuccess]= useState(false)
+    const [validationErrors, setValidationErrors] = useState({})
+    const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [disabled, setDisabled]= useState(false)
 
 
     const saveSoil = (e) => {
         e.preventDefault();
-        console.log("soilData in modal", soilData)
+
+        setHasSubmitted(true)
+        if(Object.values(validationErrors).length) {
+            return
+        }
+
+        // console.log("soilData in modal", soilData)
         const soilFormData= new FormData()
         soilFormData.append("latitude", soilData.latitude)
         soilFormData.append("longitude", soilData.longitude)
@@ -39,6 +48,19 @@ const CreateSoilModal = ({soilData}) =>{
         // history.push('/')
     }
 
+    useEffect(()=>{
+        const errors = {}
+        if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
+        setValidationErrors(errors)
+    }, [title])
+
+    const errorLength = Object.values(validationErrors).length
+
+    useEffect(()=>{
+    //     console.log(hasSubmitted)
+        errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
+    },[errorLength, hasSubmitted])
+
     return(
         <div>
             {success && (
@@ -50,21 +72,26 @@ const CreateSoilModal = ({soilData}) =>{
             {!success && (
                 <div>
                 <h2>Save your Soil!</h2>
-            <input
+                {hasSubmitted && validationErrors.title && (
+                        <div className="errors-info">
+                            <p>{validationErrors.title}</p>
+                        </div>
+                    )}
+                <input
                 placeholder = "Give it a title"
                 id="title-input"
                 type= "textarea"
                 value={title}
                 onChange={e=> setTitle(e.target.value)}
-            >
-            </input>
-            <h3>Ready to save this Soil?</h3>
-            <button onClick={saveSoil}>Yes, please!</button>
-            <div onClick={saveSoil}>
-            </div>
+                >
+                </input>
+                <h3>Ready to save this Soil?</h3>
+                <button disabled={disabled} onClick={saveSoil}>Yes, please!</button>
+                <div onClick={saveSoil}>
+                </div>
 
-            <button onClick={closeModal}>No, thanks!</button>
-            </div>
+                <button onClick={closeModal}>No, thanks!</button>
+                </div>
             )}
         </div>
     )

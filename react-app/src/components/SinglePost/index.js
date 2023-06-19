@@ -36,6 +36,7 @@ const SinglePost = () => {
 
                 <h2>{post.title}</h2>
                 <p id="post-body">{post.body}</p>
+                <p>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
 
                 {userObj.id === post.ownerId &&(
                   <div id="buttons-wrappers">

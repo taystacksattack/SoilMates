@@ -1,6 +1,6 @@
 import { useDispatch, useSelector, Sort  } from "react-redux"
 import {  useState, useEffect } from "react"
-import {Link } from "react-router-dom"
+import {Link, NavLink } from "react-router-dom"
 import { getSoilsThunk } from "../../store/soils"
 import OpenModalButton from '../OpenModalButton'
 import DeleteSoilModal from "../DeleteSoilModal"
@@ -11,7 +11,26 @@ const Soils = () => {
     const dispatch = useDispatch()
     const [hidden, setHidden] = useState(true)
 
+    const [soils, setSoils] = useState([])
+    const [sortType, setSortType] = useState("created_at")
+
     const soilsObj = useSelector(state => state.soils.allSoils)
+
+    const soilsArr = Object.values(soilsObj)
+    useEffect(()=>{
+        const sortedSoils = type =>{
+            const sorted = soilsArr.sort((a,b)=>{
+                if (type !== "title"){
+                    return new Date(b[type]) - new Date(a[type])
+                } else{
+                    return a.title.localeCompare(b.title)
+                }
+            })
+            setSoils(sorted)
+        }
+        sortedSoils(sortType)
+    }, [sortType, soilsArr.length ])
+
 
     useEffect(()=>{
         dispatch(getSoilsThunk())
@@ -34,10 +53,13 @@ const Soils = () => {
                             </div>
                         {/* make this also like a dropdown...? */}
                     </div>
+                        <h3>Sort by:</h3>
+                        <button onClick={(e)=>setSortType("title")}>Title</button>
+                        <button onClick={e=>setSortType("created_at")}>Most Recent</button>
                 </div>
                 <br></br>
                 <div id="soil-samples-list-wrapper">
-                    {soilsObj && Object.values(soilsObj).map(soil=>{
+                    {soilsObj && soils.map(soil=>{
                         return (
                             <div key={soil.id} id="single-soil-wrapper">
                                 {/* onClick = setHidden(true) ...? This causes infinite re-renders */}
@@ -68,6 +90,14 @@ const Soils = () => {
                                     buttonText ="Add Soil to Post"
                                     modalComponent ={<CreatePostModal soil={soil}/>}
                                     />
+                                    {/* <NavLink exact to={{
+                                        pathname:`/posts/new`,
+                                        soilProps:{
+                                            name: soil
+                                        }
+                                        }}>Add Soil to Post</NavLink> */}
+
+
                                 </div>
                                 <br></br>
                             </div>

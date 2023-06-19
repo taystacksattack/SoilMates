@@ -28,7 +28,7 @@ const Feed = () => {
             setPosts(sorted)
         }
         sortedPosts(sortType)
-    }, [sortType, postsArr.length ])
+    }, [sortType, postsArr.length])
 
     useEffect(()=>{
         dispatch(getPostsThunk())

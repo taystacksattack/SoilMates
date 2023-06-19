@@ -18,10 +18,11 @@ const CurrentPosts = () => {
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
 
     //Sorting helper function will go here
+    const postsArr = Object.values(postsObj)
 
     useEffect(()=>{
         dispatch(getPostsThunk())
-    }, [dispatch ])
+    }, [dispatch])
 
     if (!postsObj) return (<h2>Loading...</h2>)
 
@@ -32,6 +33,7 @@ const CurrentPosts = () => {
                 <h2>My Posts</h2>
                 <br></br>
                 <NavLink exact to={`/posts/new`}>New Post</NavLink>
+
                 {/* <div id="new-post">
                     <OpenModalButton
                         buttonText ="Create post"

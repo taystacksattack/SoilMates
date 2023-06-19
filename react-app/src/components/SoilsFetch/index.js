@@ -158,12 +158,13 @@ const SoilsFetch = () => {
 
     useEffect(()=>{
         const errors = {}
-        if(latitude.length > 12 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
-        if(longitude.length > 12 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
+        if(latitude.length > 10 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
+        if(longitude.length > 11 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
         // console.log("LATITUDE FLATITUDE",latitude)
         // console.log("LONGITUDE FLONGITUDE",longitude)
     }, [latitude, longitude])
+
 
     useEffect(()=>{
         const errors = {}
@@ -194,7 +195,7 @@ const SoilsFetch = () => {
                         <input
                             placeholder = "Latitude"
                             id="latitude-input"
-                            type= "textarea"
+                            type= "number"
                             value={latitude}
                             onChange={e=> setLatitude(e.target.value)}
                         >
@@ -210,7 +211,7 @@ const SoilsFetch = () => {
                         <input
                             placeholder = "Longitude"
                             id="longitude-input"
-                            type= "textarea"
+                            type= "number"
                             value={longitude}
                             onChange={e=> setLongitude(e.target.value)}
                         >

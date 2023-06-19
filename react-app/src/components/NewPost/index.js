@@ -4,15 +4,19 @@ import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
 
 
-const CreatePost = () => {
+const CreatePost = ({soil}) => {
     const dispatch = useDispatch()
     const history = useHistory()
 
+    // console.log("soil in newpost", soil)
+
+
     const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
+    const [body, setBody] = useState(soil ? `% Sand: ${soil.percent_sand}% \n% Silt: ${soil.percent_silt}% \n% Clay: ${soil.percent_clay}% \nCEC: ${soil.cec}cmol(c)/kg \nBulk Density: ${soil.bdod}kg/dm3 \nNitrogen: ${soil.nitrogen}g/kg \nSoil Organic Content: ${soil.soc}g/kg \npH: ${soil.phh2o}` : "")
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
+
 
 // TESTESTESTESING this is just to be able to make the pull request
 //tudtdrtdrtudrtud

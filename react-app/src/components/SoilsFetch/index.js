@@ -52,10 +52,10 @@ const SoilsFetch = () => {
         }
 
         //sample data for testing purposes (so you're not doing API calls everytime)
-        // const data = sampleData
+        const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        const data = await getSoilData(longitude, latitude)
+        // const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
@@ -131,7 +131,7 @@ const SoilsFetch = () => {
 
         // set the default body to have the soil data
         setShowPost(true)
-        setBody(`% Sand: ${sand}\n% Silt: ${silt}\n% Clay: ${clay} \nCEC: ${cec}\nBulk Density: ${bdod}\nNitrogen: ${nitrogen}\nSoil Organic Content: ${soc}\npH: ${phh2o}`)
+        setBody(`% Sand: ${sand}% \n% Silt: ${silt}% \n% Clay: ${clay}% \nCEC: ${cec}\nBulk Density: ${bdod}kg/dm3\nNitrogen: ${nitrogen}g/kg\nSoil Organic Content: ${soc}g/kg\npH: ${phh2o}`)
 
     }
 
@@ -222,13 +222,13 @@ const SoilsFetch = () => {
 
                 {display && (
                     <div id="results-wrapper">
-                        <p>% Sand: {sand}</p>
-                        <p>% Silt: {silt}</p>
-                        <p>% Clay: {clay}</p>
-                        <p>CEC: {cec}</p>
-                        <p>Bulk Density: {bdod}</p>
-                        <p>Nitrogen: {nitrogen}</p>
-                        <p>Soil Organic Content: {soc}</p>
+                        <p>% Sand: {sand} %</p>
+                        <p>% Silt: {silt} %</p>
+                        <p>% Clay: {clay} % </p>
+                        <p>CEC: {cec} cmol(c)/kg</p>
+                        <p>Bulk Density: {bdod} kg/dm<sup>3</sup></p>
+                        <p>Nitrogen: {nitrogen} g/kg</p>
+                        <p>Soil Organic Content: {soc} g/kg</p>
                         <p>pH: {phh2o}</p>
                         {/* <button onClick={e => saveSoil(e)}>Save data</button> */}
                         <div id="buttons-wrappers">

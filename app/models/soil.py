@@ -10,7 +10,7 @@ class Soil(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
-    title = db.Column(db.String(255), nullable=True)
+    title = db.Column(db.String(255), nullable=True, default="New Soil")
     latitude = db.Column(db.Float, nullable=False)
     longitude = db.Column(db.Float, nullable=False)
     percent_sand = db.Column(db.Float, nullable=False)

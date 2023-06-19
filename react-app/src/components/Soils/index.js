@@ -47,13 +47,13 @@ const Soils = () => {
                                         <ul>
                                             <li>Latitude: {soil.latitude}, Longitude: {soil.longitude}</li>
                                             <li>Requested: {soil.created_at.slice(0,16)}</li>
-                                            <li>% Sand: {soil.percent_sand}</li>
-                                            <li>% Silt: {soil.percent_silt}</li>
-                                            <li>% Clay: {soil.percent_clay}</li>
-                                            <li>CEC: {soil.cec}</li>
-                                            <li>Bulk Density: {soil.bdod}</li>
-                                            <li>Nitrogen: {soil.nitrogen}</li>
-                                            <li>Soil Organic Carbon: {soil.cec}</li>
+                                            <li>% Sand: {soil.percent_sand}%</li>
+                                            <li>% Silt: {soil.percent_silt}%</li>
+                                            <li>% Clay: {soil.percent_clay}%</li>
+                                            <li>CEC: {soil.cec} cmol(c)/kg</li>
+                                            <li>Bulk Density: {soil.bdod} kg/dm<sup>3</sup></li>
+                                            <li>Nitrogen: {soil.nitrogen} g/kg</li>
+                                            <li>Soil Organic Carbon: {soil.cec} g/kg</li>
                                             <li>pH: {soil.phh2o}</li>
 
                                         </ul>

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, Sort  } from "react-redux"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import {Link, NavLink } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
@@ -11,14 +11,30 @@ import EditPostModal from "../EditPostModal"
 const CurrentPosts = () => {
     const dispatch = useDispatch()
 
-    const postsObj= useSelector(state => state.posts.allPosts)
+    const [posts, setPosts] = useState([])
+    const [sortType, setSortType] = useState("created_at")
+
     const user = useSelector(state => state.session.user)
+    const postsObj= useSelector(state => state.posts.allPosts)
     // console.log(user)
 
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
 
     //Sorting helper function will go here
     const postsArr = Object.values(postsObj)
+    useEffect(()=>{
+        const sortedPosts = type =>{
+            const sorted = postsArr.sort((a,b)=>{
+                if (type !== "title"){
+                    return new Date(b[type]) - new Date(a[type])
+                } else{
+                    return a.title.localeCompare(b.title)
+                }
+            })
+            setPosts(sorted)
+        }
+        sortedPosts(sortType)
+    }, [sortType, postsArr.length])
 
     useEffect(()=>{
         dispatch(getPostsThunk())
@@ -40,11 +56,14 @@ const CurrentPosts = () => {
                         modalComponent ={<CreatePostModal/>}
                     />
                 </div> */}
+                <h3>Sort by:</h3>
+                <button onClick={(e)=>setSortType("title")}>Title</button>
+                <button onClick={e=>setSortType("created_at")}>Newest</button>
                 <br></br>
 
                 {/* CONSIDER YOUR SORTING HERE */}
 
-                {postsObj && Object.values(postsObj).map(post => {
+                {postsObj && posts.map(post => {
                     if (post.ownerId === user.id){ //filters out from all posts
                     return (
                         <div key={post.id}>

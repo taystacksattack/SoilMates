@@ -6,7 +6,7 @@ const GET_POSTS = 'posts/GET_POSTS'
 const CREATE_POST = 'posts/CREATE_POST'
 const EDIT_POST = 'posts/EDIT_POST'
 const DELETE_POST = 'posts/DELETE_POST'
-
+const CLEAR_POSTS = 'posts/CLEAR_POSTS'
 
 //action collectors
 
@@ -39,6 +39,9 @@ const deletePost = (postId) => ({
     postId
 })
 
+export const clearPosts = () => ({
+    type: CLEAR_POSTS
+})
 
 //THESE ARE THE THUNKS
 
@@ -160,6 +163,8 @@ export default function postsReducer (state= initialState, action){
             delete deleteState.allPosts[action.postId]
             console.log("delete state after",deleteState)
             return deleteState
+        case CLEAR_POSTS:
+            return {allposts:{}}
         default:
             return state
     }

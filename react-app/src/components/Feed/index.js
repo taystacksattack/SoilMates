@@ -15,7 +15,8 @@ const Feed = () => {
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
 
     //Sorting helper function
-    const postsArr = Object.values(postsObj)
+    let postsArr
+    if (postsObj) postsArr = Object.values(postsObj)
     useEffect(()=>{
         const sortedPosts = type =>{
             const sorted = postsArr.sort((a,b)=>{

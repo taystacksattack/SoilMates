@@ -1,6 +1,7 @@
 const GET_SOILS = 'soils/GET_SOILS'
 const CREATE_SOIL = 'soils/CREATE_SOIL'
 const DELETE_SOIL = 'soils/DELETE_SOIL'
+const CLEAR_SOILS = 'soils/CLEAR_SOILS'
 
 const getSoils = (soils) => ({
     type: GET_SOILS,
@@ -15,6 +16,10 @@ const createSoil = (soil) => ({
 const deleteSoil = (soilId) => ({
     type: DELETE_SOIL,
     soilId
+})
+
+export const clearSoils = () => ({
+    type: CLEAR_SOILS
 })
 
 
@@ -92,6 +97,8 @@ export default function soilsReducer (state = initialState, action){
             delete deleteState.allSoils[action.soilId]
             console.log("deleteState after deletion",deleteState)
             return deleteState
+        case CLEAR_SOILS:
+            return {allsoils:{}}
         default:
             return state
     }

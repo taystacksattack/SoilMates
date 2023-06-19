@@ -13,9 +13,11 @@ const SinglePost = () => {
     const {postId} = useParams()
 
     const postsObj = useSelector(state => state.posts.allPosts)
-    // const userObj = useSe
+
+    // need user data to toggle edit/delete buttons if not the post's ownerId
+    const userObj = useSelector(state => state.session.user)
+    // console.log('userobj', userObj)
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS
-    // disable edit/delete if not
 
     useEffect(()=>{
         dispatch(getPostsThunk())
@@ -26,7 +28,7 @@ const SinglePost = () => {
 
     const post= postsObj[postId]
     if (!postsObj || !post) return (<h2>Loading...</h2>)
-    console.log("post",post)
+    // console.log("post",post)
 
     return (
         <div id="posts-whole-wrapper">
@@ -35,7 +37,8 @@ const SinglePost = () => {
                 <h2>{post.title}</h2>
                 <p id="post-body">{post.body}</p>
 
-                <div id="buttons-wrappers">
+                {userObj.id === post.ownerId &&(
+                  <div id="buttons-wrappers">
                     <OpenModalButton
                     buttonText ="Delete Post"
                     modalComponent ={<DeletePostModal post={post}/>}
@@ -51,6 +54,9 @@ const SinglePost = () => {
                     // modalComponent ={<EditPostModal post={post}/>}
                     /> */}
                 </div>
+                )}
+
+
             </div>
         </div>
     )

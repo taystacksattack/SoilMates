@@ -6,7 +6,7 @@ const GET_POSTS = 'posts/GET_POSTS'
 const CREATE_POST = 'posts/CREATE_POST'
 const EDIT_POST = 'posts/EDIT_POST'
 const DELETE_POST = 'posts/DELETE_POST'
-
+const CLEAR_POSTS = 'posts/CLEAR_POSTS'
 
 //action collectors
 
@@ -39,6 +39,9 @@ const deletePost = (postId) => ({
     postId
 })
 
+export const clearPosts = () => ({
+    type: CLEAR_POSTS
+})
 
 //THESE ARE THE THUNKS
 
@@ -104,7 +107,8 @@ export const editPostThunk = (postId, post) => async (dispatch) => {
             headers: {"Content-Type": "application/json"}, // need to stringify here so that the form validator is happy
             body: JSON.stringify(post)
         })
-        const {result} = await response.json()
+        const result = await response.json()
+        // console.log("result in thunk", result)
         dispatch(editPost(result))
         return
     }catch(e){
@@ -149,12 +153,18 @@ export default function postsReducer (state= initialState, action){
             return addState
         case EDIT_POST:
             const editState = {...state, allPosts:{...state.allPosts}}
-            addState.allPosts[action.post.id] = action.post
+            // console.log("here is the action post", action.post)
+            editState.allPosts[action.post.id] = action.post
             return editState
         case DELETE_POST:
-            const deleteState= {...state, allposts:{...state.allPosts}}
+            const deleteState= {...state, allPosts:{...state.allPosts}}
+            console.log("action.postId",action.postId)
+            console.log("delete state before",deleteState)
             delete deleteState.allPosts[action.postId]
+            console.log("delete state after",deleteState)
             return deleteState
+        case CLEAR_POSTS:
+            return {allposts:{}}
         default:
             return state
     }

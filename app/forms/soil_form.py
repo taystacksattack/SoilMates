@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired
 
 class SoilForm(FlaskForm):
     ownerId = IntegerField('ownerId')
-    title = StringField('Title', validators=[DataRequired()])
+    title = StringField('Title')
     latitude = FloatField('Lat', validators=[DataRequired()])
     longitude = FloatField('Long', validators=[DataRequired()])
     percent_sand = FloatField('sand', validators=[DataRequired()])

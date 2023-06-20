@@ -11,7 +11,7 @@ const CreatePostModal = ({soil}) => {
     const {closeModal} = useModal()
 
     const [title, setTitle] = useState(soil? soil.title : "")
-    const [body, setBody] = useState(soil ? `% Sand: ${soil.percent_sand}\n% Silt: ${soil.percent_silt}\n% Clay: ${soil.percent_clay} \nCEC: ${soil.cec}\nBulk Density: ${soil.bdod}\nNitrogen: ${soil.nitrogen}\nSoil Organic Content: ${soil.soc}\npH: ${soil.phh2o}` : "")
+    const [body, setBody] = useState(soil ? `% Sand: ${soil.percent_sand}% \n% Silt: ${soil.percent_silt}% \n% Clay: ${soil.percent_clay}% \nCEC: ${soil.cec}cmol(c)/kg \nBulk Density: ${soil.bdod}kg/dm3 \nNitrogen: ${soil.nitrogen}g/kg \nSoil Organic Content: ${soil.soc}g/kg \npH: ${soil.phh2o}` : "")
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)

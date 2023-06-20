@@ -27,5 +27,6 @@ class Post(db.Model):
             'body': self.body,
             'ownerId': self.ownerId,
             "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "updated_at": self.updated_at,
+            "user": self.owner.to_dict()
         }

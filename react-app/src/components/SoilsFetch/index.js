@@ -38,7 +38,8 @@ const SoilsFetch = () => {
     const [showPost, setShowPost] = useState(false)
     const [emptyData, setEmptyData] = useState(false)
 
-
+// TESTESTESTESING this is just to be able to make the pull request
+//tudtdrtdrtudrtud
 
 
     const submitSoil = async (e) => {
@@ -125,12 +126,12 @@ const SoilsFetch = () => {
 
     const postSoil = async (e) => {
         e.preventDefault()
-        //need to save to db  ONLY IF it hasn't already been saved. 
+        //need to save to db  ONLY IF it hasn't already been saved.
         saveSoil(e)
 
         // set the default body to have the soil data
         setShowPost(true)
-        setBody(`% Sand: ${sand}\n% Silt: ${silt}\n% Clay: ${clay} \nCEC: ${cec}\nBulk Density: ${bdod}\nNitrogen: ${nitrogen}\nSoil Organic Content: ${soc}\npH: ${phh2o}`)
+        setBody(`% Sand: ${sand}% \n% Silt: ${silt}% \n% Clay: ${clay}% \nCEC: ${cec}\nBulk Density: ${bdod}kg/dm3\nNitrogen: ${nitrogen}g/kg\nSoil Organic Content: ${soc}g/kg\npH: ${phh2o}`)
 
     }
 
@@ -157,12 +158,20 @@ const SoilsFetch = () => {
 
     useEffect(()=>{
         const errors = {}
-        if(latitude.length > 12 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
-        if(longitude.length > 12 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
+        if(latitude.length > 10 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
+        if(longitude.length > 11 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
         // console.log("LATITUDE FLATITUDE",latitude)
         // console.log("LONGITUDE FLONGITUDE",longitude)
     }, [latitude, longitude])
+
+
+    useEffect(()=>{
+        const errors = {}
+        if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
+        if(body.length < 5 || body.length >=2000) errors['body']="Please provide a post between 5 and 2000 characters"
+        setValidationErrors(errors)
+    }, [title, body])
 
     const errorLength = Object.values(validationErrors).length
 
@@ -186,7 +195,7 @@ const SoilsFetch = () => {
                         <input
                             placeholder = "Latitude"
                             id="latitude-input"
-                            type= "textarea"
+                            type= "number"
                             value={latitude}
                             onChange={e=> setLatitude(e.target.value)}
                         >
@@ -202,7 +211,7 @@ const SoilsFetch = () => {
                         <input
                             placeholder = "Longitude"
                             id="longitude-input"
-                            type= "textarea"
+                            type= "number"
                             value={longitude}
                             onChange={e=> setLongitude(e.target.value)}
                         >
@@ -221,13 +230,13 @@ const SoilsFetch = () => {
 
                 {display && (
                     <div id="results-wrapper">
-                        <p>% Sand: {sand}</p>
-                        <p>% Silt: {silt}</p>
-                        <p>% Clay: {clay}</p>
-                        <p>CEC: {cec}</p>
-                        <p>Bulk Density: {bdod}</p>
-                        <p>Nitrogen: {nitrogen}</p>
-                        <p>Soil Organic Content: {soc}</p>
+                        <p>% Sand: {sand} %</p>
+                        <p>% Silt: {silt} %</p>
+                        <p>% Clay: {clay} % </p>
+                        <p>CEC: {cec} cmol(c)/kg</p>
+                        <p>Bulk Density: {bdod} kg/dm<sup>3</sup></p>
+                        <p>Nitrogen: {nitrogen} g/kg</p>
+                        <p>Soil Organic Content: {soc} g/kg</p>
                         <p>pH: {phh2o}</p>
                         {/* <button onClick={e => saveSoil(e)}>Save data</button> */}
                         <div id="buttons-wrappers">
@@ -242,7 +251,7 @@ const SoilsFetch = () => {
 
                 {success && (
                     <div>
-                        <h2 id="save-success">Saved Successfully!</h2>
+                        <h2 id="save-success">Soil saved successfully!</h2>
                     </div>
                 )}
                 {showPost &&(

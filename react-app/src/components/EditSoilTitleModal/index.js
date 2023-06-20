@@ -1,25 +1,25 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { useModal } from '../../context/Modal'
-import { createSoilThunk } from "../../store/soils";
+import { editSoilThunk, getSoilsThunk } from "../../store/soils";
 import OpenModalButton from "../OpenModalButton";
 // import SuccessModal from "../SuccessModal";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
-const CreateSoilModal = ({soilData}) =>{
+const EditSoilTitleModal = ({soil}) =>{
     const dispatch = useDispatch()
-    // const history = useHistory()
+    const history = useHistory()
     const { closeModal } = useModal()
 
-    const [title, setTitle] = useState('')
+    const [newTitle, setNewTitle] = useState(soil.title)
     const [success, setSuccess]= useState(false)
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
 
 
-    const saveSoil = (e) => {
+    const saveSoil = async (e) => {
         e.preventDefault();
 
         setHasSubmitted(true)
@@ -28,31 +28,35 @@ const CreateSoilModal = ({soilData}) =>{
         }
 
         // console.log("soilData in modal", soilData)
-        const soilFormData= new FormData()
-        soilFormData.append("latitude", soilData.latitude)
-        soilFormData.append("longitude", soilData.longitude)
-        soilFormData.append("percent_sand", soilData.sand)
-        soilFormData.append("percent_silt", soilData.silt)
-        soilFormData.append("percent_clay", soilData.clay)
-        soilFormData.append("cec", soilData.cec)
-        soilFormData.append("bdod", soilData.bdod)
-        soilFormData.append("nitrogen", soilData.nitrogen)
-        soilFormData.append("soc", soilData.soc)
-        soilFormData.append("phh2o", soilData.phh2o)
-        soilFormData.append("title", title)
 
-        dispatch(createSoilThunk(soilFormData))
+        const updatedSoil = {
+            title: newTitle,
+            latitude: soil.latitude,
+            longitude: soil.longitude,
+            percent_sand: soil.percent_sand,
+            percent_silt: soil.percent_silt,
+            percent_clay: soil.percent_clay,
+            cec: soil.cec,
+            bdod: soil.bdod,
+            nitrogen: soil.nitrogen,
+            soc: soil.soc,
+            phh2o: soil.phh2o,
+        }
+
+        console.log("new soil stuff", updatedSoil)
+        await dispatch(editSoilThunk(soil.id, updatedSoil))
         setSuccess(true)
-        setTimeout(closeModal, 4000)
+        history.push('/soils')
+        dispatch(getSoilsThunk())
+        setTimeout(closeModal, 3000)
         // closeModal()
-        // history.push('/')
     }
 
     useEffect(()=>{
         const errors = {}
-        if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
+        if(newTitle.length < 5 || newTitle.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
         setValidationErrors(errors)
-    }, [title])
+    }, [newTitle])
 
     const errorLength = Object.values(validationErrors).length
 
@@ -61,40 +65,40 @@ const CreateSoilModal = ({soilData}) =>{
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
 
+    console.log("soil in general in modal", soil)
+
     return(
         <div>
             {success && (
                 <div>
-                    <h1 id="save-success">Saved Successfully!</h1>
-                    <h2>Feel free to add it to a post</h2>
+                    <h1 id="save-success">Title Saved Successfully!</h1>
                 </div>
             )}
             {!success && (
                 <div>
-                <h2>Save your Soil!</h2>
+                <h2>Edit Soil Title</h2>
                 {hasSubmitted && validationErrors.title && (
                         <div className="errors-info">
                             <p>{validationErrors.title}</p>
                         </div>
                     )}
                 <input
-                placeholder = "Give it a title"
                 id="title-input"
                 type= "textarea"
-                value={title}
-                onChange={e=> setTitle(e.target.value)}
+                value={newTitle}
+                onChange={e=> setNewTitle(e.target.value)}
                 >
                 </input>
-                <h3>Ready to save this Soil?</h3>
-                <button disabled={disabled} onClick={saveSoil}>Yes, please!</button>
+                {/* <h3>Ready to save this Soil?</h3> */}
+                <button disabled={disabled} onClick={saveSoil}>Submit new title</button>
                 <div onClick={saveSoil}>
                 </div>
 
-                <button onClick={closeModal}>No, thanks!</button>
+                <button onClick={closeModal}>Discard changes</button>
                 </div>
             )}
         </div>
     )
 }
 
-export default CreateSoilModal
+export default EditSoilTitleModal

@@ -7,8 +7,8 @@ import Posts from './components/Posts'
 import SinglePost from './components/SinglePost'
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
-// import CreatePost from "./components/NewPost";
-// import EditPost from './components/EditPost'
+import CreatePost from "./components/NewPost";
+import EditPost from './components/EditPost'
 import SideBar from './components/SideBar'
 import Feed from './components/Feed'
 import Soils from "./components/Soils";
@@ -37,13 +37,13 @@ function App() {
               <SignupFormPage />
             </Route>
 
-            {/* <Route path="/posts/new">
+            <Route path="/posts/new">
               <CreatePost />
             </Route>
 
             <Route path="/posts/:postId/edit">
               <EditPost />
-            </Route> */}
+            </Route>
 
             <Route path="/posts/:postId">
               <SinglePost />

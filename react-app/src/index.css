@@ -9,6 +9,10 @@
     font-family: Urbanist;
 }
 
+#whole-wrapper{
+    border-top: solid rgb(80, 124, 80) 3px;
+}
+
 #main-body{
     display: flex;
 }

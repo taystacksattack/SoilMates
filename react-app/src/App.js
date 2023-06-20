@@ -14,6 +14,8 @@ import Feed from './components/Feed'
 import Soils from "./components/Soils";
 import SoilsFetch from "./components/SoilsFetch";
 import './index.css'
+import SplashPage from "./components/SplashPage";
+
 
 function App() {
   const dispatch = useDispatch();
@@ -27,11 +29,12 @@ function App() {
 
   return (
     <>
+    <div id="whole-wrapper">
       <Navigation isLoaded={isLoaded} />
       <div id="main-body">
-        {userObj &&(
-          <SideBar />
-        )}
+
+        {userObj ? (<SideBar />) : <SplashPage/>}
+
         {isLoaded && (
           <Switch>
             <Route path="/login" >
@@ -73,6 +76,7 @@ function App() {
           </Switch>
         )}
       </div>
+    </div>
     </>
   );
 }

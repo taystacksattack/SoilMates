@@ -6,11 +6,23 @@
   display: none;
 }
 
+#weighty{
+  font-weight: bolder;
+  font-size: 22pt;
+  /* border: red solid 1px; */
+}
+
 #navigation-wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border: red solid 1px;
-  margin: 1%
+  margin: 1%;
+  padding: 0 1rem;
+}
+
+#logo{
+  font-size: 20pt;
 }
 
 #left-side-bar {

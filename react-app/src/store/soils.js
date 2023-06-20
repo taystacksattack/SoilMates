@@ -1,6 +1,7 @@
 const GET_SOILS = 'soils/GET_SOILS'
 const CREATE_SOIL = 'soils/CREATE_SOIL'
 const DELETE_SOIL = 'soils/DELETE_SOIL'
+const EDIT_SOIL = 'soils/EDIT_SOIL'
 const CLEAR_SOILS = 'soils/CLEAR_SOILS'
 
 const getSoils = (soils) => ({
@@ -17,6 +18,12 @@ const deleteSoil = (soilId) => ({
     type: DELETE_SOIL,
     soilId
 })
+
+const editSoil = (soil) => ({
+    type: EDIT_SOIL,
+    soil
+})
+
 
 export const clearSoils = () => ({
     type: CLEAR_SOILS
@@ -61,6 +68,27 @@ export const createSoilThunk = (soil) => async (dispatch) => {
     }
 }
 
+
+export const editSoilThunk = (soilId, soil) => async (dispatch) => {
+     try {
+        console.log("IN THE THUNK",soilId)
+        console.log("in the thunk ", soil)
+        const response = await fetch(`/api/soils/${soilId}/edit`,{
+            method: 'PUT',
+            headers: {"Content-Type": "application/json"}, // need to stringify here so that the form validator is happy
+            body: JSON.stringify(soil)
+        })
+        const result = await response.json()
+        console.log("result in thunk", result)
+        dispatch(editSoil(result))
+        return
+    }catch(e){
+        return e
+    }
+}
+
+
+
 export const deleteSoilThunk = (soilId) => async (dispatch) => {
     try {
         const response = await fetch (`/api/soils/${soilId}/delete`, {
@@ -78,12 +106,12 @@ export const deleteSoilThunk = (soilId) => async (dispatch) => {
 
 
 //how about that reducer...?
-const initialState = {allSoils: {}}
+const initialState = {allSoils: {}, singleSoil:{}}
 
 export default function soilsReducer (state = initialState, action){
     switch (action.type){
         case GET_SOILS:
-            const newState = { allSoils: {} }
+            const newState = {...state, allSoils: {...state.allSoils}, singleSoil:{...state.singleSoil} }
             console.log("action soils",action.soils)
             if (action.soils.length){
                 action.soils.forEach((soil)=> {
@@ -91,6 +119,13 @@ export default function soilsReducer (state = initialState, action){
                 })
             }
             return newState
+        case EDIT_SOIL:
+            console.log("id in reducer",action.soil.id)
+            const editState = {...state, allSoils: {...state.allSoils} , singleSoil:{...state.singleSoil}}
+            editState.allSoils[action.soil.id] = action.soil
+            editState.singleSoil[action.soil.id] = action.soil
+            console.log("edit state in reducer", editState)
+            return editState
         case DELETE_SOIL:
             const deleteState = {...state, allSoils:{...state.allSoils}}
             console.log("deleteState before deletion",deleteState)

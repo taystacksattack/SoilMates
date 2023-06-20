@@ -38,7 +38,7 @@ const CurrentPosts = () => {
 
     useEffect(()=>{
         dispatch(getPostsThunk())
-    }, [dispatch])
+    }, [dispatch, ])
 
     if (!postsObj) return (<h2>Loading...</h2>)
 
@@ -75,12 +75,12 @@ const CurrentPosts = () => {
                                 buttonText ="Delete Post"
                                 modalComponent ={<DeletePostModal post={post}/>}
                             />
-                            {/* <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink> */}
-
+                            <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink>
+{/*
                             <OpenModalButton
                                 buttonText ="Edit post"
                                 modalComponent ={<EditPostModal post={post}/>}
-                            />
+                            /> */}
 
                     {/* buttonText ="Edit Post"
                     // modalComponent ={<EditPostModal post={post}/>}

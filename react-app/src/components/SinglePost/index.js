@@ -44,12 +44,12 @@ const SinglePost = () => {
                     buttonText ="Delete Post"
                     modalComponent ={<DeletePostModal post={post}/>}
                     />
-                    {/* <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink> */}
+                    <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
 
-                    <OpenModalButton
+                    {/* <OpenModalButton
                         buttonText ="Edit post"
                         modalComponent ={<EditPostModal post={post}/>}
-                    />
+                    /> */}
 
                     {/* buttonText ="Edit Post"
                     // modalComponent ={<EditPostModal post={post}/>}

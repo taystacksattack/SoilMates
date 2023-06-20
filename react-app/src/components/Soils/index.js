@@ -1,10 +1,12 @@
 import { useDispatch, useSelector, Sort  } from "react-redux"
 import {  useState, useEffect } from "react"
 import {Link, NavLink } from "react-router-dom"
-import { getSoilsThunk } from "../../store/soils"
+import { getSoilsThunk, editSoilThunk } from "../../store/soils"
 import OpenModalButton from '../OpenModalButton'
 import DeleteSoilModal from "../DeleteSoilModal"
 import CreatePostModal from '../CreatePostModal'
+import CreateSoilModal from "../CreateSoilModal"
+import EditSoilTitleModal from '../EditSoilTitleModal'
 
 
 const Soils = () => {
@@ -13,8 +15,18 @@ const Soils = () => {
 
     const [soils, setSoils] = useState([])
     const [sortType, setSortType] = useState("created_at")
+    const [soil, setSoil] = useState('')
+    const [title, setTitle] = useState(soil?.title)
+    const [success, setSuccess]= useState(false)
+    const [showForm, setShowForm] = useState(false)
+    const [validationErrors, setValidationErrors] = useState({})
+    const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [disabled, setDisabled]= useState(false)
+
+    // const [singleSoil, setSingleSoil] = useState(null)
 
     const soilsObj = useSelector(state => state.soils.allSoils)
+    const singleSoil = useSelector(state => state.soils.singleSoil)
 
     const soilsArr = Object.values(soilsObj)
     useEffect(()=>{
@@ -29,12 +41,62 @@ const Soils = () => {
             setSoils(sorted)
         }
         sortedSoils(sortType)
-    }, [sortType, soilsArr.length ])
+    }, [sortType, soilsArr.length])
 
 
     useEffect(()=>{
         dispatch(getSoilsThunk())
-    }, [dispatch, soilsObj.length])
+    }, [dispatch, ])
+
+
+    //need to send all info to the backend including the new title
+    const saveSoil = async (e) => {
+        e.preventDefault();
+
+        setHasSubmitted(true)
+        if(Object.values(validationErrors).length) {
+            return
+        }
+
+        // console.log("soilData in modal", soilData)
+
+        const updatedSoil = {
+            title: title,
+            latitude: soil.latitude,
+            longitude: soil.longitude,
+            percent_sand: soil.percent_sand,
+            percent_silt: soil.percent_silt,
+            percent_clay: soil.percent_clay,
+            cec: soil.cec,
+            bdod: soil.bdod,
+            nitrogen: soil.nitrogen,
+            soc: soil.soc,
+            phh2o: soil.phh2o,
+        }
+
+        console.log("new soil stuff", updatedSoil)
+        await dispatch(editSoilThunk(soil.id, updatedSoil))
+        setSuccess(true)
+        dispatch(getSoilsThunk())
+        // closeModal()
+    }
+
+    useEffect(()=>{
+        const errors = {}
+        if (title){
+            if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
+        }
+        setValidationErrors(errors)
+    }, [title])
+
+    const errorLength = Object.values(validationErrors).length
+
+    useEffect(()=>{
+    //     console.log(hasSubmitted)
+        errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
+    },[errorLength, hasSubmitted])
+
+    console.log(singleSoil)
 
     if (!soilsObj) return (<h2>Loading...</h2>)
 
@@ -62,8 +124,12 @@ const Soils = () => {
                     {soilsObj && soils.map(soil=>{
                         return (
                             <div key={soil.id} id="single-soil-wrapper">
+
                                 {/* onClick = setHidden(true) ...? This causes infinite re-renders */}
                                 <h2 id="soil-title" >{soil.title}</h2>
+                                <div>
+
+                                </div>
                                     {hidden && (
                                     <div id="single-soil-body">
                                         <ul>
@@ -81,6 +147,7 @@ const Soils = () => {
                                         </ul>
                                     </div>)}
                                 <div id="buttons-wrappers">
+
                                     <OpenModalButton
                                     buttonText ="Delete Soil"
                                     modalComponent ={<DeleteSoilModal soil={soil}/>}

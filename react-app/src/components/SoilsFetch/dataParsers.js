@@ -44,7 +44,7 @@ export const clayParse = (data) => {
 
 
 export const cecParse = (data) => {
-    const objData =data.properties.layers[2].depths
+    const objData =data.properties.layers[1].depths
     const reducedMedians = objData.reduce((acc, median) => acc + median.values["Q0.5"], 0)
     return (reducedMedians / objData.length) / 10
 }

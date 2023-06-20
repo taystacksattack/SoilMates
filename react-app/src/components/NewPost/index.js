@@ -2,20 +2,24 @@ import { useDispatch } from "react-redux";
 import { useState,useEffect } from 'react';
 import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
-import { useModal } from '../../context/Modal'
 
 
-const CreatePostModal = ({soil}) => {
+const CreatePost = ({soil}) => {
     const dispatch = useDispatch()
     const history = useHistory()
-    const {closeModal} = useModal()
 
-    const [title, setTitle] = useState(soil? soil.title : "")
+    // console.log("soil in newpost", soil)
+
+
+    const [title, setTitle] = useState('')
     const [body, setBody] = useState(soil ? `% Sand: ${soil.percent_sand}% \n% Silt: ${soil.percent_silt}% \n% Clay: ${soil.percent_clay}% \nCEC: ${soil.cec}cmol(c)/kg \nBulk Density: ${soil.bdod}kg/dm3 \nNitrogen: ${soil.nitrogen}g/kg \nSoil Organic Content: ${soil.soc}g/kg \npH: ${soil.phh2o}` : "")
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
-    const [success, setSuccess]= useState(false)
+
+
+// TESTESTESTESING this is just to be able to make the pull request
+//tudtdrtdrtudrtud
 
     const submitPost = async (e) => {
         e.preventDefault()
@@ -33,8 +37,6 @@ const CreatePostModal = ({soil}) => {
         const result = await dispatch(createPostThunk(formData))
 
         setHasSubmitted(false)
-        setSuccess(true)
-        setTimeout(closeModal, 2000)
         setTitle('')
         setBody('')
         history.push('/posts')
@@ -61,12 +63,6 @@ const CreatePostModal = ({soil}) => {
 
     return (
         <div id='whole-new-post-wrapper'>
-            {success && (
-                <div>
-                    <h1 id="save-success">Posted!</h1>
-                </div>
-            )}
-            {!success && (
             <div id='form-wrapper'>
                 <form onSubmit ={(e)=> submitPost(e)}>
                     {hasSubmitted && validationErrors.title && (
@@ -107,9 +103,8 @@ const CreatePostModal = ({soil}) => {
                     </div>
                 </form>
             </div>
-            )}
         </div>
     )
 }
 
-export default CreatePostModal
+export default CreatePost

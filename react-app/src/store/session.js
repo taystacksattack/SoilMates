@@ -1,3 +1,6 @@
+import { clearPosts } from "./posts";
+import { clearSoils } from "./soils";
+
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
@@ -64,6 +67,9 @@ export const logout = () => async (dispatch) => {
 
 	if (response.ok) {
 		dispatch(removeUser());
+		dispatch(clearSoils())
+		dispatch(clearPosts())
+		console.log("cleared all of store")
 	}
 };
 

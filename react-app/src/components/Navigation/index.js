@@ -1,6 +1,6 @@
-import React, { useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { NavLink } from 'react-router-dom';
-import { useSelector, } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import SideBar from '../SideBar'
 import './Navigation.css';
@@ -9,6 +9,23 @@ import '../../index.css';
 function Navigation({ isLoaded }){
 	const sessionUser = useSelector(state => state.session.user);
 	const [sideBar, setSideBar] = useState(false)
+	const [query, setQuery] = useState('')
+	const [showMenu, setShowMenu] = useState(false);
+
+	const submitQuery = async (e) => {
+		e.preventDefault()
+	}
+
+	useEffect(() => {
+		if (!sideBar) return;
+
+		const closeMenu = (e) => {
+			setSideBar(false);
+		}
+    	document.addEventListener("click", closeMenu);
+    	return () => document.removeEventListener("click", closeMenu);
+	}, [sideBar]);
+
 
 	return (
 		<>
@@ -17,13 +34,13 @@ function Navigation({ isLoaded }){
 
 					<div id="left-side-nav">
 						<li>
-							<i class="fa-solid fa-compass" onClick={e=> setSideBar(!sideBar)}></i>
+							<i class="fa-solid fa-compass" onClick={e=> setSideBar(!sideBar)} id="compass"></i>
 						</li>
 							{sideBar && (
 								<div id="sidebar">
 										<ul>
-											<li>
-												<NavLink exact to="/feed" class="large-links">All Posts</NavLink>
+											<li className='highlight'>
+												<NavLink exact to="/feed" className="large-links">All Posts</NavLink>
 											</li>
 
 											{/* new post button? */}
@@ -31,10 +48,10 @@ function Navigation({ isLoaded }){
 
 											<br></br>
 											<p>PUBLIC</p>
-											<li>
+											<li className='highlight'>
 												<NavLink exact to="/posts/new">Post a Question</NavLink>
 											</li>
-											<li>
+											<li className='highlight'>
 												<NavLink exact to="/soils">Get Soil Data</NavLink>
 											</li>
 
@@ -45,8 +62,26 @@ function Navigation({ isLoaded }){
 							<NavLink exact to="/" id="logo">soil<span id="weighty">mates</span></NavLink>
 						</li>
 						<li>
-							<NavLink exact to="/about">About</NavLink>
+							<NavLink exact to="/about" className="link">About</NavLink>
 						</li>
+						<div id="form-wrapper">
+							<form
+							onSubmit ={(e)=> submitQuery(e)}
+							id="form-wrapper"
+							>
+								<input
+									placeholder = "Browse Questions"
+									id="search-input"
+									type= "textarea"
+									value= {query}
+									onChange={e=> setQuery(e.target.value)}
+									>
+								</input>
+								<div>
+									<button id="submit-button" type='submit'>Search</button>
+								</div>
+							</form>
+						</div>
 					</div>
 
 

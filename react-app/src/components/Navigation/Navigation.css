@@ -1,6 +1,28 @@
+#compass{
+  font-size:16pt
+}
+
 .profile-dropdown {
   position: absolute;
+  margin-top: .45rem;
+  /* margin-right: -4rem; */
 }
+
+#login-button-wrapper {
+  /* margin-top: .35rem; */
+  margin-left: -2rem;
+  display: flex;
+  flex-direction: column;
+  border: var(--other) solid 2px;
+  border-radius: 10pt;
+  padding: .4rem .4rem;
+  width: 4rem;
+  /* justify-content: flex-end; */
+  /* border:red solid 1px */
+}
+/* .profile-dropdown>button{
+
+} */
 
 .hidden {
   display: none;
@@ -19,6 +41,7 @@
   /* border: red solid 1px; */
   margin: 5px;
   padding: .25rem 1rem;
+  border-bottom: var(--nice-green) 1px solid;
 }
 
 #left-side-nav{
@@ -31,10 +54,11 @@
   font-size: 20pt;
   padding:0 1rem;
 }
+
 #logo-li{
   /* border: red solid 1px; */
   padding:0;
-  margin-top:-4%
+  margin-top:-.45rem;
 }
 
 /* the one that pops up when you click the compass */
@@ -43,12 +67,23 @@
 /* background-color: ; */
   position:absolute;
   margin-top: 9rem;
-  margin-left: -3%;
+  margin-left: -1vw;
   border: var(--other) solid 2px;
   border-radius: 10pt;
   padding: .4rem .2rem;
-
 }
+
+.link{
+  font-size: 14pt;
+}
+
+.highlight>a:hover, .link:hover{
+  /* font-weight: bolder; */
+  color: var(--nice-green);
+  /* border: red solid 1px */
+  /* padding: 4% 0% */
+}
+
 
 #left-side-bar {
   display: flex;
@@ -57,4 +92,43 @@
   width:15%;
   margin: 1%;
   height: 90vh;
+}
+
+#form-wrapper{
+  display: flex;
+  align-items: center;
+  width: 45vw;
+}
+
+
+#search-input {
+  margin-left:1.5rem;
+  border: var(--text) solid 1px;
+  border-radius: 5px;
+  padding: 3px;
+  width: 100%;
+}
+
+#submit-button{
+  border: var(--text) solid 1px;
+  padding: 3px;
+  margin-left: .5rem;
+  border-radius: 5px;
+}
+
+/* for the user button stuff */
+
+#user-button{
+  border: var(--text) 1px solid;
+  border-radius: 30px;
+  padding: 7px;
+  font-size: 16pt;
+  margin-bottom: 0;
+}
+
+#user-button:hover{
+  /* font-weight: bolder; */
+  color: var(--nice-green);
+  /* border: red solid 1px */
+  /* padding: 4% 0% */
 }

@@ -33,10 +33,15 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       <div id="main-body">
 
-        {userObj ? (<SideBar />) : <SplashPage/>}
+        {userObj ? (<SideBar />) : null}
+
 
         {isLoaded && (
           <Switch>
+            {!userObj && (<Route path="/" >
+              <SplashPage />
+            </Route>)}
+
             <Route path="/login" >
               <LoginFormPage />
             </Route>

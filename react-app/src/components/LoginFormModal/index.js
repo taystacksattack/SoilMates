@@ -33,35 +33,43 @@ function LoginFormModal() {
 
   return (
     <>
+    <div id="login-modal-wrapper">
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
-          {errors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </ul>
-        <label>
-          Email
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
+        <div id="login-form-wrapper">
+          <ul>
+            {errors.map((error, idx) => (
+              <li key={idx}>{error}</li>
+            ))}
+          </ul>
+          <label>
+
+            <input
+              className="input-field"
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          <label>
+
+            <input
+              className="input-field"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
         <button type="submit">Log In</button>
+        </div>
       </form>
-      <button onClick={e => demoUser1()}> Log in as Demo User </button>
-      <button onClick={e => demoUser2()}> Log in as Marnie </button>
+      <button onClick={e => demoUser1()} id="demo-user-buttons"> Log in as Demo User </button>
+      <button onClick={e => demoUser2()} id="demo-user-buttons"> Log in as Marnie </button>
+    </div>
     </>
   );
 }

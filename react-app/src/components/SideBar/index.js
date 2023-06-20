@@ -12,7 +12,7 @@ function Navigation({ isLoaded }){
 			<div id="left-side-bar">
 				<ul>
 					<li>
-						<NavLink exact to="/feed">Feed</NavLink>
+						<NavLink exact to="/feed">All Posts</NavLink>
 					</li>
 
 					{/* new post button? */}

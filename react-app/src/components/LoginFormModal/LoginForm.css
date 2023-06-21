@@ -1,0 +1,28 @@
+#login-modal-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 13pt;
+    width: 25vw;
+    border: var(--text) 2px solid;
+}
+
+#login-form-wrapper{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 1.5rem 0;
+}
+
+.input-field{
+    border: var(--text) 1px solid;
+    border-radius: 8px;
+    margin-bottom:8px;
+    padding: 3px;
+}
+
+#demo-user-buttons{
+    font-size: 12pt;
+    margin: .15rem 0
+}

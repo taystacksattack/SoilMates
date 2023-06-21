@@ -31,51 +31,62 @@ function SignupFormModal() {
 
 	return (
 		<>
+		<div id="signup-modal-wrapper">
 			<h1>Sign Up</h1>
-			<form onSubmit={handleSubmit}>
-				<ul>
-					{errors.map((error, idx) => (
-						<li key={idx}>{error}</li>
-					))}
-				</ul>
-				<label>
-					Email
-					<input
-						type="text"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Username
-					<input
-						type="text"
-						value={username}
-						onChange={(e) => setUsername(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Password
-					<input
-						type="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<label>
-					Confirm Password
-					<input
-						type="password"
-						value={confirmPassword}
-						onChange={(e) => setConfirmPassword(e.target.value)}
-						required
-					/>
-				</label>
-				<button type="submit">Sign Up</button>
-			</form>
+				<form onSubmit={handleSubmit}>
+				<div id="signup-form-wrapper">
+					<ul>
+						{errors.map((error, idx) => (
+							<li key={idx}>{error}</li>
+						))}
+					</ul>
+					<label>
+
+						<input
+							className="input-field"
+							placeholder="Email"
+							type="text"
+							value={email}
+							onChange={(e) => setEmail(e.target.value)}
+							required
+						/>
+					</label>
+					<label>
+
+						<input
+							className="input-field"
+							placeholder="Username"
+							type="text"
+							value={username}
+							onChange={(e) => setUsername(e.target.value)}
+							required
+						/>
+					</label>
+					<label>
+
+						<input
+							className="input-field"
+							placeholder="Password"
+							type="password"
+							value={password}
+							onChange={(e) => setPassword(e.target.value)}
+							required
+						/>
+					</label>
+					<label>
+						<input
+							className="input-field"
+							placeholder="Confirm Password"
+							type="password"
+							value={confirmPassword}
+							onChange={(e) => setConfirmPassword(e.target.value)}
+							required
+						/>
+					</label>
+					<button type="submit">Sign Up</button>
+				</div>
+				</form>
+		</div>
 		</>
 	);
 }

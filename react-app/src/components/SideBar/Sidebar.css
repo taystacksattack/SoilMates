@@ -1,8 +1,35 @@
 #left-side-bar {
+    margin-top:0;
     display: flex;
     justify-content: space-between;
-    border: red solid 1px;
-    width: 15%;
-    margin: 1%;
+    /* border-left: var(--nice-green)solid 1px; */
+    border-right: var(--nice-green)solid 1px;
+
+    /* border-radius: 10px; */
+    width: 15vw;
+    padding: 1%;
     height: 90vh;
+    margin-left: 5px;
+}
+
+
+
+.highlight>a:hover,
+.link:hover {
+    /* font-weight: bolder; */
+    color: var(--nice-green);
+    /* border: red solid 1px */
+    /* padding: 4% 0% */
+}
+.large-links {
+    font-size: 16pt;
+}
+
+.large-links:hover {
+    color: var(--nice-green);
+}
+
+#smaller-links{
+    margin-top: .25rem;
+    margin-left: 1rem;
 }

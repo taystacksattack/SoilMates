@@ -6,7 +6,7 @@
     border-right: var(--nice-green)solid 1px;
 
     /* border-radius: 10px; */
-    width: 15vw;
+    width: 12rem;
     padding: 1%;
     height: 90vh;
     margin-left: 5px;
@@ -22,6 +22,7 @@
     /* padding: 4% 0% */
 }
 .large-links {
+    margin-top: .75rem;
     font-size: 16pt;
 }
 

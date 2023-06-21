@@ -5,7 +5,7 @@ import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
 import DeletePostModal from '../DeletePostModal'
 import EditPostModal from "../EditPostModal"
-// import EditPostModal from '../EditPostModal'
+import './SinglePost.css'
 
 
 const SinglePost = () => {
@@ -33,29 +33,32 @@ const SinglePost = () => {
     return (
         <div id="posts-whole-wrapper">
             <div id="posts-list-wrapper">
+                <div id="upper-section">
+                    <h2 id="post-title">{post.title}</h2>
+                    {userObj.id === post.ownerId &&(
+                    <div id="buttons-wrappers">
+                        <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
+                        <OpenModalButton
+                        id="sort-button"
+                        buttonText ="Delete Post"
+                        modalComponent ={<DeletePostModal post={post}/>}
+                        />
 
-                <h2>{post.title}</h2>
-                <p id="post-body">{post.body}</p>
-                <p>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
+                        {/* <OpenModalButton
+                            buttonText ="Edit post"
+                            modalComponent ={<EditPostModal post={post}/>}
+                        /> */}
 
-                {userObj.id === post.ownerId &&(
-                  <div id="buttons-wrappers">
-                    <OpenModalButton
-                    buttonText ="Delete Post"
-                    modalComponent ={<DeletePostModal post={post}/>}
-                    />
-                    <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink>
-
-                    {/* <OpenModalButton
-                        buttonText ="Edit post"
-                        modalComponent ={<EditPostModal post={post}/>}
-                    /> */}
-
-                    {/* buttonText ="Edit Post"
-                    // modalComponent ={<EditPostModal post={post}/>}
-                    /> */}
+                        {/* buttonText ="Edit Post"
+                        // modalComponent ={<EditPostModal post={post}/>}
+                        /> */}
+                    </div>
+                    )}
                 </div>
-                )}
+                <p id="post-body">{post.body}</p>
+                <p id="post-info">Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
+
+
 
 
             </div>

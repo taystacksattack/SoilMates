@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton'
 import CreatePostModal from "../CreatePostModal"
 import DeletePostModal from "../DeletePostModal"
 import EditPostModal from "../EditPostModal"
+import './Posts.css'
 
 
 const CurrentPosts = () => {

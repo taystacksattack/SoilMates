@@ -23,10 +23,13 @@
 
 :root{
     --nice-green: rgb(80, 124, 80);
+    --med-green: rgb(87, 181, 87);
     --lt-green: rgb(193, 206, 193);
     --background: #f9f8f7;
     --other: #946b7c;
-    --lt-other: #946b7c;
+    --lt-other: #c795a9;
+    --delete:#b45841 ;
+    --redder: #d23811;
     --text: #313d3b;
 }
 

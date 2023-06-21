@@ -32,6 +32,7 @@ const SoilsFetch = () => {
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
+    const [added, setAdded] = useState(false)
 
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
@@ -105,8 +106,6 @@ const SoilsFetch = () => {
             setEmptyData(false)
         }
 
-        console.log("latitude",latitude)
-        console.log("longitude",longitude)
 
         setDisplay(true)
         setHasSubmitted(false)
@@ -131,7 +130,7 @@ const SoilsFetch = () => {
         soilFormData.append("phh2o", phh2o)
 
         const result = await dispatch(createSoilThunk(soilFormData))
-
+        setAdded(true)
         setSuccess(true)
     }
 
@@ -139,7 +138,7 @@ const SoilsFetch = () => {
     const postSoil = async (e) => {
         e.preventDefault()
         //need to save to db  ONLY IF it hasn't already been saved.
-        saveSoil(e)
+        if (!added)saveSoil(e)
 
         // set the default body to have the soil data
         setShowPost(true)
@@ -200,6 +199,8 @@ const SoilsFetch = () => {
     return (
         <div id='whole-new-soil-wrapper'>
             <div id='soil-form-wrapper'>
+                <h1>Soil Data Requests</h1>
+                <h3>For accuracy, please make sure you submit a latitude and longitude coordinate up to six decimal places. </h3>
                 <form onSubmit ={(e)=> submitSoil(e)}>
                     {hasSubmitted && validationErrors.latitude && (
                         <div className="errors-info">

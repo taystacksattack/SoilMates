@@ -11,8 +11,8 @@ function Navigation({ isLoaded }){
 
 			<div id="left-side-bar">
 				<ul>
-					<li>
-						<NavLink exact to="/feed">All Posts</NavLink>
+					<li className='large-links'>
+						<NavLink exact to="/feed" className='large-links'>All Posts</NavLink>
 					</li>
 
 					{/* new post button? */}
@@ -20,15 +20,17 @@ function Navigation({ isLoaded }){
 
                     <br></br>
 					<p>PUBLIC</p>
-					{/* <li>
+					{/* <li className='highlight'>
 						<NavLink exact to="/feed">Feed</NavLink>
 					</li> */}
-                    <li>
-						<NavLink exact to="/posts">My Posts</NavLink>
-					</li>
-					<li>
-						<NavLink exact to="/soils">Soil Data</NavLink>
-					</li>
+					<div id="smaller-links">
+						<li className='highlight'>
+							<NavLink exact to="/posts">My Posts</NavLink>
+						</li>
+						<li className='highlight'>
+							<NavLink exact to="/soils">Soil Data</NavLink>
+						</li>
+					</div>
 
 
 				</ul>

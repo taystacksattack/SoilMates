@@ -33,6 +33,9 @@
 .large-links{
     font-size: 16pt;
 }
+.large-links:hover {
+    color: var(--nice-green);
+}
 
 button{
     font-size: 14pt;

@@ -59,7 +59,7 @@ function Navigation({ isLoaded }){
 								</div>
 							)}
 						<li id="logo-li">
-							<NavLink exact to="/" id="logo">soil<span id="weighty">mates</span></NavLink>
+							<NavLink exact to="/" id="logo">soil<span className="weighty" id="logo">mates</span></NavLink>
 						</li>
 						<li>
 							<NavLink exact to="/about" className="link">About</NavLink>

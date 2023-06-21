@@ -28,7 +28,8 @@ const Soils = () => {
     const soilsObj = useSelector(state => state.soils.allSoils)
     const singleSoil = useSelector(state => state.soils.singleSoil)
 
-    const soilsArr = Object.values(soilsObj)
+    let soilsArr =[]
+    if (soilsObj) soilsArr = Object.values(soilsObj)
     useEffect(()=>{
         const sortedSoils = type =>{
             const sorted = soilsArr.sort((a,b)=>{

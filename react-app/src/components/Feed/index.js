@@ -15,7 +15,7 @@ const Feed = () => {
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
 
     //Sorting helper function
-    let postsArr
+    let postsArr = []
     if (postsObj) postsArr = Object.values(postsObj)
     useEffect(()=>{
         if (postsArr){
@@ -31,7 +31,7 @@ const Feed = () => {
             }
             sortedPosts(sortType)
         }
-    }, [sortType, postsArr])
+    }, [sortType, postsArr.length])
 
     useEffect(()=>{
         dispatch(getPostsThunk())

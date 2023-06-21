@@ -46,8 +46,8 @@ const SoilsFetch = () => {
     const submitSoil = async (e) => {
         e.preventDefault()
         setHasSubmitted(true)
-        console.log("latitude",latitude)
-        console.log("longitude",longitude)
+        // console.log("latitude",latitude)
+        // console.log("longitude",longitude)
 
         //these are here for when the data is undefined: the useEffect was not cooperating
         const errors = {}
@@ -61,10 +61,10 @@ const SoilsFetch = () => {
         }
 
         //sample data for testing purposes (so you're not doing API calls everytime)
-        const data = sampleData
+        // const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        // const data = await getSoilData(longitude, latitude)
+        const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
@@ -192,9 +192,9 @@ const SoilsFetch = () => {
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
 
-    console.log(latitude)
-    console.log(longitude)
-    console.log(validationErrors)
+    // console.log(latitude)
+    // console.log(longitude)
+    // console.log(validationErrors)
 
     return (
         <div id='whole-new-soil-wrapper'>

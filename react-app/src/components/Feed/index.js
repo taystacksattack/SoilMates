@@ -18,24 +18,26 @@ const Feed = () => {
     let postsArr
     if (postsObj) postsArr = Object.values(postsObj)
     useEffect(()=>{
-        const sortedPosts = type =>{
-            const sorted = postsArr.sort((a,b)=>{
-                if (type !== "title"){
-                    return new Date(b[type]) - new Date(a[type])
-                } else{
-                    return a.title.localeCompare(b.title)
-                }
-            })
-            setPosts(sorted)
+        if (postsArr){
+                const sortedPosts = type =>{
+                const sorted = postsArr.sort((a,b)=>{
+                    if (type !== "title"){
+                        return new Date(b[type]) - new Date(a[type])
+                    } else{
+                        return a.title.localeCompare(b.title)
+                    }
+                })
+                setPosts(sorted)
+            }
+            sortedPosts(sortType)
         }
-        sortedPosts(sortType)
-    }, [sortType, postsArr.length])
+    }, [sortType, postsArr])
 
     useEffect(()=>{
         dispatch(getPostsThunk())
     }, [dispatch ])
 
-    if (!postsObj) return (<h2>Loading...</h2>)
+    if (!postsArr) return (<h2>Loading...</h2>)
 
     return (
         <div id="posts-whole-wrapper">

@@ -32,6 +32,7 @@ const SoilsFetch = () => {
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
+    const [added, setAdded] = useState(false)
 
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
@@ -44,18 +45,26 @@ const SoilsFetch = () => {
 
     const submitSoil = async (e) => {
         e.preventDefault()
-
         setHasSubmitted(true)
+        console.log("latitude",latitude)
+        console.log("longitude",longitude)
+
+        //these are here for when the data is undefined: the useEffect was not cooperating
+        const errors = {}
+        if(latitude === "") errors['latitude']="Please provide a latitude to six decimal places"
+        if(longitude === "") errors['longitude']="Please provide a longitude to six decimal places"
+        setValidationErrors(errors)
+
 
         if(Object.values(validationErrors).length) {
             return
         }
 
         //sample data for testing purposes (so you're not doing API calls everytime)
-        // const data = sampleData
+        const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        const data = await getSoilData(longitude, latitude)
+        // const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
@@ -88,7 +97,7 @@ const SoilsFetch = () => {
 
         //handles bad data
         if (!newSoil.sand) {
-            console.log("wtf where is the sand", sand)
+            // console.log("where is the sand", sand)
             setEmptyData(true)
             return
         }
@@ -96,6 +105,7 @@ const SoilsFetch = () => {
         if (newSoil.sand) {
             setEmptyData(false)
         }
+
 
         setDisplay(true)
         setHasSubmitted(false)
@@ -120,14 +130,15 @@ const SoilsFetch = () => {
         soilFormData.append("phh2o", phh2o)
 
         const result = await dispatch(createSoilThunk(soilFormData))
-
+        setAdded(true)
         setSuccess(true)
     }
 
+    //gets the post form ready with the data
     const postSoil = async (e) => {
         e.preventDefault()
         //need to save to db  ONLY IF it hasn't already been saved.
-        saveSoil(e)
+        if (!added)saveSoil(e)
 
         // set the default body to have the soil data
         setShowPost(true)
@@ -135,6 +146,7 @@ const SoilsFetch = () => {
 
     }
 
+    //actually handles the soil submission
     const submitPost = async (e) => {
         e.preventDefault()
 
@@ -158,8 +170,8 @@ const SoilsFetch = () => {
 
     useEffect(()=>{
         const errors = {}
-        if(latitude.length > 10 || latitude.length < 9) errors['latitude']="Please provide a latitude to six decimal places"
-        if(longitude.length > 11 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
+        if(latitude.length > 10 || latitude.length < 9 || latitude === "") errors['latitude']="Please provide a latitude to six decimal places"
+        if(longitude.length > 11 || longitude.length < 9 || longitude === "") errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
         // console.log("LATITUDE FLATITUDE",latitude)
         // console.log("LONGITUDE FLONGITUDE",longitude)
@@ -180,11 +192,15 @@ const SoilsFetch = () => {
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
 
-
+    console.log(latitude)
+    console.log(longitude)
+    console.log(validationErrors)
 
     return (
         <div id='whole-new-soil-wrapper'>
             <div id='soil-form-wrapper'>
+                <h1>Soil Data Requests</h1>
+                <h3>For accuracy, please make sure you submit a latitude and longitude coordinate up to six decimal places. </h3>
                 <form onSubmit ={(e)=> submitSoil(e)}>
                     {hasSubmitted && validationErrors.latitude && (
                         <div className="errors-info">
@@ -220,7 +236,7 @@ const SoilsFetch = () => {
 
                     <br></br>
                     <div>
-                        <button disabled={disabled} id="submit-button" type='submit'>Fetch!</button>
+                        <button disabled={disabled} id="submit-button" type='submit'>Get soil data!</button>
                     </div>
                 </form>
                 {emptyData && (

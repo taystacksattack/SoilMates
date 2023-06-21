@@ -46,8 +46,8 @@ const SoilsFetch = () => {
     const submitSoil = async (e) => {
         e.preventDefault()
         setHasSubmitted(true)
-        console.log("latitude",latitude)
-        console.log("longitude",longitude)
+        // console.log("latitude",latitude)
+        // console.log("longitude",longitude)
 
         //these are here for when the data is undefined: the useEffect was not cooperating
         const errors = {}
@@ -192,9 +192,9 @@ const SoilsFetch = () => {
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
 
-    console.log(latitude)
-    console.log(longitude)
-    console.log(validationErrors)
+    // console.log(latitude)
+    // console.log(longitude)
+    // console.log(validationErrors)
 
     return (
         <div id='whole-new-soil-wrapper'>

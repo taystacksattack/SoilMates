@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { signUp } from "../../store/session";
@@ -11,10 +11,14 @@ function SignupFormModal() {
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
 	const [errors, setErrors] = useState([]);
+	const [validationErrors, setValidationErrors] = useState([])
 	const { closeModal } = useModal();
+	const [hasSubmitted, setHasSubmitted] = useState(false)
+    const [disabled, setDisabled]= useState(false)
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		setHasSubmitted(true)
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp(username, email, password));
 			if (data) {
@@ -29,6 +33,22 @@ function SignupFormModal() {
 		}
 	};
 
+	useEffect(()=>{
+        const errors = {}
+        if(email.length < 5 || email.length >=25) errors['email']="Please provide a email between 5 and 50 characters"
+        if(username.length < 5 || username.length >= 25) errors['username']="Please provide a username between 5 and 25 characters"
+		if(password.length < 8 || password.length >=25) errors['password']="Please provide a password between 8 and 25 characters"
+		if(confirmPassword !== password) errors['confirmPassword']="Confirm Password field must be the same as the Password field"
+        setValidationErrors(errors)
+    }, [email, username, password, confirmPassword])
+
+    const errorLength = Object.values(validationErrors).length
+
+    useEffect(()=>{
+    //     console.log(hasSubmitted)
+        errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
+    },[errorLength, hasSubmitted])
+
 	return (
 		<>
 		<div id="signup-modal-wrapper">
@@ -37,11 +57,15 @@ function SignupFormModal() {
 				<div id="signup-form-wrapper">
 					<ul>
 						{errors.map((error, idx) => (
-							<li key={idx}>{error}</li>
+							<li className="errors-info" key={idx}>{error}</li>
 						))}
 					</ul>
 					<label>
-
+						{hasSubmitted && validationErrors.email && (
+							<div >
+								<p className="errors-info" >{validationErrors.email}</p>
+							</div>
+						)}
 						<input
 							className="input-field"
 							placeholder="Email"
@@ -52,7 +76,11 @@ function SignupFormModal() {
 						/>
 					</label>
 					<label>
-
+						{hasSubmitted && validationErrors.username && (
+							<div >
+								<p className="errors-info">{validationErrors.username}</p>
+							</div>
+						)}
 						<input
 							className="input-field"
 							placeholder="Username"
@@ -63,6 +91,11 @@ function SignupFormModal() {
 						/>
 					</label>
 					<label>
+						{hasSubmitted && validationErrors.password && (
+							<div >
+								<p className="errors-info">{validationErrors.password}</p>
+							</div>
+						)}
 
 						<input
 							className="input-field"
@@ -74,6 +107,11 @@ function SignupFormModal() {
 						/>
 					</label>
 					<label>
+						{hasSubmitted && validationErrors.confirmPassword && (
+							<div >
+								<p className="errors-info">{validationErrors.confirmPassword}</p>
+							</div>
+						)}
 						<input
 							className="input-field"
 							placeholder="Confirm Password"
@@ -83,7 +121,7 @@ function SignupFormModal() {
 							required
 						/>
 					</label>
-					<button type="submit">Sign Up</button>
+					<button disabled={disabled} id={disabled? "disabled": null} type="submit">Sign Up</button>
 				</div>
 				</form>
 		</div>

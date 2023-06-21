@@ -21,3 +21,12 @@
     margin-bottom: 8px;
     padding: 3px;
 }
+
+.errors-info{
+    color: red;
+}
+
+
+#disabled{
+    color:gray
+}

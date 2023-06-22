@@ -7,6 +7,7 @@ import { sampleData } from "./sampleData";
 import { getSoilData, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
 import CreateSoilModal from "../CreateSoilModal";
 import OpenModalButton from "../OpenModalButton";
+import './SoilsFetch.css'
 
 
 const SoilsFetch = () => {
@@ -39,9 +40,6 @@ const SoilsFetch = () => {
     const [showPost, setShowPost] = useState(false)
     const [emptyData, setEmptyData] = useState(false)
 
-// TESTESTESTESING this is just to be able to make the pull request
-//tudtdrtdrtudrtud
-
 
     const submitSoil = async (e) => {
         e.preventDefault()
@@ -51,20 +49,21 @@ const SoilsFetch = () => {
 
         //these are here for when the data is undefined: the useEffect was not cooperating
         const errors = {}
-        if(latitude === "") errors['latitude']="Please provide a latitude to six decimal places"
-        if(longitude === "") errors['longitude']="Please provide a longitude to six decimal places"
+        if(latitude === "" ||latitude.length > 11 || latitude.length < 9 ) errors['latitude']="Please provide a latitude to six decimal places"
+        if(longitude === ""||longitude.length > 11 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
 
 
         if(Object.values(validationErrors).length) {
+            console.log(validationErrors)
             return
         }
 
         //sample data for testing purposes (so you're not doing API calls everytime)
-        // const data = sampleData
+        const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        const data = await getSoilData(longitude, latitude)
+        // const data = await getSoilData(longitude, latitude)
 
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
@@ -170,11 +169,10 @@ const SoilsFetch = () => {
 
     useEffect(()=>{
         const errors = {}
-        if(latitude.length > 10 || latitude.length < 9 || latitude === "") errors['latitude']="Please provide a latitude to six decimal places"
-        if(longitude.length > 11 || longitude.length < 9 || longitude === "") errors['longitude']="Please provide a longitude to six decimal places"
+        if(latitude.length > 11 || latitude.length < 9 ) errors['latitude']="Please provide a latitude to six decimal places"
+        if(longitude.length > 11 || longitude.length < 9) errors['longitude']="Please provide a longitude to six decimal places"
         setValidationErrors(errors)
-        // console.log("LATITUDE FLATITUDE",latitude)
-        // console.log("LONGITUDE FLONGITUDE",longitude)
+        // console.log(validationErrors)
     }, [latitude, longitude])
 
 
@@ -188,7 +186,6 @@ const SoilsFetch = () => {
     const errorLength = Object.values(validationErrors).length
 
     useEffect(()=>{
-    //     console.log(hasSubmitted)
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
 
@@ -198,122 +195,154 @@ const SoilsFetch = () => {
 
     return (
         <div id='whole-new-soil-wrapper'>
-            <div id='soil-form-wrapper'>
+            <div id="new-soil-header">
                 <h1>Soil Data Requests</h1>
-                <h3>For accuracy, please make sure you submit a latitude and longitude coordinate up to six decimal places. </h3>
+                <h3>For accuracy, please make sure you submit latitude and longitude coordinates up to six decimal places. </h3>
+            </div>
+
+            <div id="input-results-wrapper">
                 <form onSubmit ={(e)=> submitSoil(e)}>
-                    {hasSubmitted && validationErrors.latitude && (
-                        <div className="errors-info">
-                            <p>{validationErrors.latitude}</p>
-                        </div>
-                    )}
-                    <label>
-                        <input
-                            placeholder = "Latitude"
-                            id="latitude-input"
-                            type= "number"
-                            value={latitude}
-                            onChange={e=> setLatitude(e.target.value)}
-                        >
-                        </input>
-                    </label>
+                    <div id='soil-form-wrapper'>
+                        {hasSubmitted && validationErrors.latitude && (
+                            <div className="errors-info">
+                                <p>{validationErrors.latitude}</p>
+                            </div>
+                        )}
+                        <label>
+                            <input
+                                placeholder = "Latitude"
+                                id="latitude-input"
+                                type= "number"
+                                value={latitude}
+                                onChange={e=> setLatitude(e.target.value)}
+                            >
+                            </input>
+                        </label>
 
-                    {hasSubmitted && validationErrors.longitude && (
-                        <div className="errors-info">
-                            <p>{validationErrors.longitude}</p>
-                        </div>
-                    )}
-                    <label>
-                        <input
-                            placeholder = "Longitude"
-                            id="longitude-input"
-                            type= "number"
-                            value={longitude}
-                            onChange={e=> setLongitude(e.target.value)}
-                        >
-                        </input>
-                    </label>
+                        {hasSubmitted && validationErrors.longitude && (
+                            <div className="errors-info">
+                                <p>{validationErrors.longitude}</p>
+                            </div>
+                        )}
+                        <label>
+                            <input
+                                placeholder = "Longitude"
+                                id="longitude-input"
+                                type= "number"
+                                value={longitude}
+                                onChange={e=> setLongitude(e.target.value)}
+                            >
+                            </input>
+                        </label>
 
-                    <br></br>
-                    <div>
-                        <button disabled={disabled} id="submit-button" type='submit'>Get soil data!</button>
+
+                        <div>
+                            <button disabled={disabled} id="soil-submit-button" type='submit'>Get soil data*</button>
+                        </div>
                     </div>
-                </form>
                 {emptyData && (
-                    <h3>Unfortunately, we do not have data for this location.</h3>
+                    <h3 className="errors-info">Unfortunately, we do not have data for this location.</h3>
                 )}
+                </form>
 
 
                 {display && (
                     <div id="results-wrapper">
-                        <p>% Sand: {sand} %</p>
-                        <p>% Silt: {silt} %</p>
-                        <p>% Clay: {clay} % </p>
-                        <p>CEC: {cec} cmol(c)/kg</p>
-                        <p>Bulk Density: {bdod} kg/dm<sup>3</sup></p>
-                        <p>Nitrogen: {nitrogen} g/kg</p>
-                        <p>Soil Organic Content: {soc} g/kg</p>
-                        <p>pH: {phh2o}</p>
+                        <h2>Results</h2>
+                        <div className="ind-results">
+                            <p>% Sand:</p>
+                            <p id="data-point">{sand} %</p>
+                        </div>
+                        <div className="ind-results">
+                            <p>% Silt:</p>
+                            <p id="data-point">{silt} %</p>
+                        </div>
+                        <div className="ind-results">
+                            <p>% Clay:</p>
+                            <p id="data-point">{clay} %</p>
+                        </div>
+                        <div className="ind-results">
+                            <p>CEC:</p>
+                            <p id="data-point">{cec} cmol(c)/kg</p>
+                        </div>
+                        <div className="ind-results">
+                            <p>Bulk Density:</p>
+                            <p id="data-point">{bdod} kg/dm<sup>3</sup></p>
+                        </div>
+                        <div className="ind-results">
+                            <p>Nitrogen:</p>
+                            <p id="data-point">{nitrogen} g/kg</p>
+                        </div>
+                        <div className="ind-results">
+                            <p>Soil Organic Content:</p>
+                            <p id="data-point">{soc} g/kg</p>
+                        </div>
+                        <div className="ind-results">
+                            <p>pH:</p>
+                            <p id="data-point">{phh2o}</p>
+                        </div>
+
                         {/* <button onClick={e => saveSoil(e)}>Save data</button> */}
-                        <div id="buttons-wrappers">
+                        <div id="soil-buttons-wrappers" onClick={e=>setAdded(true)}>
+
                             <OpenModalButton
-                            buttonText ="Add Soil"
+                            buttonText ="Add to my soils"
                             modalComponent ={<CreateSoilModal soilData={soilData}/>}
                             />
+                            <button onClick={e => postSoil(e)}>Post with data</button>
                         </div>
-                        <button onClick={e => postSoil(e)}>Make post with data</button>
                     </div>
                 )}
-
-                {success && (
-                    <div>
-                        <h2 id="save-success">Soil saved successfully!</h2>
-                    </div>
-                )}
-                {showPost &&(
-                    <div id='form-wrapper'>
-                <form onSubmit ={(e)=> submitPost(e)}>
-                    {hasSubmitted && validationErrors.title && (
-                        <div className="errors-info">
-                            <p>{validationErrors.title}</p>
-                        </div>
-                    )}
-                    <label>
-                        <input
-                            placeholder = "Title"
-                            id="title-input"
-                            type= "textarea"
-                            value={title}
-                            onChange={e=> setTitle(e.target.value)}
-                        >
-                        </input>
-                    </label>
-
-                    {hasSubmitted && validationErrors.body && (
-                        <div className="errors-info">
-                            <p>{validationErrors.body}</p>
-                        </div>
-                    )}
-                    <label>
-                        <textarea
-                            placeholder = "Body"
-                            id="body-input"
-                            type= "textarea"
-                            value={body}
-                            onChange={e=> setBody(e.target.value)}
-                        >
-                        </textarea>
-                    </label>
-
-                    <br></br>
-                    <div>
-                        <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
-                    </div>
-                </form>
             </div>
+            {(success && (added)) &&   (
+                <div>
+                    <h2 id="save-success-b4-post">Soil saved successfully!</h2>
+                </div>
+            )}
+
+            <div>
+                {showPost &&(
+                    <div id='soil-post-form-wrapper'>
+                        <form onSubmit ={(e)=> submitPost(e)} id="soil-post-form-elements">
+                            {hasSubmitted && validationErrors.title && (
+                                <div className="errors-info">
+                                    <p>{validationErrors.title}</p>
+                                </div>
+                            )}
+                            <label>
+                                <input
+                                    placeholder = "Post Title"
+                                    id="soil-title-input"
+                                    type= "textarea"
+                                    value={title}
+                                    onChange={e=> setTitle(e.target.value)}
+                                >
+                                </input>
+                            </label>
+
+                            {hasSubmitted && validationErrors.body && (
+                                <div className="errors-info">
+                                    <p>{validationErrors.body}</p>
+                                </div>
+                            )}
+                            <label>
+                                <textarea
+                                    placeholder = "Body"
+                                    id="soil-post-form-body-input"
+                                    type= "textarea"
+                                    value={body}
+                                    onChange={e=> setBody(e.target.value)}
+                                >
+                                </textarea>
+                            </label>
+
+                            
+                            <div id="submit-button-wrapper">
+                                <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
+                            </div>
+                        </form>
+                    </div>
                 )}
-
-
                 <br></br>
                 <p>*Note that data are calculated as averages of median values at depths 0-5cm, 5-15cm, 15-30cm, 30-60cm. This accounts for why the percentages do not add up to 100%. For more comprehensive data for your sample, further soil depths, or just more information about the ISRIC API, please submit the latitude and longitude coordinates for your location <a href="https://rest.isric.org/soilgrids/v2.0/docs#/default/query_layer_properties_properties_query_get">here</a>, or visit their data resource FAQs <a href="https://www.isric.org/explore/soilgrids/faq-soilgrids">here</a>.</p>
             </div>

@@ -25,7 +25,7 @@
 }
 .large-links {
     margin-top: .75rem;
-    font-size: 16pt;
+    font-size: 18pt;
 }
 
 .large-links:hover {
@@ -35,4 +35,5 @@
 #smaller-links{
     margin-top: .25rem;
     margin-left: 1rem;
+    font-size: 14pt;
 }

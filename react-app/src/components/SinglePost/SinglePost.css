@@ -29,9 +29,11 @@
     border-radius: 3pt;
     border: var(--text) solid 1px;
 }
+
 #buttons-wrappers>a:hover{
     /* color: var(--text); */
     background-color: var(--med-green);
+    cursor: pointer;
 }
 
 #buttons-wrappers>button {
@@ -46,6 +48,7 @@
 #buttons-wrappers>button:hover{
     color: var(--background);
     background-color: var(--redder);
+    cursor: pointer;
 }
 
 

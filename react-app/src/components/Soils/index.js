@@ -106,7 +106,7 @@ const Soils = () => {
             <div id="soil-samples-wrapper">
 
                 <div id="soils-header-wrapper">
-                    <h1>My Soil Samples*</h1>
+                    <h1 id="soil-page-title">My Soil Samples*</h1>
                     <div id="right-header-wrapper">
                         <div id="new-soil-wrapper">
                             <Link exact to ={`/soils/new`} id="new-soil">Request Soil Sample</Link>

@@ -1,0 +1,168 @@
+#whole-new-soil-wrapper{
+    width: 85vw;
+    /* border: red solid 1px */
+}
+
+#new-soil-header{
+    padding: 1rem;
+    border-bottom: 1px solid var(--nice-green)
+}
+
+#new-soil-header>h1{
+    color: var(--nice-green);
+    margin-bottom: .5rem;
+}
+
+#soil-form-wrapper{
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 15rem;
+    height: 20rem;
+    border: 1px solid var(--nice-green);
+    border-radius: 8pt;
+}
+
+#latitude-input, #longitude-input{
+    padding: 1rem;
+    border: 1px solid var(--nice-green);
+    border-radius: 8pt;
+    font-size: 14pt;
+    margin-bottom: 1rem;
+}
+
+.errors-info>p, .errors-info{
+    color: var(--delete);
+}
+
+
+#soil-submit-button {
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    background-color: var(--nice-green);
+    color: var(--background);
+    border-radius: 3pt;
+    border: var(--text) solid 1px;
+}
+
+#soil-submit-button:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
+}
+
+
+#results-wrapper {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 17rem;
+    height: 20rem;
+    border: 1px solid var(--nice-green);
+    border-radius: 8pt;
+}
+
+#results-wrapper>h2{
+    color: var(--nice-green);
+    margin-bottom: .5rem;
+}
+
+#input-results-wrapper{
+    display: flex;
+    /* justify-content: center; */
+}
+
+.ind-results{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--med-green);
+    margin-bottom: .25rem;
+}
+
+#data-point{
+    font-size: 15pt
+}
+
+#buttons-wrappers{
+    padding-top: 1rem;
+}
+
+#soil-buttons-wrappers{
+    display: flex;
+    justify-content: center;
+    margin-top:1rem;
+}
+
+#soil-buttons-wrappers> button {
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    margin-left: .25rem;
+    margin-right: .25rem;
+    background-color: var(--nice-green);
+    color: var(--background);
+    border-radius: 3pt;
+    border: var(--text) solid 1px;
+}
+
+#soil-buttons-wrappers>button:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
+}
+
+
+#save-success-b4-post{
+    margin-left: 12rem;
+    color: var(--med-green);
+}
+
+#soil-post-form-wrapper{
+    margin-left: 1rem;
+    width:42rem;
+
+}
+
+#soil-post-form-elements{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: flex-end; */
+}
+
+
+#soil-title-input {
+    margin: 1rem 0;
+    padding: .5rem;
+    width: 42rem;
+    border: solid var(--nice-green);
+    border-radius: 4px;
+    font-size: 14pt;
+
+}
+
+#soil-post-form-body-input {
+    width: 42rem;
+    font-size: 13pt;
+    border: solid var(--nice-green);
+    border-radius: 4px;
+    padding:.5rem
+}
+
+#submit-button-wrapper>button{
+    margin: .5rem 0;
+    background-color: var(--nice-green);
+    color: var(--background);
+}
+
+
+#submit-button-wrapper>button:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
+}

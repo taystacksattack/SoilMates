@@ -18,6 +18,11 @@
     background-color: var(--nice-green);
     color: var(--background)
 }
+#new-post:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
+}
 
 #sort-wrapper{
     padding-top: 1rem;
@@ -45,6 +50,7 @@
 .sort-button:hover, .not-sorted:hover{
     color: var(--text);
     background-color: var(--lt-green);
+    cursor: pointer;
 }
 
 .not-sorted{

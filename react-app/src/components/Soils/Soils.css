@@ -10,6 +10,11 @@
     border-bottom: var(--nice-green) 1px solid;
 }
 
+#soil-page-title{
+    color: var(--nice-green)
+}
+
+
 #new-soil-wrapper{
     display: flex;
     justify-content: flex-end;

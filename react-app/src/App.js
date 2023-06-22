@@ -43,9 +43,9 @@ function App() {
               <SplashPage />
             </Route>)}
 
-            <Route path="/login" >
+            {!userObj && (<Route path="/login" >
               <LoginFormPage />
-            </Route>
+            </Route>)}
 
             <Route path="/signup">
               <SignupFormPage />

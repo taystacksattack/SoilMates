@@ -19,7 +19,7 @@ const Footer = () => {
                 <h3>Navigation</h3>
                 <div id="nav-links-wrapper">
                     <NavLink exact to="/about">About</NavLink>
-                    <NavLink exact to={sessionUser ? "/feed": "/login"}>All Posts</NavLink>
+                    <Link exact to="/feed">All Posts</Link>
                     <NavLink exact to="/posts/new">Post a Question</NavLink>
                     <NavLink exact to="/soils">Get Soil Data</NavLink>
                 </div>

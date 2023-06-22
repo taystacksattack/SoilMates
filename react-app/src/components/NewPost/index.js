@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState,useEffect } from 'react';
 import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
+import './NewPost.css'
 
 
 const CreatePost = ({soil}) => {
@@ -63,8 +64,8 @@ const CreatePost = ({soil}) => {
 
     return (
         <div id='whole-new-post-wrapper'>
-            <div id='form-wrapper'>
-                <form onSubmit ={(e)=> submitPost(e)}>
+            <div id='soil-post-form-wrapper'>
+                <form onSubmit ={(e)=> submitPost(e)} id="soil-post-form-elements">
                     {hasSubmitted && validationErrors.title && (
                         <div className="errors-info">
                             <p>{validationErrors.title}</p>
@@ -73,7 +74,7 @@ const CreatePost = ({soil}) => {
                     <label>
                         <input
                             placeholder = "Title"
-                            id="title-input"
+                            id="soil-title-input"
                             type= "textarea"
                             value={title}
                             onChange={e=> setTitle(e.target.value)}
@@ -89,7 +90,7 @@ const CreatePost = ({soil}) => {
                     <label>
                         <textarea
                             placeholder = "Body"
-                            id="body-input"
+                            id="soil-post-form-body-input"
                             type= "textarea"
                             value={body}
                             onChange={e=> setBody(e.target.value)}
@@ -98,7 +99,7 @@ const CreatePost = ({soil}) => {
                     </label>
 
                     <br></br>
-                    <div>
+                    <div id="submit-button-wrapper">
                         <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
                     </div>
                 </form>

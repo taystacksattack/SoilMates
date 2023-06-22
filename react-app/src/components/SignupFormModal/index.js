@@ -22,6 +22,8 @@ function SignupFormModal() {
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setHasSubmitted(true)
+		if (Object.values(validationErrors).length) return
+
 		if (password === confirmPassword) {
 			const data = await dispatch(signUp(username, email, password));
 			if (data) {

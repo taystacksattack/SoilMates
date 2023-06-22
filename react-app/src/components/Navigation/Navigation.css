@@ -82,6 +82,7 @@
   border: var(--other) solid 2px;
   border-radius: 10pt;
   padding: .4rem .2rem;
+  z-index: 100;
 }
 
 .link{

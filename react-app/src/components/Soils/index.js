@@ -7,7 +7,7 @@ import DeleteSoilModal from "../DeleteSoilModal"
 import CreatePostModal from '../CreatePostModal'
 import CreateSoilModal from "../CreateSoilModal"
 import EditSoilTitleModal from '../EditSoilTitleModal'
-
+import'./Soils.css'
 
 const Soils = () => {
     const dispatch = useDispatch()
@@ -102,25 +102,33 @@ const Soils = () => {
     if (!soilsObj) return (<h2>Loading...</h2>)
 
     return(
-        <div>
+        <div id="whole-soil-samples-wrapper">
             <div id="soil-samples-wrapper">
+
                 <div id="soils-header-wrapper">
                     <h1>My Soil Samples*</h1>
-                    <div id="new-post">
-                        <Link exact to ={`/soils/new`}>Request Soil Sample</Link>
-                            <div id="new-sample-wrapper">
-                                <form>
+                    <div id="right-header-wrapper">
+                        <div id="new-soil-wrapper">
+                            <Link exact to ={`/soils/new`} id="new-soil">Request Soil Sample</Link>
+                                <div id="new-sample-wrapper">
+                                    <form>
 
-                                </form>
+                                    </form>
 
+                                </div>
+                            {/* make this also like a dropdown...? */}
+                        </div>
+                        <div id="sort-wrapper">
+                            <h3>Sort by:</h3>
+                            <div id="sort-buttons-wrapper">
+                                <button onClick={(e)=>setSortType("title")} className={sortType === 'title' ? "sort-button": "not-sorted"}>Title</button>
+                                <button onClick={e=>setSortType("created_at")} className={sortType === 'created_at' ? "sort-button": "not-sorted"}>Most Recent</button>
                             </div>
-                        {/* make this also like a dropdown...? */}
+                        </div>
+
                     </div>
-                        <h3>Sort by:</h3>
-                        <button onClick={(e)=>setSortType("title")}>Title</button>
-                        <button onClick={e=>setSortType("created_at")}>Most Recent</button>
                 </div>
-                <br></br>
+
                 <div id="soil-samples-list-wrapper">
                     {soilsObj && soils.map(soil=>{
                         return (
@@ -148,16 +156,19 @@ const Soils = () => {
                                         </ul>
                                     </div>)}
                                 <div id="buttons-wrappers">
+                                    <div id="add-soil-to-post">
+                                        <OpenModalButton
+                                        id="something"
+                                        buttonText ="Add Soil to Post"
+                                        modalComponent ={<CreatePostModal soil={soil}/>}
+                                        />
+                                    </div>
 
                                     <OpenModalButton
                                     buttonText ="Delete Soil"
                                     modalComponent ={<DeleteSoilModal soil={soil}/>}
                                     />
 
-                                    <OpenModalButton
-                                    buttonText ="Add Soil to Post"
-                                    modalComponent ={<CreatePostModal soil={soil}/>}
-                                    />
                                     {/* <NavLink exact to={{
                                         pathname:`/posts/new`,
                                         soilProps:{

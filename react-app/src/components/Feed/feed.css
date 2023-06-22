@@ -1,6 +1,6 @@
 #header-sort-wrapper{
     padding: 1rem;
-    border-bottom: var(--nice-green) 1px solid;
+    /* border-bottom: var(--nice-green) 1px solid; */
 }
 
 #header-wrapper{

@@ -15,6 +15,7 @@ import Soils from "./components/Soils";
 import SoilsFetch from "./components/SoilsFetch";
 import './index.css'
 import SplashPage from "./components/SplashPage";
+import Footer from "./components/Footer";
 
 
 function App() {
@@ -81,6 +82,7 @@ function App() {
           </Switch>
         )}
       </div>
+      <Footer/>
     </div>
     </>
   );

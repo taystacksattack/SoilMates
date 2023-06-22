@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 const SplashPage = () =>{
     return (
     <div id="splash-wrapper">
-        <h2>Hello</h2>
+        <h2>Hello this is a placeholder for a splashpage</h2>
     </div>
     )
 }

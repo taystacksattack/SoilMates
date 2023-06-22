@@ -139,19 +139,21 @@
 #soil-title-input {
     margin: 1rem 0;
     padding: .5rem;
-    width: 42rem;
-    border: solid var(--nice-green);
-    border-radius: 4px;
+    width: 37.5rem;
+    border: solid var(--nice-green)1px;
+    border-radius: 8px;
     font-size: 14pt;
 
 }
 
 #soil-post-form-body-input {
-    width: 42rem;
+    width: 37.5rem;
+    height: 25rem;
     font-size: 13pt;
-    border: solid var(--nice-green);
-    border-radius: 4px;
-    padding:.5rem
+    border: solid var(--nice-green)1px;
+    border-radius: 3px;
+    padding:.5rem;
+    resize: none;
 }
 
 #submit-button-wrapper>button{

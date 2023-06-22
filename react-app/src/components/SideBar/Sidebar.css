@@ -8,8 +8,10 @@
     /* border-radius: 10px; */
     width: 15vw;
     padding: 1%;
-    height: 90vh;
+    height: 100vh;
     margin-left: 5px;
+    position: sticky;
+    top: 0rem
 }
 
 
@@ -22,7 +24,8 @@
     /* padding: 4% 0% */
 }
 .large-links {
-    font-size: 16pt;
+    margin-top: .75rem;
+    font-size: 18pt;
 }
 
 .large-links:hover {
@@ -32,4 +35,5 @@
 #smaller-links{
     margin-top: .25rem;
     margin-left: 1rem;
+    font-size: 14pt;
 }

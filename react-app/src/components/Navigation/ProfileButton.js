@@ -50,13 +50,13 @@ function ProfileButton({ user }) {
         </button>
         <ul className={ulClassName} ref={ulRef}>
           {user ? (
-            <>
+            <div id="logged-button-wrapper">
               <li>{user.username}</li>
               <li>{user.email}</li>
               <li>
                 <button onClick={handleLogout}>Log Out</button>
               </li>
-            </>
+            </div>
           ) : (
             <div id="login-button-wrapper">
               <OpenModalButton

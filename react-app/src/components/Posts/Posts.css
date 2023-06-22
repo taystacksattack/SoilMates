@@ -1,16 +1,15 @@
-#header-sort-wrapper{
+#header-sort-wrapper {
     padding: 1rem;
-    /* border-bottom: var(--nice-green) 1px solid; */
+    border-bottom: var(--nice-green) 1px solid;
 }
 
 #header-wrapper{
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
 }
 
-/* button */
 #new-post{
     font-size: 12pt;
     padding: .25rem .75rem;
@@ -18,6 +17,11 @@
     border: var(--text) solid 2px;
     background-color: var(--nice-green);
     color: var(--background)
+}
+#new-post:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
 }
 
 #sort-wrapper{
@@ -38,7 +42,6 @@
 }
 
 .sort-button{
-
     font-size: 12pt;
     padding: .25rem .75rem;
     background-color: var(--nice-green);
@@ -47,6 +50,7 @@
 .sort-button:hover, .not-sorted:hover{
     color: var(--text);
     background-color: var(--lt-green);
+    cursor: pointer;
 }
 
 .not-sorted{
@@ -55,24 +59,12 @@
     color: var(--nice-green)
 }
 
-#posts-list-wrapper{
-    padding:1rem;
+#posts-wrapper {
+    padding: 1rem;
 }
 
-#post-title{
-    font-size: 18pt;
-    /* color: var(--nice-green); */
-}
-
-#post-title:hover {
-    font-size: 18pt;
-    color: var(--nice-green);
-}
-
-#body-preview{
-    padding: .5rem 0;
-}
-
-#post-info{
-    text-align: end;
+#date-buttons-wrapper{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
 }

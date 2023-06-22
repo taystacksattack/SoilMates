@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton'
 import CreatePostModal from "../CreatePostModal"
 import DeletePostModal from "../DeletePostModal"
 import EditPostModal from "../EditPostModal"
+import './Posts.css'
 
 
 const CurrentPosts = () => {
@@ -44,55 +45,69 @@ const CurrentPosts = () => {
 
     return (
         <div id="posts-whole-wrapper">
-            <div id="posts-list-wrapper">
 
-                <h2>My Posts</h2>
-                <br></br>
-                <NavLink exact to={`/posts/new`}>New Post</NavLink>
+                <div id="header-sort-wrapper">
+                    <div id="header-wrapper">
+                        <h1>My Posts</h1>
+                        <NavLink exact to={`/posts/new`} id='new-post'>New Post</NavLink>
+                    </div>
 
-                {/* <div id="new-post">
-                    <OpenModalButton
-                        buttonText ="Create post"
-                        modalComponent ={<CreatePostModal/>}
-                    />
-                </div> */}
-                <h3>Sort by:</h3>
-                <button onClick={(e)=>setSortType("title")}>Title</button>
-                <button onClick={e=>setSortType("created_at")}>Newest</button>
-                <br></br>
+                    <div>
+                        {/* <div id="new-post">
+                            <OpenModalButton
+                                buttonText ="Create post"
+                                modalComponent ={<CreatePostModal/>}
+                            />
+                        </div> */}
+                        <div id="sort-wrapper">
+                            <h3>Sort by:</h3>
+                            <div id='sort-buttons-wrapper'>
+                                <button onClick={(e)=>setSortType("title")} className={sortType === 'title' ? "sort-button": "not-sorted"}>Title</button>
+                                <button onClick={e=>setSortType("created_at")} className={sortType === 'created_at' ? "sort-button": "not-sorted"}>Newest</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 {/* CONSIDER YOUR SORTING HERE */}
+                <div id="posts-wrapper">
+                    {postsObj && posts.map(post => {
+                        if (post.ownerId === user.id){ //filters out from all posts
+                        return (
+                            <div key={post.id}>
+                                <div id="upper-section">
+                                    <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
+                                </div>
+                                <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
+                                <div id="date-buttons-wrapper">
+                                    <p>Posted on {post.created_at.slice(0,16)}</p>
+                                    <div id="buttons-wrappers">
+                                        <OpenModalButton
+                                            buttonText ="Delete Post"
+                                            modalComponent ={<DeletePostModal post={post}/>}
+                                        />
+                                        <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink>
+                                        {/*
+                                        <OpenModalButton
+                                            buttonText ="Edit post"
+                                            modalComponent ={<EditPostModal post={post}/>}
+                                        /> */}
 
-                {postsObj && posts.map(post => {
-                    if (post.ownerId === user.id){ //filters out from all posts
-                    return (
-                        <div key={post.id}>
-                            <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
-                            <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
-                            <p>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
-                            <div id="buttons-wrappers">
-                            <OpenModalButton
-                                buttonText ="Delete Post"
-                                modalComponent ={<DeletePostModal post={post}/>}
-                            />
-                            <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink>
-{/*
-                            <OpenModalButton
-                                buttonText ="Edit post"
-                                modalComponent ={<EditPostModal post={post}/>}
-                            /> */}
+                                        {/* buttonText ="Edit Post"
+                                        // modalComponent ={<EditPostModal post={post}/>}
+                                        /> */}
 
-                    {/* buttonText ="Edit Post"
-                    // modalComponent ={<EditPostModal post={post}/>}
-                    /> */}
-                </div>
-                            {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}
-                            {/* <br></br> */}
+                                    </div>
+                                </div>
 
-                            <br></br>
-                        </div>
-                    )}
-                })}
+                                {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}
+                                {/* <br></br> */}
+
+                                <br></br>
+                            </div>
+                        )}
+                    })}
+
             </div>
         </div>
     )

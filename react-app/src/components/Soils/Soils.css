@@ -1,0 +1,89 @@
+#whole-soil-samples-wrapper {
+    width: 85vw;
+}
+
+#soils-header-wrapper {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: var(--nice-green) 1px solid;
+}
+
+#soil-page-title{
+    color: var(--nice-green)
+}
+
+
+#new-soil-wrapper{
+    display: flex;
+    justify-content: flex-end;
+}
+
+#new-soil {
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    border-radius: 5pt;
+    border: var(--text) solid 2px;
+    background-color: var(--nice-green);
+    color: var(--background)
+}
+#new-soil:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+}
+
+#sort-wrapper {
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+#soil-samples-list-wrapper{
+    /* padding: 1rem; */
+    display: flex;
+    flex-wrap:wrap
+}
+
+#single-soil-wrapper{
+    margin: 1rem;
+    padding: .75rem;
+    border: solid 1px var(--nice-green);
+    border-radius: 8pt;
+    width: 20rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#soil-title{
+    color: var(--nice-green);
+    margin-bottom: .5rem;
+}
+
+#single-soil-body{
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+}
+
+#buttons-wrappers{
+    display: flex;
+    justify-content: center;
+}
+
+
+#add-soil-to-post>button {
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    border-radius: 5pt;
+    border: var(--text) solid 2px;
+    color: var(--background);
+    background-color: var(--nice-green);
+}
+
+#add-soil-to-post>button:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+}

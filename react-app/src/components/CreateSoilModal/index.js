@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useModal } from '../../context/Modal'
 import { createSoilThunk } from "../../store/soils";
 import OpenModalButton from "../OpenModalButton";
+import './CreateSoilModal.css'
 // import SuccessModal from "../SuccessModal";
 // import { useHistory } from "react-router-dom";
 
@@ -64,33 +65,37 @@ const CreateSoilModal = ({soilData}) =>{
     return(
         <div>
             {success && (
-                <div>
+                <div id="success-modal">
                     <h1 id="save-success">Saved Successfully!</h1>
                     <h2>Feel free to add it to a post</h2>
                 </div>
             )}
             {!success && (
-                <div>
-                <h2>Save your Soil!</h2>
-                {hasSubmitted && validationErrors.title && (
-                        <div className="errors-info">
-                            <p>{validationErrors.title}</p>
-                        </div>
-                    )}
-                <input
-                placeholder = "Give it a title"
-                id="title-input"
-                type= "textarea"
-                value={title}
-                onChange={e=> setTitle(e.target.value)}
-                >
-                </input>
-                <h3>Ready to save this Soil?</h3>
-                <button disabled={disabled} onClick={saveSoil}>Yes, please!</button>
-                <div onClick={saveSoil}>
-                </div>
+                <div id="save-soil-modal-wrapper">
+                    <h2>Save your Soil!</h2>
+                    {hasSubmitted && validationErrors.title && (
+                            <div className="errors-info">
+                                <p>{validationErrors.title}</p>
+                            </div>
+                        )}
+                    <input
+                        placeholder = "Give it a title"
+                        id="title-input"
+                        type= "textarea"
+                        value={title}
+                        onChange={e=> setTitle(e.target.value)}
+                    >
+                    </input>
 
-                <button onClick={closeModal}>No, thanks!</button>
+
+                    <h3>Ready to save this soil?</h3>
+                    <div id="save-title-buttons-wrapper">
+                        <button disabled={disabled} onClick={saveSoil} id="save-title-buttons">Yes, please!</button>
+                        <div onClick={saveSoil}>
+                        </div>
+                        <button onClick={closeModal} id="cancel-button">No, thanks!</button>
+
+                    </div>
                 </div>
             )}
         </div>

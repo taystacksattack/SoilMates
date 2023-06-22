@@ -3,6 +3,7 @@ import { useState, useEffect} from "react"
 import {Link } from "react-router-dom"
 import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
+import './feed.css'
 
 
 const Feed = () => {
@@ -41,36 +42,44 @@ const Feed = () => {
 
     return (
         <div id="posts-whole-wrapper">
-            <div id="posts-list-wrapper">
-
-                <h2>All Questions</h2>
-                <br></br>
-                <div id="new-post">
-                    <Link exact to ={`/posts/new`}>New Post</Link>
+            <div id="header-sort-wrapper">
+                <div id= "header-wrapper">
+                    <h1>All Posts</h1>
+                    <br></br>
+                    <div>
+                        <Link exact to ={`/posts/new`} id="new-post">New Post</Link>
+                    </div>
                 </div>
-                <br></br>
+
 
                 {/* CONSIDER YOUR SORTING HERE */}
-                <h3>Sort by:</h3>
-                <button onClick={(e)=>setSortType("title")}>Title</button>
-                <button onClick={e=>setSortType("created_at")}>Newest</button>
+                <div id="sort-wrapper">
+                    <h3>Sort by:</h3>
+                    <div id="sort-buttons-wrapper">
+                        <button onClick={(e)=>setSortType("title")} className={sortType === 'title' ? "sort-button": "not-sorted"}>Title</button>
+                        <button onClick={e=>setSortType("created_at")} className={sortType === 'created_at' ? "sort-button": "not-sorted"}>Newest</button>
+                    </div>
+                </div>
                 {/* <button>Trending</button> */}
                 {/* <button>Active?</button> */}
                 {/* <button>Unanswered</button> */}
+            </div>
 
-                {postsObj && posts.map(post => {
-                    return (
-                        <div key={post.id}>
-                            <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
-                            <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
-                            <p>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
-                            {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}
-                            {/* <br></br> */}
+            <div id="posts-list-wrapper">
 
-                            <br></br>
-                        </div>
-                    )
-                })}
+                    {postsObj && posts.map(post => {
+                        return (
+                            <div key={post.id} id="single-post-wrapper">
+                                <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
+                                <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
+                                <p id='post-info'>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
+                                {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}
+                                {/* <br></br> */}
+                                <br></br>
+                            </div>
+                        )
+                    })}
+
             </div>
         </div>
     )

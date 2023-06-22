@@ -1,0 +1,62 @@
+#save-soil-modal-wrapper{
+    margin: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;;
+}
+
+#title-input{
+    margin: 1rem 0;
+    padding: .5rem;
+    width: 100%;
+    border: solid var(--nice-green);
+    border-radius: 8px;
+    font-size: 14pt;
+
+}
+
+#save-title-buttons-wrapper{
+    display: flex;
+    margin-top: .5rem;
+}
+
+#save-title-buttons {
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    margin-left: .5rem;
+    background-color: var(--nice-green);
+    color: var(--background);
+    border-radius: 3pt;
+    border: var(--text) solid 1px;
+}
+
+#save-title-buttons:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
+}
+#cancel-button{
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    margin-left: .5rem;
+    background-color: var(--delete);
+    color: var(--background);
+    border-radius: 3pt;
+    border: var(--text) solid 1px;
+}
+
+#cancel-button:hover {
+    /* color: var(--text); */
+    background-color: var(--redder);
+    cursor: pointer;
+}
+
+#success-modal{
+    margin: 1.5rem;
+    border-radius:10pt;
+}
+
+#save-success{
+    color: var(--med-green);
+    margin-bottom: 1rem
+}

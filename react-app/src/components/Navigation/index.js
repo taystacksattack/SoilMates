@@ -14,6 +14,7 @@ function Navigation({ isLoaded }){
 
 	const submitQuery = async (e) => {
 		e.preventDefault()
+		alert("Feature coming soon!")
 	}
 
 	useEffect(() => {

@@ -19,6 +19,7 @@ import Footer from "./components/Footer";
 import About from "./components/About";
 
 
+
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);

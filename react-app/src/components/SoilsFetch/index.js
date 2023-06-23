@@ -1,3 +1,6 @@
+// map stuff
+import Map from './Map'
+
 import { useDispatch } from "react-redux";
 import { useState,useEffect, CSSProperties } from 'react';
 import { createSoilThunk } from '../../store/soils'
@@ -206,6 +209,8 @@ const SoilsFetch = () => {
                 <h1>Soil Data Requests</h1>
                 <h3>For accuracy, please make sure you submit latitude and longitude coordinates up to six decimal places. </h3>
             </div>
+
+            <Map/>
 
             <div id="input-results-wrapper">
                 <form onSubmit ={(e)=> submitSoil(e)}>

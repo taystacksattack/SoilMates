@@ -67,6 +67,13 @@
     border-radius: 8pt;
 }
 
+.sweet-loading {
+    width: 16rem;
+    /* border: red solid 1px; */
+    display: flex;
+    justify-content: center;
+}
+
 #results-wrapper>h2{
     color: var(--nice-green);
     margin-bottom: .5rem;

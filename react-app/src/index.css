@@ -24,7 +24,7 @@
 }
 
 :root{
-    --nice-green: rgb(80, 124, 80);
+    --nice-green: #507c50;
     --med-green: rgb(87, 181, 87);
     --lt-green: rgb(193, 206, 193);
     --background: #f9f8f7;
@@ -49,3 +49,4 @@ button:hover{
     color: var(--nice-green);
     /* border: var(--nice-green) */
 }
+

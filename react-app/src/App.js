@@ -16,6 +16,7 @@ import SoilsFetch from "./components/SoilsFetch";
 import './index.css'
 import SplashPage from "./components/SplashPage";
 import Footer from "./components/Footer";
+import About from "./components/About";
 
 
 function App() {
@@ -33,19 +34,18 @@ function App() {
     <div id="whole-wrapper">
       <Navigation isLoaded={isLoaded} />
       <div id="main-body">
-
         {userObj ? (<SideBar />) : null}
-
 
         {isLoaded && (
           <Switch>
-            {!userObj && (<Route path="/" >
-              <SplashPage />
-            </Route>)}
 
-            {!userObj && (<Route path="/login" >
+            <Route path="/about" >
+              <About />
+            </Route>
+
+            <Route path="/login" >
               <LoginFormPage />
-            </Route>)}
+            </Route>
 
             <Route path="/signup">
               <SignupFormPage />
@@ -79,6 +79,9 @@ function App() {
               <Soils />
             </Route>
 
+            <Route path="/" >
+              <SplashPage />
+            </Route>
           </Switch>
         )}
       </div>

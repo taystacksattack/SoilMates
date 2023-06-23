@@ -50,6 +50,12 @@
   /* border: red solid 1px; */
 }
 
+#sticky-wrapper{
+  position: sticky;
+  top:0px;
+  z-index: 100
+}
+
 #navigation-wrapper {
   display: flex;
   justify-content: space-between;

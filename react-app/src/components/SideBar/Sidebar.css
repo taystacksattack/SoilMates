@@ -8,10 +8,12 @@
     /* border-radius: 10px; */
     width: 15vw;
     padding: 1%;
-    height: 100vh;
+    height: 91vh;
     margin-left: 5px;
     position: sticky;
-    top: 0rem
+    top: 2.9rem;
+    bottom: 5rem;
+    /* z-index:-1 */
 }
 
 

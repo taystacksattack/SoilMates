@@ -80,7 +80,7 @@ function App() {
             </Route>
 
             <Route path="/" >
-              <SplashPage />
+              {!userObj?(<SplashPage />):(<Feed/>)}
             </Route>
           </Switch>
         )}

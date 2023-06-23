@@ -27,6 +27,10 @@
     margin: .15rem 0
 }
 
+#demo-button-wrapper{
+    display: flex;
+    align-items: center;
+}
 
 #demo-button-wrapper>button {
     margin: .5rem .5rem;

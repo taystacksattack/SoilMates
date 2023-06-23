@@ -158,7 +158,7 @@
     height: 25rem;
     font-size: 13pt;
     border: solid var(--nice-green)1px;
-    border-radius: 3px;
+    border-radius: 8px;
     padding:.5rem;
     resize: none;
 }

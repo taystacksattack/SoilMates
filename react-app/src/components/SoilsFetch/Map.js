@@ -18,12 +18,12 @@ const Map = () => {
 
     const handleMapClick = (e) => {
         const { lng, lat } = e.lngLat;
-        setLng(lng);
-        setLat(lat);
+        setLng(lng.toFixed(6));
+        setLat(lat.toFixed(6));
 
-        // if (marker) {
-        //     marker.remove();
-        // }
+        if (marker) {
+            marker.remove();
+        }
 
         const newMarker = new mapboxgl.Marker()
         .setLngLat([lng, lat])

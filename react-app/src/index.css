@@ -50,5 +50,6 @@ button:hover{
     /* border: var(--nice-green) */
 }
 
-
-
+path{
+    background-color: none;
+}

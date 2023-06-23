@@ -14,18 +14,21 @@ const CurrentPosts = () => {
 
     const [posts, setPosts] = useState([])
     const [sortType, setSortType] = useState("created_at")
+    const [render, setRender]= useState(true)
 
     const user = useSelector(state => state.session.user)
     const postsObj= useSelector(state => state.posts.allPosts)
     // console.log(user)
 
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
+    useEffect(()=>{
+        dispatch(getPostsThunk())
+    }, [dispatch, ])
 
-    //Sorting helper function will go here
     const postsArr = Object.values(postsObj)
     useEffect(()=>{
         const sortedPosts = type =>{
-            const sorted = postsArr.sort((a,b)=>{
+            const sorted = [...postsArr].sort((a,b)=>{
                 if (type !== "title"){
                     return new Date(b[type]) - new Date(a[type])
                 } else{
@@ -35,11 +38,9 @@ const CurrentPosts = () => {
             setPosts(sorted)
         }
         sortedPosts(sortType)
-    }, [sortType, postsArr.length])
+    }, [sortType, postsArr.length, render])
 
-    useEffect(()=>{
-        dispatch(getPostsThunk())
-    }, [dispatch, ])
+
 
     if (!postsObj) return (<h2>Loading...</h2>)
 
@@ -86,12 +87,12 @@ const CurrentPosts = () => {
                                             buttonText ="Delete Post"
                                             modalComponent ={<DeletePostModal post={post}/>}
                                         />
-                                        <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink>
-                                        {/*
+                                        {/* <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink> */}
+
                                         <OpenModalButton
                                             buttonText ="Edit post"
-                                            modalComponent ={<EditPostModal post={post}/>}
-                                        /> */}
+                                            modalComponent ={<EditPostModal post={post} setRender={setRender} render={render}/>}
+                                        />
 
                                         {/* buttonText ="Edit Post"
                                         // modalComponent ={<EditPostModal post={post}/>}

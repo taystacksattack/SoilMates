@@ -5,15 +5,15 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 
 
-const EditPostModal = ({post}) => {
+const EditPostModal = ({post, setRender, render}) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const postId = post.id
     const {closeModal} = useModal()
 
-    useEffect(()=>{
-        dispatch(getPostsThunk())
-    }, [dispatch])
+    // useEffect(()=>{
+    //     dispatch(getPostsThunk())
+    // }, [dispatch])
 
     const [title, setTitle] = useState(post?.title)
     const [body, setBody] = useState(post?.body)
@@ -43,7 +43,8 @@ const EditPostModal = ({post}) => {
         setTimeout(closeModal, 2000)
         setTitle('')
         setBody('')
-        history.push(`/posts`)
+        setRender(!render)
+        // history.push(`/posts`)
     }
 
     useEffect(()=>{

@@ -2,19 +2,24 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css'
 
-const Map = () => {
+
+
+const Map = ({setLatitude, latitude, setLongitude, longitude}) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(-95.274188);
-    const [lat, setLat] = useState(39.640484);
+    // const [longitude, setLongitude] = useState(-95.274188);
+    // const [lat, setLatitude] = useState(39.640484);
     const [zoom, setZoom] = useState(2.74);
     const [marker, setMarker] = useState(null)
 
+    console.log("latitude",latitude)
+    console.log("longitude",longitude)
 
-    const handleMapClick = (e) => {
+    const handleMapClick = async (e) => {
         const { lng, lat } = e.lngLat;
-        setLng(lng.toFixed(6));
-        setLat(lat.toFixed(6));
+
+        (setLongitude(lng.toFixed(6)));
+        (setLatitude(lat.toFixed(6)));
 
         if (marker) {
             marker.remove();
@@ -34,7 +39,7 @@ const Map = () => {
     map.current = new mapboxgl.Map({
         container: mapContainer.current,
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [lng, lat],
+        center: [longitude, latitude],
         zoom: zoom,
     });
 
@@ -51,8 +56,8 @@ const Map = () => {
 //   useEffect(() => {
 //     if (!map.current) return; // wait for map to initialize
 //     map.current.on('click', (e) => {
-//         setLng(map.current.getCenter().lng.toFixed(6));
-//         setLat(map.current.getCenter().lat.toFixed(6));
+//         setLongitude(map.current.getCenter().longitude.toFixed(6));
+//         setLatitude(map.current.getCenter().latitude.toFixed(6));
 //         setZoom(map.current.getZoom().toFixed(2));
 
 //         });
@@ -69,7 +74,7 @@ useEffect(() => {
   return (
     <div>
         <div className="sidebar">
-            Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
+            Longitude: {longitude} | Latitude: {latitude} | Zoom: {zoom}
         </div>
       <div ref={mapContainer} className="map-container" style={{ width: '100%', height: '400px' }} />
     </div>

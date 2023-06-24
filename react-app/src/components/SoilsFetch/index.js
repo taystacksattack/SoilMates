@@ -18,8 +18,8 @@ const SoilsFetch = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [latitude, setLatitude] = useState("")
-    const [longitude, setLongitude] = useState("")
+    const [latitude, setLatitude] = useState(39.640484)
+    const [longitude, setLongitude] = useState(-95.274188)
     const [sand, setSand] = useState("")
     const [silt, setSilt] = useState("")
     const [clay, setClay] = useState("")
@@ -68,10 +68,10 @@ const SoilsFetch = () => {
 
         setLoading(true)
         //sample data for testing purposes (so you're not doing API calls everytime)
-        const data = sampleData
+        // const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
-        // const data = await getSoilData(longitude, latitude)
+        const data = await getSoilData(longitude, latitude)
         setLoading(false)
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
@@ -210,7 +210,7 @@ const SoilsFetch = () => {
                 <h3>For accuracy, please make sure you submit latitude and longitude coordinates up to six decimal places. </h3>
             </div>
 
-            <Map/>
+            <Map setLatitude={setLatitude} latitude={latitude} setLongitude={setLongitude} longitude={longitude}/>
 
             <div id="input-results-wrapper">
                 <form onSubmit ={(e)=> submitSoil(e)}>

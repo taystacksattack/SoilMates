@@ -1,0 +1,147 @@
+#whole-splash-wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+#background-green{
+    margin-top: 2rem;
+    /* position: absolute; */
+    background-color: var(--lt-green);
+    width:94vw;
+    height:25rem;
+    z-index: -50;
+    display:flex;
+    /* flex-direction: column; */
+    justify-content: center;
+
+}
+
+.orange-speech {
+    width: 100%;
+    height:25rem;
+    /* position: absolute; */
+    top: 7rem;
+    right: 30rem;
+    background: none;
+    z-index: 1
+}
+
+#speech-wrapper{
+    background: none;
+}
+
+.speech-text-wrapper{
+    display: flex;
+    flex-direction: column;
+    width:100%
+}
+
+/* the speech bubble shape itself */
+.brown-speech {
+    width: 100%;
+    height: 25rem;
+    background: none;
+}
+
+/* the h2 */
+.brown-speech-text, .orange-speech-text {
+    font-size: 17pt;
+    width: 18rem;
+    position: absolute;
+    top: 10rem;
+    margin-left: 3.5rem;
+    background: none;
+    z-index: 0;
+}
+.brown-button{
+    /* font-size: 150%; */
+    /* width: 20rem; */
+    position: absolute;
+    top: 17rem;
+    margin-left: 9.5rem;
+    margin-top: .5rem;
+    background: var(--other);
+    border-radius: 3pt;
+    color: var(--background);
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    border: var(--text) solid 1px;
+    z-index: 0
+}
+
+.brown-button:hover{
+    background-color: #b04672;
+    cursor: pointer;
+}
+
+.orange-button {
+    /* font-size: 150%; */
+    /* width: 20rem; */
+    position: absolute;
+    top: 17rem;
+    margin-left: -16rem;
+    margin-top:.5rem;
+    background: var(--nice-green);
+    border-radius: 3pt;
+    color: var(--background);
+    font-size: 12pt;
+    padding: .25rem .75rem;
+    border: var(--text) solid 1px;
+    z-index: 0;
+}
+
+.orange-button:hover {
+    background-color: var(--med-green);
+    cursor: pointer;
+}
+
+
+#gray-box{
+    background-color:var(--text);
+    height: 12rem;
+    width: 85vw;
+}
+
+#gray-box-wrapper{
+    display: flex;
+    justify-content: center;
+    width: 94vw;
+    background-color: var(--lt-green);
+}
+
+.gray-box-text{
+    color:var(--background);
+    font-size: 20pt;
+    text-align: center;
+    width: 50vw;
+    height: 10rem;
+    position: absolute;
+    top: 34rem;
+    /* margin-left: 3.5rem; */
+    background: none;
+    z-index: 25
+}
+
+
+#third-green-section{
+    background-color: var(--lt-green);
+    height: 15rem;
+    width: 94vw
+}
+
+
+
+
+
+/* .tree-stamp1 {
+    height: 4rem;
+    transform: rotate(80deg);
+    position: absolute;
+    top: 6rem;
+    left: 3rem;
+    background: none;
+    z-index: 1
+} */

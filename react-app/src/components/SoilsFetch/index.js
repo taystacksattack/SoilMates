@@ -1,5 +1,8 @@
+// map stuff
+import Map from './Map'
+
 import { useDispatch } from "react-redux";
-import { useState,useEffect } from 'react';
+import { useState,useEffect, CSSProperties } from 'react';
 import { createSoilThunk } from '../../store/soils'
 import { createPostThunk } from "../../store/posts";
 import { useHistory } from 'react-router-dom';
@@ -7,6 +10,7 @@ import { sampleData } from "./sampleData";
 import { getSoilData, sandParse, siltParse, clayParse, cecParse, bdodParse, nitrogenParse, socParse, phh2oParse } from "./dataParsers";
 import CreateSoilModal from "../CreateSoilModal";
 import OpenModalButton from "../OpenModalButton";
+import GridLoader from "react-spinners/GridLoader";
 import './SoilsFetch.css'
 
 
@@ -14,8 +18,8 @@ const SoilsFetch = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    const [latitude, setLatitude] = useState("")
-    const [longitude, setLongitude] = useState("")
+    const [latitude, setLatitude] = useState(39.640484)
+    const [longitude, setLongitude] = useState(-95.274188)
     const [sand, setSand] = useState("")
     const [silt, setSilt] = useState("")
     const [clay, setClay] = useState("")
@@ -34,6 +38,9 @@ const SoilsFetch = () => {
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
     const [added, setAdded] = useState(false)
+
+    let [loading, setLoading] = useState(false);
+    let [color, setColor] = useState("#507c50");
 
     const [display, setDisplay]= useState(false)
     const [success, setSuccess]= useState(false)
@@ -59,12 +66,13 @@ const SoilsFetch = () => {
             return
         }
 
+        setLoading(true)
         //sample data for testing purposes (so you're not doing API calls everytime)
         // const data = sampleData
 
         //actual data collection IRL. Uncomment when you're ready...
         const data = await getSoilData(longitude, latitude)
-
+        setLoading(false)
         // this gives you the whole data object parsed to the specific elements/properties - is an array (note the keying in of "layers")
         console.log("WHOLE DATA SHEBANG", data.properties)
 
@@ -195,10 +203,14 @@ const SoilsFetch = () => {
 
     return (
         <div id='whole-new-soil-wrapper'>
+
+
             <div id="new-soil-header">
                 <h1>Soil Data Requests</h1>
                 <h3>For accuracy, please make sure you submit latitude and longitude coordinates up to six decimal places. </h3>
             </div>
+
+            <Map setLatitude={setLatitude} latitude={latitude} setLongitude={setLongitude} longitude={longitude}/>
 
             <div id="input-results-wrapper">
                 <form onSubmit ={(e)=> submitSoil(e)}>
@@ -245,9 +257,28 @@ const SoilsFetch = () => {
                 )}
                 </form>
 
+                {loading && (
+                    <div id="results-wrapper">
+                        <div className="sweet-loading">
+                            {/* <button onClick={() => setLoading(!loading)}>Toggle Loader</button> */}
+                            {/* <input value={color} onChange={(input) => setColor(input.target.value)} placeholder="Color of the loader" /> */}
+
+                            <GridLoader
+                                color={color}
+                                loading={loading}
+                                // cssOverride={override}
+                                size={30}
+                                aria-label="Loading Spinner"
+                                data-testid="loader"
+                            />
+                        </div>
+
+                    </div>
+                )}
 
                 {display && (
                     <div id="results-wrapper">
+
                         <h2>Results</h2>
                         <div className="ind-results">
                             <p>% Sand:</p>

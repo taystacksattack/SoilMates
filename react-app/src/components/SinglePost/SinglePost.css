@@ -20,7 +20,7 @@
     color: var(--background);
 }
 
-#buttons-wrappers> a {
+#green-button-wrapper> button {
     font-size: 12pt;
     padding: .25rem .75rem;
     margin-left: .5rem;
@@ -30,7 +30,7 @@
     border: var(--text) solid 1px;
 }
 
-#buttons-wrappers>a:hover{
+#green-button-wrapper>button:hover{
     /* color: var(--text); */
     background-color: var(--med-green);
     cursor: pointer;

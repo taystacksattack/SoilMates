@@ -7,7 +7,7 @@ import OpenModalButton from "../OpenModalButton";
 import { useHistory } from "react-router-dom";
 
 
-const EditSoilTitleModal = ({soil}) =>{
+const EditSoilTitleModal = ({soil, setRender, render}) =>{
     const dispatch = useDispatch()
     const history = useHistory()
     const { closeModal } = useModal()
@@ -48,6 +48,7 @@ const EditSoilTitleModal = ({soil}) =>{
         setSuccess(true)
         history.push('/soils')
         dispatch(getSoilsThunk())
+        setRender(!render)
         setTimeout(closeModal, 3000)
         // closeModal()
     }

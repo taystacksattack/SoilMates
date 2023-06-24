@@ -63,8 +63,10 @@ const CreatePost = ({soil}) => {
     // },[Object.values(validationErrors).length])
 
     return (
-        <div id='whole-new-post-wrapper'>
+        <div id='new-posts-wrapper'>
+
             <div id='soil-post-form-wrapper'>
+                <h2>New Post</h2>
                 <form onSubmit ={(e)=> submitPost(e)} id="soil-post-form-elements">
                     {hasSubmitted && validationErrors.title && (
                         <div className="errors-info">

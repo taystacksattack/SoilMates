@@ -30,7 +30,7 @@ function Navigation({ isLoaded }){
 
 	return (
 		<>
-			<div >
+			<div id="sticky-wrapper">
 				<ul id="navigation-wrapper">
 
 					<div id="left-side-nav">

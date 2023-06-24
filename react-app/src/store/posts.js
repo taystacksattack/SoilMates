@@ -152,9 +152,12 @@ export default function postsReducer (state= initialState, action){
             addState.allPosts[action.post.id] = action.post
             return addState
         case EDIT_POST:
+
             const editState = {...state, allPosts:{...state.allPosts}}
-            // console.log("here is the action post", action.post)
+            console.log("before",editState)
+            console.log("here is the action post", action.post)
             editState.allPosts[action.post.id] = action.post
+            console.log("after",editState)
             return editState
         case DELETE_POST:
             const deleteState= {...state, allPosts:{...state.allPosts}}

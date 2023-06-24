@@ -12,6 +12,7 @@ import'./Soils.css'
 const Soils = () => {
     const dispatch = useDispatch()
     const [hidden, setHidden] = useState(true)
+    const [render, setRender]= useState(true)
 
     const [soils, setSoils] = useState([])
     const [sortType, setSortType] = useState("created_at")
@@ -42,7 +43,7 @@ const Soils = () => {
             setSoils(sorted)
         }
         sortedSoils(sortType)
-    }, [sortType, soilsArr.length])
+    }, [sortType, soilsArr.length, render])
 
 
     useEffect(()=>{
@@ -135,7 +136,10 @@ const Soils = () => {
                             <div key={soil.id} id="single-soil-wrapper">
 
                                 {/* onClick = setHidden(true) ...? This causes infinite re-renders */}
+
                                 <h2 id="soil-title" >{soil.title}</h2>
+
+
                                 <div>
 
                                 </div>
@@ -155,7 +159,14 @@ const Soils = () => {
 
                                         </ul>
                                     </div>)}
+
                                 <div id="buttons-wrappers">
+                                    <div id="green-button-wrapper">
+                                    <OpenModalButton
+                                        buttonText ="Edit title"
+                                        modalComponent ={<EditSoilTitleModal soil={soil} setRender={setRender} render={render}/>}
+                                    />
+                                    </div>
                                     <div id="add-soil-to-post">
                                         <OpenModalButton
                                         id="something"

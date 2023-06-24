@@ -2,8 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css'
 
-//private token with limitations
-mapboxgl.accessToken = "pk.eyJ1IjoidGF5c3RhY2tzIiwiYSI6ImNsamFkMjh0eTB2YjAzZnRodmVxeGNwYnIifQ.kbhxuBfQGNyrhBCi48ZtYA"
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_API_KEY
+
 
 const Map = ({setLatitude, latitude, setLongitude, longitude}) => {
     const mapContainer = useRef(null);
@@ -13,8 +13,8 @@ const Map = ({setLatitude, latitude, setLongitude, longitude}) => {
     const [zoom, setZoom] = useState(2.74);
     const [marker, setMarker] = useState(null)
 
-    console.log("latitude",latitude)
-    console.log("longitude",longitude)
+
+    // console.log("longitude",longitude)
 
     const handleMapClick = async (e) => {
         const { lng, lat } = e.lngLat;

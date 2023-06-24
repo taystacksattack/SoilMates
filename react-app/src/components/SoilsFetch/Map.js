@@ -2,7 +2,8 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css'
 
-
+//private token with limitations
+mapboxgl.accessToken = "pk.eyJ1IjoidGF5c3RhY2tzIiwiYSI6ImNsamFkMjh0eTB2YjAzZnRodmVxeGNwYnIifQ.kbhxuBfQGNyrhBCi48ZtYA"
 
 const Map = ({setLatitude, latitude, setLongitude, longitude}) => {
     const mapContainer = useRef(null);

@@ -88,11 +88,13 @@ const CurrentPosts = () => {
                                             modalComponent ={<DeletePostModal post={post}/>}
                                         />
                                         {/* <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink> */}
+                                        <div id="green-button-wrapper">
+                                            <OpenModalButton
+                                                buttonText ="Edit post"
+                                                modalComponent ={<EditPostModal post={post} setRender={setRender} render={render}/>}
+                                            />
 
-                                        <OpenModalButton
-                                            buttonText ="Edit post"
-                                            modalComponent ={<EditPostModal post={post} setRender={setRender} render={render}/>}
-                                        />
+                                        </div>
 
                                         {/* buttonText ="Edit Post"
                                         // modalComponent ={<EditPostModal post={post}/>}

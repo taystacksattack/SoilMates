@@ -1,7 +1,7 @@
 // map stuff
 import Map from './Map'
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect, CSSProperties } from 'react';
 import { createSoilThunk } from '../../store/soils'
 import { createPostThunk } from "../../store/posts";
@@ -17,6 +17,7 @@ import './SoilsFetch.css'
 const SoilsFetch = () => {
     const dispatch = useDispatch()
     const history = useHistory()
+    const userObj = useSelector(state => state.session.user)
 
     const [latitude, setLatitude] = useState(39.640484)
     const [longitude, setLongitude] = useState(-95.274188)
@@ -201,13 +202,15 @@ const SoilsFetch = () => {
     // console.log(longitude)
     // console.log(validationErrors)
 
+    if (!userObj) return( <h2>Please log in or sign up to view this content</h2>)
+
     return (
         <div id='whole-new-soil-wrapper'>
 
 
             <div id="new-soil-header">
                 <h1>Soil Data Requests</h1>
-                <h3>For accuracy, please make sure you submit latitude and longitude coordinates up to six decimal places. </h3>
+                <h3>Click any land on the map! Feel free to also type in your own latitude and longitude values below. For accuracy, please make sure you submit latitude and longitude coordinates up to six decimal places. </h3>
             </div>
 
             <Map setLatitude={setLatitude} latitude={latitude} setLongitude={setLongitude} longitude={longitude}/>
@@ -220,6 +223,7 @@ const SoilsFetch = () => {
                                 <p>{validationErrors.latitude}</p>
                             </div>
                         )}
+                        <h2 style={{marginBottom: 2.5 +"rem"}}>Submit Latitude and Longitude here</h2>
                         <label>
                             <input
                                 placeholder = "Latitude"
@@ -302,7 +306,7 @@ const SoilsFetch = () => {
                         </div>
                         <div className="ind-results">
                             <p>Nitrogen:</p>
-                            <p id="data-point">{nitrogen} g/kg</p>
+                            <p id="data-point">{nitrogen} mg-N/kg</p>
                         </div>
                         <div className="ind-results">
                             <p>Soil Organic Content:</p>
@@ -320,7 +324,9 @@ const SoilsFetch = () => {
                             buttonText ="Add to my soils"
                             modalComponent ={<CreateSoilModal soilData={soilData}/>}
                             />
-                            <button onClick={e => postSoil(e)}>Post with data</button>
+                            <div id="mauve-button-wrapper">
+                                <button onClick={e => postSoil(e)} id="mauve-button">Post with data</button>
+                            </div>
                         </div>
                     </div>
                 )}

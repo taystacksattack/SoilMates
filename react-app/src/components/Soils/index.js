@@ -107,7 +107,11 @@ const Soils = () => {
             <div id="soil-samples-wrapper">
 
                 <div id="soils-header-wrapper">
-                    <h1 id="soil-page-title">My Soil Samples*</h1>
+                    <div>
+                        <h1 id="soil-page-title">My Soil Samples*</h1>
+                        <h3>For interpretting values, see the <Link exact to ={`/about`} id="about-page-link">about page</Link></h3>
+
+                    </div>
                     <div id="right-header-wrapper">
                         <div id="new-soil-wrapper">
                             <Link exact to ={`/soils/new`} id="new-soil">Request Soil Sample</Link>
@@ -153,7 +157,7 @@ const Soils = () => {
                                             <li>% Clay: {soil.percent_clay}%</li>
                                             <li>CEC: {soil.cec} cmol(c)/kg</li>
                                             <li>Bulk Density: {soil.bdod} kg/dm<sup>3</sup></li>
-                                            <li>Nitrogen: {soil.nitrogen} g/kg</li>
+                                            <li>Nitrogen: {soil.nitrogen} mg-N/kg</li>
                                             <li>Soil Organic Carbon: {soil.cec} g/kg</li>
                                             <li>pH: {soil.phh2o}</li>
 
@@ -161,18 +165,18 @@ const Soils = () => {
                                     </div>)}
 
                                 <div id="buttons-wrappers">
-                                    <div id="green-button-wrapper">
-                                    <OpenModalButton
-                                        buttonText ="Edit title"
-                                        modalComponent ={<EditSoilTitleModal soil={soil} setRender={setRender} render={render}/>}
-                                    />
-                                    </div>
                                     <div id="add-soil-to-post">
                                         <OpenModalButton
                                         id="something"
                                         buttonText ="Add Soil to Post"
                                         modalComponent ={<CreatePostModal soil={soil}/>}
                                         />
+                                    </div>
+                                    <div id="green-button-wrapper">
+                                    <OpenModalButton
+                                        buttonText ="Edit title"
+                                        modalComponent ={<EditSoilTitleModal soil={soil} setRender={setRender} render={render}/>}
+                                    />
                                     </div>
 
                                     <OpenModalButton

@@ -1,0 +1,14 @@
+#edit-soil-title-modal-wrapper {
+    margin: 1rem;
+    width: 35rem;
+}
+
+#edit-soil-title-input {
+    margin: 1rem 0;
+    padding: .5rem;
+    width: 95%;
+    border: solid var(--nice-green);
+    border-radius: 8px;
+    font-size: 14pt;
+
+}

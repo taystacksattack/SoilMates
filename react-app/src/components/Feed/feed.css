@@ -59,8 +59,13 @@
     padding:1rem;
 }
 
+#single-post-wrapper{
+    border-bottom: 1px solid var(--lt-green);
+}
+
 #post-title{
     font-size: 18pt;
+    padding-top:1rem;
     /* color: var(--nice-green); */
 }
 

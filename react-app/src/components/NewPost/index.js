@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from 'react';
 import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
@@ -8,7 +8,7 @@ import './NewPost.css'
 const CreatePost = ({soil}) => {
     const dispatch = useDispatch()
     const history = useHistory()
-
+    const userObj = useSelector(state => state.session.user)
     // console.log("soil in newpost", soil)
 
 
@@ -61,6 +61,8 @@ const CreatePost = ({soil}) => {
     // //     console.log(hasSubmitted)
     //     Object.values(validationErrors).length ? setDisabled(true): setDisabled(false)
     // },[Object.values(validationErrors).length])
+
+    if (!userObj) return( <h2>Please log in or sign up to view this content</h2>)
 
     return (
         <div id='new-posts-wrapper'>

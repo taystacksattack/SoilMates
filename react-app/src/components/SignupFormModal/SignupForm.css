@@ -6,6 +6,7 @@
     border-radius: 13pt;
     width: 37vw;
     border: var(--text) 2px solid;
+    background-color: var(--background);
 }
 
 #signup-form-wrapper {

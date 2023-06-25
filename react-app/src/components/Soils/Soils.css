@@ -14,6 +14,9 @@
     color: var(--nice-green)
 }
 
+#about-page-link{
+    color: var(--nice-green);
+}
 
 #new-soil-wrapper{
     display: flex;
@@ -85,11 +88,11 @@
     border-radius: 5pt;
     border: var(--text) solid 1px;
     color: var(--background);
-    background-color: var(--nice-green);
+    background-color: var(--other);
     margin-left: .5rem
 }
 
 #add-soil-to-post>button:hover {
     /* color: var(--text); */
-    background-color: var(--med-green);
+    background-color: var(--lt-other);
 }

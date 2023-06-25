@@ -58,7 +58,7 @@ export const bdodParse = (data) => {
 export const nitrogenParse = (data) => {
     const objData =data.properties.layers[3].depths
     const reducedMedians = objData.reduce((acc, median) => acc + median.values["Q0.5"], 0)
-    return (reducedMedians / objData.length) / 100
+    return (reducedMedians / objData.length)  /10 // something is not right here with the nitrogen
 }
 
 export const socParse = (data) => {

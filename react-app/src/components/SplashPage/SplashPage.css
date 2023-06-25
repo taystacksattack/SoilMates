@@ -56,7 +56,7 @@
     background: none;
     z-index: 0;
 }
-.brown-button{
+.brown-button>button{
     /* font-size: 150%; */
     /* width: 20rem; */
     position: absolute;
@@ -72,7 +72,7 @@
     z-index: 0
 }
 
-.brown-button:hover{
+.brown-button>button:hover{
     background-color: #b04672;
     cursor: pointer;
 }

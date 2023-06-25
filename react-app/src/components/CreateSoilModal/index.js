@@ -45,6 +45,7 @@ const CreateSoilModal = ({soilData}) =>{
         dispatch(createSoilThunk(soilFormData))
         setSuccess(true)
         setTimeout(closeModal, 4000)
+
         // closeModal()
         // history.push('/')
     }
@@ -67,7 +68,7 @@ const CreateSoilModal = ({soilData}) =>{
             {success && (
                 <div id="success-modal">
                     <h1 id="save-success">Saved Successfully!</h1>
-                    <h2>Feel free to add it to a post</h2>
+                    <h2>Click the<span id="mauve-button">button</span> below to add it to a post </h2>
                 </div>
             )}
             {!success && (

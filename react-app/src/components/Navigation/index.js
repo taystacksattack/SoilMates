@@ -53,7 +53,7 @@ function Navigation({ isLoaded }){
 												<NavLink exact to="/posts/new">Post a Question</NavLink>
 											</li>
 											<li className='highlight'>
-												<NavLink exact to="/soils">Get Soil Data</NavLink>
+												<NavLink exact to="/soils/new">Get Soil Data</NavLink>
 											</li>
 
 										</ul>

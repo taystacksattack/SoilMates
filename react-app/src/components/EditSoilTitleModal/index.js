@@ -5,7 +5,7 @@ import { editSoilThunk, getSoilsThunk } from "../../store/soils";
 import OpenModalButton from "../OpenModalButton";
 // import SuccessModal from "../SuccessModal";
 import { useHistory } from "react-router-dom";
-
+import './EditSoilTitleModal.css'
 
 const EditSoilTitleModal = ({soil, setRender, render}) =>{
     const dispatch = useDispatch()
@@ -69,33 +69,36 @@ const EditSoilTitleModal = ({soil, setRender, render}) =>{
     console.log("soil in general in modal", soil)
 
     return(
-        <div>
+        <div id="edit-soil-title-modal-wrapper" >
             {success && (
                 <div>
                     <h1 id="save-success">Title Saved Successfully!</h1>
                 </div>
             )}
             {!success && (
-                <div>
-                <h2>Edit Soil Title</h2>
-                {hasSubmitted && validationErrors.title && (
-                        <div className="errors-info">
-                            <p>{validationErrors.title}</p>
+                <div id="delete-post-modal-wrapper">
+                    <h2>Edit Soil Title</h2>
+                    {hasSubmitted && validationErrors.title && (
+                            <div className="errors-info">
+                                <p>{validationErrors.title}</p>
+                            </div>
+                        )}
+                    <input
+                    id="edit-soil-title-input"
+                    type= "textarea"
+                    value={newTitle}
+                    onChange={e=> setNewTitle(e.target.value)}
+                    >
+                    </input>
+                    {/* <h3>Ready to save this Soil?</h3> */}
+                    <div id="buttons-wrappers">
+                        <div id="green-button-wrapper">
+                            <button disabled={disabled} onClick={saveSoil}>Submit new title</button>
                         </div>
-                    )}
-                <input
-                id="title-input"
-                type= "textarea"
-                value={newTitle}
-                onChange={e=> setNewTitle(e.target.value)}
-                >
-                </input>
-                {/* <h3>Ready to save this Soil?</h3> */}
-                <button disabled={disabled} onClick={saveSoil}>Submit new title</button>
-                <div onClick={saveSoil}>
-                </div>
+                        <button onClick={closeModal}>Discard changes</button>
 
-                <button onClick={closeModal}>Discard changes</button>
+
+                    </div>
                 </div>
             )}
         </div>

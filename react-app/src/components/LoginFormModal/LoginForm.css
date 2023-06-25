@@ -6,6 +6,7 @@
     border-radius: 13pt;
     width: 25vw;
     border: var(--text) 2px solid;
+    background-color: var(--background);
 }
 
 #login-form-wrapper{

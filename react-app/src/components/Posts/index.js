@@ -15,6 +15,7 @@ const CurrentPosts = () => {
     const [posts, setPosts] = useState([])
     const [sortType, setSortType] = useState("created_at")
     const [render, setRender]= useState(true)
+    // const [userPosts, setUserPosts] = useState(true)
 
     const user = useSelector(state => state.session.user)
     const postsObj= useSelector(state => state.posts.allPosts)
@@ -53,11 +54,11 @@ const CurrentPosts = () => {
                         <NavLink exact to={`/posts/new`} id='new-post'>New Post</NavLink>
                     </div>
 
-                    <div>
+                    <div >
                         {/* <div id="new-post">
                             <OpenModalButton
-                                buttonText ="Create post"
-                                modalComponent ={<CreatePostModal/>}
+                            buttonText ="Create post"
+                            modalComponent ={<CreatePostModal/>}
                             />
                         </div> */}
                         <div id="sort-wrapper">
@@ -72,10 +73,12 @@ const CurrentPosts = () => {
 
                 {/* CONSIDER YOUR SORTING HERE */}
                 <div id="posts-wrapper">
+
                     {postsObj && posts.map(post => {
                         if (post.ownerId === user.id){ //filters out from all posts
+                        
                         return (
-                            <div key={post.id}>
+                            <div key={post.id} id="single-post-wrapper">
                                 <div id="upper-section">
                                     <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
                                 </div>
@@ -109,6 +112,7 @@ const CurrentPosts = () => {
                                 <br></br>
                             </div>
                         )}
+
                     })}
 
             </div>

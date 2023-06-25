@@ -23,5 +23,5 @@
   position: absolute;
   border-radius: 18pt;
   border: var(--text) 1px solid;
-  /* background-color:white; */
+  background-color:var(--background);
 }

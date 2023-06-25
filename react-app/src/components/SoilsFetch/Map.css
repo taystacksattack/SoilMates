@@ -15,3 +15,8 @@
     margin: 5px;
     border-radius: 4px;
 }
+
+.mapboxgl-marker.mapboxgl-marker-anchor-center{
+    background-color: transparent;
+    /* border: red solid 1px */
+}

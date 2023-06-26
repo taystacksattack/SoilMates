@@ -72,7 +72,7 @@ const EditPostModal = ({post, setRender, render}) => {
     // },[Object.values(validationErrors).length])
 
     return (
-        <div id='edit-post-modal-wrapper'>
+        <div id='whole-post-modal-wrapper'>
             {success && (
                 <div>
                     <h1 id="save-success">Posted!</h1>

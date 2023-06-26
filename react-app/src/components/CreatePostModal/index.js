@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react';
 import { createPostThunk } from '../../store/posts'
 import { useHistory } from 'react-router-dom';
 import { useModal } from '../../context/Modal'
+import './CreatePostModal.css'
 
 
 const CreatePostModal = ({soil}) => {
@@ -60,14 +61,15 @@ const CreatePostModal = ({soil}) => {
     // },[Object.values(validationErrors).length])
 
     return (
-        <div id='whole-new-post-wrapper'>
+        <div id='soil-post-modal-wrapper'>
             {success && (
                 <div>
                     <h1 id="save-success">Posted!</h1>
                 </div>
             )}
             {!success && (
-            <div id='form-wrapper'>
+                <div id='soil-post-form-wrapper'>
+            <h2>New Post</h2>
                 <form onSubmit ={(e)=> submitPost(e)}>
                     {hasSubmitted && validationErrors.title && (
                         <div className="errors-info">
@@ -77,7 +79,7 @@ const CreatePostModal = ({soil}) => {
                     <label>
                         <input
                             placeholder = "Title"
-                            id="title-input"
+                            id="soil-title-input"
                             type= "textarea"
                             value={title}
                             onChange={e=> setTitle(e.target.value)}
@@ -93,7 +95,7 @@ const CreatePostModal = ({soil}) => {
                     <label>
                         <textarea
                             placeholder = "Body"
-                            id="body-input"
+                            id="edit-post-form-body-input"
                             type= "textarea"
                             value={body}
                             onChange={e=> setBody(e.target.value)}
@@ -102,9 +104,10 @@ const CreatePostModal = ({soil}) => {
                     </label>
 
                     <br></br>
-                    <div>
+                    <div id="green-button-wrapper">
                         <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
                     </div>
+                    <br></br>
                 </form>
             </div>
             )}

@@ -1,148 +1,101 @@
-# Flask React Project
 
-This is the starter for the Flask React project.
+# Thank you for checking out out Soil Mates!
 
-## Getting started
-1. Clone this repository (only this branch)
+SoilMates, a play on "soul mates," is a website clone of Stack Overflow, allowing users to collect soil data, makes posts regarding their soil data and farming needs, and interact with the community by receiving recommendations. Recommendations are upvoted by the community if the recommendation supports the farmer. Soil data requests are mediated using a map GUI to get a lat/lng coordinate, and an API fetch is made to the International Soil Research Information Center for soil data. 
+Feel free to visit the live site [here](https://soilmates.onrender.com/)
 
-2. Install dependencies
+## Index
+* [MVP Feature List](https://github.com/taystacksattack/SoilMates/wiki/Features-List)
+* [Database Schema](https://github.com/taystacksattack/SoilMates/wiki/Database-Schema)
+* [User Stories](https://github.com/taystacksattack/SoilMates/wiki/User-Stories)
+* [Wire Frames](https://github.com/taystacksattack/SoilMates/wiki/Wireframes)
+* [Original Flask Starter Documentation](https://github.com/taystacksattack/EveryNote/wiki/Original-Flask-Starter-Documentation)
 
-      ```bash
-      pipenv install -r requirements.txt
-      ```
+---------------------
 
-3. Create a **.env** file based on the example with proper settings for your
-   development environment
+## Techologies Used
+<img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" /><img
+src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white" /><img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /><img src="https://img.shields.io/badge/Sqlalchemy-000000?style=for-the-badge&logo=Sqlalchemy&logoColor=white" /><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" /><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" /><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /><img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" /><img src="https://img.shields.io/badge/mapbox-000000?style=for-the-badge&logo=mapbox&logoColor=white" /><img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" /><img src="https://img.shields.io/badge/Render-46E3B7?style=for-the-badge&logo=Render&logoColor=white" />
 
+## Splash Page
+![splash](https://github.com/taystacksattack/SoilMates/blob/trueMain/splashpage.png)
+
+## Feed
+![feed](https://github.com/taystacksattack/SoilMates/blob/trueMain/feed.png)
+
+## Single Post
+![notebooks](https://github.com/taystacksattack/SoilMates/blob/trueMain/singlepost.png)
+
+## Soil Request
+![tasks](https://github.com/taystacksattack/SoilMates/blob/trueMain/soilrequest.png)
+
+## Getting Started
+
+1. Start out by cloning the repository
+2. Install the dependencies
+    * `pipenv install -r requirements.txt`
+3. Create .env file, for example:
+     ```
+     SECRET_KEY= super_secret_key_name
+     DATABASE_URL=sqlite:///dev.db
+     SCHEMA= schema_name_here
+     ```
 4. Make sure the SQLite3 database connection URL is in the **.env** file
-
-5. This starter organizes all tables inside the `flask_schema` schema, defined
-   by the `SCHEMA` environment variable.  Replace the value for
-   `SCHEMA` with a unique name, **making sure you use the snake_case
-   convention**.
-
-6. Get into your pipenv, migrate your database, seed your database, and run your Flask app
+5. In a terminal in the app directory,  set up into your pipenv, migrate your database, seed your database, and run your Flask app:
 
    ```bash
    pipenv shell
-   ```
-
-   ```bash
    flask db upgrade
-   ```
-
-   ```bash
    flask seed all
-   ```
-
-   ```bash
    flask run
    ```
 
-7. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
+     * Essentially, in a terminal in the react-app folder:
+         ```
+           npm install
+           npm start
+         ```
+7. Now you can either set up an account or use the demo user option to explore EveryNote
+
+## Features List 
+
+### 1. New account creation, log in, log out, and guest/demo login
+  * Users can sign up, log in, and log out.
+  * Users can use a demo login to try the site.
+  * Users can't use certain features without logging in (like posting and commenting).
+  * Logged in users are directed to their home feed where posts made by other users are shown.
+  * Logged out users are directed to a splash page asking them to login again.
+
+### 2. Soil Data
+  * Logged in users can request soil data by inputting latitude and longitude.
+  * Logged in users can store and view the data later.
+  * Logged in users can post the data if they so choose.
+
+### 3. Posts
+  * Logged in users can submit posts with or without the soil data.
+  * Logged in users can edit and delete their own posts.
+  * Logged in users can view a main feed, or a feed of their posts.
+
+##Future features:
+### 1. Recommendations
+  * Logged in users can view the recommendations on their post and the posts of their peers.
+  * Logged in users can make recommendations on the posts to support the community with their expertise and input.
+  * Logged in users can edit and delete their own recommendations, or if it is their post, they can delete recommendations.
+
+### 2. Comments
+  * Logged in users can view the comments on their recommendations and the recommendations of their peers.
+  * Logged in users can make comments on the recommendations to respond to specific recommendations.
+  * Logged in users can edit and delete their own comments, or if it is their own recommendation or post, they can delete the comment.
+
+### 3. Votes
+  * Logged in users can view the number of votes a recommendation has received.
+  * Logged in users can upvote recommendations with which they agree.
+  * Logged in users can make rescind their vote if they clicked on accident.
+
+### 4. Search and AWS data
+  * Logged in users can search through posts to find if their question has already been asked.
+  * Logged in users can choose and avatar (data which will need to persist via AWS)
 
 
-## Deployment through Render.com
-
-First, refer to your Render.com deployment articles for more detailed
-instructions about getting started with [Render.com], creating a production
-database, and deployment debugging tips.
-
-From the [Dashboard], click on the "New +" button in the navigation bar, and
-click on "Web Service" to create the application that will be deployed.
-
-Look for the name of the application you want to deploy, and click the "Connect"
-button to the right of the name.
-
-Now, fill out the form to configure the build and start commands, as well as add
-the environment variables to properly deploy the application.
-
-### Part A: Configure the Start and Build Commands
-
-Start by giving your application a name.
-
-Leave the root directory field blank. By default, Render will run commands from
-the root directory.
-
-Make sure the Environment field is set set to "Python 3", the Region is set to
-the location closest to you, and the Branch is set to "main".
-
-Next, add your Build command. This is a script that should include everything
-that needs to happen _before_ starting the server.
-
-For your Flask project, enter the following command into the Build field, all in
-one line:
-
-```shell
-# build command - enter all in one line
-npm install --prefix react-app &&
-npm run build --prefix react-app &&
-pip install -r requirements.txt &&
-pip install psycopg2 &&
-flask db upgrade &&
-flask seed all
-```
-
-This script will install dependencies for the frontend, and run the build
-command in the __package.json__ file for the frontend, which builds the React
-application. Then, it will install the dependencies needed for the Python
-backend, and run the migration and seed files.
-
-Now, add your start command in the Start field:
-
-```shell
-# start script
-gunicorn app:app
-```
-
-_If you are using websockets, use the following start command instead for increased performance:_
-
-`gunicorn --worker-class eventlet -w 1 app:app`
-
-### Part B: Add the Environment Variables
-
-Click on the "Advanced" button at the bottom of the form to configure the
-environment variables your application needs to access to run properly. In the
-development environment, you have been securing these variables in the __.env__
-file, which has been removed from source control. In this step, you will need to
-input the keys and values for the environment variables you need for production
-into the Render GUI.
-
-Click on "Add Environment Variable" to start adding all of the variables you
-need for the production environment.
-
-Add the following keys and values in the Render GUI form:
-
-- SECRET_KEY (click "Generate" to generate a secure secret for production)
-- FLASK_ENV production
-- FLASK_APP app
-- SCHEMA (your unique schema name, in snake_case)
-- REACT_APP_BASE_URL (use render.com url, located at top of page, similar to
-  https://this-application-name.onrender.com)
-
-In a new tab, navigate to your dashboard and click on your Postgres database
-instance.
-
-Add the following keys and values:
-
-- DATABASE_URL (copy value from Internal Database URL field)
-
-_Note: Add any other keys and values that may be present in your local __.env__
-file. As you work to further develop your project, you may need to add more
-environment variables to your local __.env__ file. Make sure you add these
-environment variables to the Render GUI as well for the next deployment._
-
-Next, choose "Yes" for the Auto-Deploy field. This will re-deploy your
-application every time you push to main.
-
-Now, you are finally ready to deploy! Click "Create Web Service" to deploy your
-project. The deployment process will likely take about 10-15 minutes if
-everything works as expected. You can monitor the logs to see your build and
-start commands being executed, and see any errors in the build process.
-
-When deployment is complete, open your deployed site and check to see if you
-successfully deployed your Flask application to Render! You can find the URL for
-your site just below the name of the Web Service at the top of the page.
-
-[Render.com]: https://render.com/
-[Dashboard]: https://dashboard.render.com/
+ 

@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from 'react';
 import { editPostThunk, getPostsThunk } from '../../store/posts'
 import { useHistory, useParams } from 'react-router-dom';
+import './EditPost.css'
 
 
 const EditPost = () => {
@@ -70,8 +71,8 @@ const EditPost = () => {
     // },[Object.values(validationErrors).length])
 
     return (
-        <div id='whole-new-post-wrapper'>
-            <div id='form-wrapper'>
+        <div id='edit-post-wrapper'>
+            <div id='soil-post-form-wrapper'>
                 <form onSubmit ={(e)=> submitPost(e)}>
                     {hasSubmitted && validationErrors.title && (
                         <div className="errors-info">
@@ -81,7 +82,7 @@ const EditPost = () => {
                     <label>
                         <input
                             placeholder = "Title"
-                            id="title-input"
+                            id="soil-title-input"
                             type= "textarea"
                             value={title}
                             onChange={e=> setTitle(e.target.value)}
@@ -97,7 +98,7 @@ const EditPost = () => {
                     <label>
                         <textarea
                             placeholder = "Body"
-                            id="body-input"
+                            id="soil-post-form-body-input"
                             type= "textarea"
                             value={body}
                             onChange={e=> setBody(e.target.value)}
@@ -106,7 +107,7 @@ const EditPost = () => {
                     </label>
 
                     <br></br>
-                    <div>
+                    <div id="submit-button-wrapper">
                         <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
                     </div>
                 </form>

@@ -3,17 +3,18 @@ import { useState,useEffect } from 'react';
 import { editPostThunk, getPostsThunk } from '../../store/posts'
 import { useHistory, useParams } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
+import './EditPostModal.css'
 
 
-const EditPostModal = ({post}) => {
+const EditPostModal = ({post, setRender, render}) => {
     const dispatch = useDispatch()
     const history = useHistory()
     const postId = post.id
     const {closeModal} = useModal()
 
-    useEffect(()=>{
-        dispatch(getPostsThunk())
-    }, [dispatch])
+    // useEffect(()=>{
+    //     dispatch(getPostsThunk())
+    // }, [dispatch])
 
     const [title, setTitle] = useState(post?.title)
     const [body, setBody] = useState(post?.body)
@@ -43,7 +44,8 @@ const EditPostModal = ({post}) => {
         setTimeout(closeModal, 2000)
         setTitle('')
         setBody('')
-        history.push(`/posts`)
+        setRender(!render)
+        // history.push(`/posts`)
     }
 
     useEffect(()=>{
@@ -70,53 +72,56 @@ const EditPostModal = ({post}) => {
     // },[Object.values(validationErrors).length])
 
     return (
-        <div id='whole-new-post-wrapper'>
+        <div id='whole-post-modal-wrapper'>
             {success && (
                 <div>
                     <h1 id="save-success">Posted!</h1>
                 </div>
             )}
             {!success && (
-            <div id='form-wrapper'>
-                <form onSubmit ={(e)=> submitPost(e)}>
-                    {hasSubmitted && validationErrors.title && (
-                        <div className="errors-info">
-                            <p>{validationErrors.title}</p>
-                        </div>
-                    )}
-                    <label>
-                        <input
-                            placeholder = "Title"
-                            id="title-input"
-                            type= "textarea"
-                            value={title}
-                            onChange={e=> setTitle(e.target.value)}
-                        >
-                        </input>
-                    </label>
+                <div id="edit-post-modal-wrapper">
+                    <h2>Edit Post</h2>
+                    <div id='edit-form-wrapper'>
+                        <form onSubmit ={(e)=> submitPost(e)} id='edit-form-wrapper'>
+                            {hasSubmitted && validationErrors.title && (
+                                <div className="errors-info">
+                                    <p>{validationErrors.title}</p>
+                                </div>
+                            )}
+                            <label>
+                                <input
+                                    placeholder = "Title"
+                                    id="soil-title-input"
+                                    type= "textarea"
+                                    value={title}
+                                    onChange={e=> setTitle(e.target.value)}
+                                >
+                                </input>
+                            </label>
 
-                    {hasSubmitted && validationErrors.body && (
-                        <div className="errors-info">
-                            <p>{validationErrors.body}</p>
-                        </div>
-                    )}
-                    <label>
-                        <textarea
-                            placeholder = "Body"
-                            id="body-input"
-                            type= "textarea"
-                            value={body}
-                            onChange={e=> setBody(e.target.value)}
-                        >
-                        </textarea>
-                    </label>
+                            {hasSubmitted && validationErrors.body && (
+                                <div className="errors-info">
+                                    <p>{validationErrors.body}</p>
+                                </div>
+                            )}
+                            <label>
+                                <textarea
+                                    placeholder = "Body"
+                                    id="edit-post-form-body-input"
+                                    type= "textarea"
+                                    value={body}
+                                    onChange={e=> setBody(e.target.value)}
+                                >
+                                </textarea>
+                            </label>
 
-                    <br></br>
-                    <div>
-                        <button disabled={disabled} id="submit-button" type='submit'>Post!</button>
+                            <br></br>
+                            <div id="green-button-wrapper">
+                                <button disabled={disabled} id="green-button" type='submit'>Post!</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
-            </div>
+                </div>
             )}
         </div>
     )

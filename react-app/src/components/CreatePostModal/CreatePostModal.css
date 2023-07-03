@@ -1,0 +1,18 @@
+/* #soil-post-modal-wrapper {
+    background-color: var(--background);
+    border: 1px var(--nice-green) solid;
+    border-radius: 8pt;
+    margin: 1rem;
+} */
+
+#soil-post-form-wrapper>h2 {
+    display: flex;
+    justify-content: center;
+    color: var(--nice-green);
+    margin-top: 1rem;
+
+}
+
+#save-success{
+    padding:2rem;
+}

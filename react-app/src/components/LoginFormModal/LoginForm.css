@@ -6,6 +6,7 @@
     border-radius: 13pt;
     width: 25vw;
     border: var(--text) 2px solid;
+    background-color: var(--background);
 }
 
 #login-form-wrapper{
@@ -25,4 +26,28 @@
 #demo-user-buttons{
     font-size: 12pt;
     margin: .15rem 0
+}
+
+#demo-button-wrapper{
+    display: flex;
+    align-items: center;
+}
+
+#demo-button-wrapper>button {
+    margin: .5rem .5rem;
+    background-color: var(--nice-green);
+    border-radius: 8px;
+    color: var(--background);
+    padding: .5rem;
+}
+
+#demo-button-wrapper>button:hover {
+    /* color: var(--text); */
+    background-color: var(--med-green);
+    cursor: pointer;
+}
+
+#demo-button-wrapper>#disabled {
+    background-color: gray;
+    /* color: red ; */
 }

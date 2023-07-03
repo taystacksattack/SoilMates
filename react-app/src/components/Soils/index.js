@@ -7,11 +7,12 @@ import DeleteSoilModal from "../DeleteSoilModal"
 import CreatePostModal from '../CreatePostModal'
 import CreateSoilModal from "../CreateSoilModal"
 import EditSoilTitleModal from '../EditSoilTitleModal'
-
+import'./Soils.css'
 
 const Soils = () => {
     const dispatch = useDispatch()
     const [hidden, setHidden] = useState(true)
+    const [render, setRender]= useState(true)
 
     const [soils, setSoils] = useState([])
     const [sortType, setSortType] = useState("created_at")
@@ -42,7 +43,7 @@ const Soils = () => {
             setSoils(sorted)
         }
         sortedSoils(sortType)
-    }, [sortType, soilsArr.length])
+    }, [sortType, soilsArr.length, render])
 
 
     useEffect(()=>{
@@ -102,32 +103,47 @@ const Soils = () => {
     if (!soilsObj) return (<h2>Loading...</h2>)
 
     return(
-        <div>
+        <div id="whole-soil-samples-wrapper">
             <div id="soil-samples-wrapper">
+
                 <div id="soils-header-wrapper">
-                    <h1>My Soil Samples*</h1>
-                    <div id="new-post">
-                        <Link exact to ={`/soils/new`}>Request Soil Sample</Link>
-                            <div id="new-sample-wrapper">
-                                <form>
+                    <div>
+                        <h1 id="soil-page-title">My Soil Samples*</h1>
+                        <h3>For interpretting values, see the <Link exact to ={`/about`} id="about-page-link">about page</Link></h3>
 
-                                </form>
-
-                            </div>
-                        {/* make this also like a dropdown...? */}
                     </div>
-                        <h3>Sort by:</h3>
-                        <button onClick={(e)=>setSortType("title")}>Title</button>
-                        <button onClick={e=>setSortType("created_at")}>Most Recent</button>
+                    <div id="right-header-wrapper">
+                        <div id="new-soil-wrapper">
+                            <Link exact to ={`/soils/new`} id="new-soil">Request Soil Sample</Link>
+                                <div id="new-sample-wrapper">
+                                    <form>
+
+                                    </form>
+
+                                </div>
+                            {/* make this also like a dropdown...? */}
+                        </div>
+                        <div id="sort-wrapper">
+                            <h3>Sort by:</h3>
+                            <div id="sort-buttons-wrapper">
+                                <button onClick={(e)=>setSortType("title")} className={sortType === 'title' ? "sort-button": "not-sorted"}>Title</button>
+                                <button onClick={e=>setSortType("created_at")} className={sortType === 'created_at' ? "sort-button": "not-sorted"}>Most Recent</button>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
-                <br></br>
+
                 <div id="soil-samples-list-wrapper">
                     {soilsObj && soils.map(soil=>{
                         return (
                             <div key={soil.id} id="single-soil-wrapper">
 
                                 {/* onClick = setHidden(true) ...? This causes infinite re-renders */}
+
                                 <h2 id="soil-title" >{soil.title}</h2>
+
+
                                 <div>
 
                                 </div>
@@ -141,23 +157,33 @@ const Soils = () => {
                                             <li>% Clay: {soil.percent_clay}%</li>
                                             <li>CEC: {soil.cec} cmol(c)/kg</li>
                                             <li>Bulk Density: {soil.bdod} kg/dm<sup>3</sup></li>
-                                            <li>Nitrogen: {soil.nitrogen} g/kg</li>
+                                            <li>Nitrogen: {soil.nitrogen} mg-N/kg</li>
                                             <li>Soil Organic Carbon: {soil.cec} g/kg</li>
                                             <li>pH: {soil.phh2o}</li>
 
                                         </ul>
                                     </div>)}
+
                                 <div id="buttons-wrappers">
+                                    <div id="add-soil-to-post">
+                                        <OpenModalButton
+                                        id="something"
+                                        buttonText ="Add Soil to Post"
+                                        modalComponent ={<CreatePostModal soil={soil}/>}
+                                        />
+                                    </div>
+                                    <div id="green-button-wrapper">
+                                    <OpenModalButton
+                                        buttonText ="Edit title"
+                                        modalComponent ={<EditSoilTitleModal soil={soil} setRender={setRender} render={render}/>}
+                                    />
+                                    </div>
 
                                     <OpenModalButton
                                     buttonText ="Delete Soil"
                                     modalComponent ={<DeleteSoilModal soil={soil}/>}
                                     />
 
-                                    <OpenModalButton
-                                    buttonText ="Add Soil to Post"
-                                    modalComponent ={<CreatePostModal soil={soil}/>}
-                                    />
                                     {/* <NavLink exact to={{
                                         pathname:`/posts/new`,
                                         soilProps:{

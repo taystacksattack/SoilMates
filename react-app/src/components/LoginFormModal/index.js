@@ -45,7 +45,7 @@ function LoginFormModal() {
         <div id="login-form-wrapper">
           <ul>
             {errors.map((error, idx) => (
-              <li key={idx}>{error}</li>
+              <li key={idx} className="errors-info">{error}</li>
             ))}
           </ul>
           <label>
@@ -70,11 +70,16 @@ function LoginFormModal() {
               required
             />
           </label>
-        <button type="submit">Log In</button>
+        <div id="signup-button-wrapper">
+          <button type="submit">Log In</button>
+
+        </div>
         </div>
       </form>
-      <button onClick={e => demoUser1()} id="demo-user-buttons"> Log in as Demo User </button>
-      <button onClick={e => demoUser2()} id="demo-user-buttons"> Log in as Marnie </button>
+      <div id="demo-button-wrapper">
+        <button onClick={e => demoUser1()} id="demo-user-buttons"> Log in as Demo User </button>
+        <button onClick={e => demoUser2()} id="demo-user-buttons"> Log in as Marnie </button>
+      </div>
     </div>
     </>
   );

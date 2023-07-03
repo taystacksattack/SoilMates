@@ -14,6 +14,7 @@ function Navigation({ isLoaded }){
 
 	const submitQuery = async (e) => {
 		e.preventDefault()
+		alert("Feature coming soon!")
 	}
 
 	useEffect(() => {
@@ -29,7 +30,7 @@ function Navigation({ isLoaded }){
 
 	return (
 		<>
-			<div >
+			<div id="sticky-wrapper">
 				<ul id="navigation-wrapper">
 
 					<div id="left-side-nav">
@@ -52,7 +53,7 @@ function Navigation({ isLoaded }){
 												<NavLink exact to="/posts/new">Post a Question</NavLink>
 											</li>
 											<li className='highlight'>
-												<NavLink exact to="/soils">Get Soil Data</NavLink>
+												<NavLink exact to="/soils/new">Get Soil Data</NavLink>
 											</li>
 
 										</ul>

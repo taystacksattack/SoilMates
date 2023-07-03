@@ -9,24 +9,30 @@
     padding: 0;
     font-family: Urbanist;
     color: var(--text);
-    background-color: var(--background);
+    /* background-color: var(--background); */
 }
 
 #whole-wrapper{
     border-top: solid rgb(80, 124, 80) 5px;
+    background-color: var(--background);
     /* border-bottom: solid rgb(80, 124, 80) 5px; */
 }
 
 #main-body{
     display: flex;
+    justify-content: center;
+    z-index:-100;
 }
 
 :root{
-    --nice-green: rgb(80, 124, 80);
+    --nice-green: #507c50;
+    --med-green: rgb(87, 181, 87);
     --lt-green: rgb(193, 206, 193);
     --background: #f9f8f7;
     --other: #946b7c;
-    --lt-other: #946b7c;
+    --lt-other: #c795a9;
+    --delete:#b45841 ;
+    --redder: #d23811;
     --text: #313d3b;
 }
 
@@ -39,8 +45,13 @@
 
 button{
     font-size: 14pt;
+    background-color: var(--background);
 }
 button:hover{
     color: var(--nice-green);
     /* border: var(--nice-green) */
+}
+
+path{
+    background-color: none;
 }

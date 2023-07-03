@@ -11,8 +11,8 @@ class Comment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.Text(), nullable=False)
-    postId = db.column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
     ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    postId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('posts.id')), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.String, nullable=False, default=datetime.utcnow)
 

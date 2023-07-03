@@ -19,7 +19,8 @@ class User(db.Model, UserMixin):
     # how we did it on everynote
     posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
     soils = db.relationship("Soil", back_populates="owner", cascade="all, delete-orphan")
-    # posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
+    comments = db.relationship("Comment", back_populates="owner", cascade="all, delete-orphan")
+
 
     @property
     def password(self):

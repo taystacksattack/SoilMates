@@ -18,7 +18,7 @@ class Comment(db.Model):
 
     # relationships
     owner = db.relationship("User", back_populates="comments")
-    post= db.relationship("Post", back_populates="comments")
+    posts= db.relationship("Post", back_populates="comments")
 
 
     def to_dict(self):

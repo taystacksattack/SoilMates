@@ -13,6 +13,7 @@ class Post(db.Model):
     title = db.Column(db.String(255), nullable=False)
     body = db.Column(db.Text(), nullable=False)
     ownerId = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
+    # comment
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     updated_at = db.Column(db.String, nullable=False, default=datetime.utcnow)
 

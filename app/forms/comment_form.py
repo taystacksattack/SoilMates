@@ -12,7 +12,7 @@ from wtforms.validators import DataRequired, Length
 #         raise ValidationError('Field must be between 5 and 2000 characters')
 
 
-class PostForm(FlaskForm):
+class CommentForm(FlaskForm):
     postId = IntegerField('postId')
     ownerId = IntegerField('ownerId')
     body = TextAreaField('Body', validators=[DataRequired()])

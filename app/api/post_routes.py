@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from app.models import Post
+from app.models import Comment
 from ..models.db import db
 from ..forms.post_form import PostForm
 from datetime import datetime
@@ -82,6 +83,17 @@ def new_post():
 
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+
+@post_routes.route('/<int:id>/comments')
+def get_comments(id):
+    # post = Post.query.get(id)
+    # postObj = post.to_dict()
+    comments = Comment.query.filter(Comment.postId==id).all()
+    comment_dicts = [comment.to_dict() for comment in comments]
+    # comments = Comment.query.all()
+    print("HERE ARE THE COMMENTS",comment_dicts)
+    # postObj["comments"]=commments
+    return comment_dicts
 
 @post_routes.route('/<int:id>/edit', methods=["PUT"])
 @login_required

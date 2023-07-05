@@ -30,5 +30,6 @@ class Post(db.Model):
             'ownerId': self.ownerId,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
-            "user": self.owner.to_dict()
+            "user": self.owner.to_dict(),
+            "numComments": len(self.comments)
         }

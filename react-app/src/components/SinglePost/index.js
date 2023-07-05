@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton'
 import DeletePostModal from '../DeletePostModal'
 import EditPostModal from "../EditPostModal"
 import './SinglePost.css'
+import { getCommentsThunk } from "../../store/comments"
 
 
 const SinglePost = () => {
@@ -22,6 +23,7 @@ const SinglePost = () => {
 
     useEffect(()=>{
         dispatch(getPostsThunk())
+        dispatch(getCommentsThunk(postId))
     }, [dispatch])
 
     // console.log("postsobj",postsObj[postId])

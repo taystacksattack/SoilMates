@@ -19,10 +19,14 @@ const SinglePost = () => {
     // need user data to toggle edit/delete buttons if not the post's ownerId
     const userObj = useSelector(state => state.session.user)
     // console.log('userobj', userObj)
-    // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS
+
+    const commentsObj = useSelector(state => state.comments.allComments)
+    console.log("commentObj ",commentsObj)
 
     useEffect(()=>{
+        //this gets the posts if, for some reason, the user resets state, and then goes directly to a single post (eliminates need to go from feed, which gets all posts, and then keys into the particular post)
         dispatch(getPostsThunk())
+        //this gets the comments here:
         dispatch(getCommentsThunk(postId))
     }, [dispatch])
 
@@ -68,11 +72,19 @@ const SinglePost = () => {
                 </div>
                 <p id="post-body">{post.body}</p>
                 <p id="post-info">Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
-
-
-
+                <br/>
+            <div id="comments-wrapper">
+                <h2>Comments</h2>
+                {Object.values(commentsObj).length ? (
+                    Object.values(commentsObj).map(comment=>{
+                        return (<p>{comment.body}</p>)
+                    })
+                )
+                :(<h3>Be the first to comment!</h3>)}
 
             </div>
+            </div>
+
         </div>
     )
 }

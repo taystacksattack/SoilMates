@@ -65,3 +65,12 @@
 #post-info {
     text-align: end;
 }
+
+#comments-wrapper {
+    border-top: var(--lt-green) solid 1px;
+}
+
+#single-comment-wrapper{
+    padding-bottom: 0.75rem;
+    border-bottom: var(--lt-green) solid 1px;
+}

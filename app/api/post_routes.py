@@ -4,6 +4,7 @@ from app.models import Post
 from app.models import Comment
 from ..models.db import db
 from ..forms.post_form import PostForm
+from ..forms.comment_form import CommentForm
 from datetime import datetime
 # import operator
 
@@ -84,16 +85,7 @@ def new_post():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@post_routes.route('/<int:id>/comments')
-def get_comments(id):
-    # post = Post.query.get(id)
-    # postObj = post.to_dict()
-    comments = Comment.query.filter(Comment.postId==id).all()
-    comment_dicts = [comment.to_dict() for comment in comments]
-    # comments = Comment.query.all()
-    print("HERE ARE THE COMMENTS",comment_dicts)
-    # postObj["comments"]=commments
-    return comment_dicts
+
 
 @post_routes.route('/<int:id>/edit', methods=["PUT"])
 @login_required
@@ -102,7 +94,6 @@ def edit_post(id):
     Creates a new post and returns it as a dictionary
     '''
     form =PostForm()
-
     form['csrf_token'].data = request.cookies['csrf_token']
 
 
@@ -136,3 +127,35 @@ def delete_post(id):
     db.session.delete(post_to_delete)
     db.session.commit()
     return {"status": "Sucessful deletion"}
+
+
+@post_routes.route('/<int:id>/comments')
+def get_comments(id):
+    # post = Post.query.get(id)
+    # postObj = post.to_dict()
+    comments = Comment.query.filter(Comment.postId==id).all()
+    comment_dicts = [comment.to_dict() for comment in comments]
+    # comments = Comment.query.all()
+    print("HERE ARE THE COMMENTS",comment_dicts)
+    # postObj["comments"]=commments
+    return comment_dicts
+
+
+@post_routes.route('/<int:id>/comments', methods=["GET", 'POST'])
+def new_comment(id):
+    form=CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+
+    if form.validate_on_submit():
+        data= form.data
+        new_comment = Comment(
+            postId = id,
+            ownerId = current_user.id,
+            body = data['body']
+        )
+
+        db.session.add(new_comment)
+        db.session.commit()
+        return new_comment.to_dict()
+
+    return

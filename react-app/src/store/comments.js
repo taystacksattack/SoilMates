@@ -41,6 +41,10 @@ export const getCommentsThunk = (postId) => async (dispatch) => {
     return data
 }
 
+export const createCommentThunk = (comment) => async (dispatch)=> {
+    return
+}
+
 
 const initialState = {comments: {}}
 

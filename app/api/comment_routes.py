@@ -8,7 +8,7 @@ from datetime import datetime
 
 comment_routes = Blueprint('comments', __name__)
 
-@comment_routes.route('/')
+@comment_routes.route('')
 def comments():
     # straight up just grabs all of the comments
     comments = Comment.query.all()

@@ -63,7 +63,11 @@
     padding:0 1rem;
 }
 
-#date-buttons-wrapper{
+#post-date{
+    text-align: right;
+}
+
+#date-comments-wrapper{
     display:flex;
     justify-content: space-between;
     align-items: center;

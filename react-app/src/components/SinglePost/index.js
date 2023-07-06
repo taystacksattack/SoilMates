@@ -34,7 +34,7 @@ const SinglePost = () => {
 
 
     const post= postsObj[postId]
-    if (!postsObj || !post) return (<h2>Loading...</h2>)
+    if (!postsObj || !post || ! commentsObj) return (<h2>Loading...</h2>)
     if (!userObj) return( <h2>Please log in or sign up to view this content</h2>)
     // console.log("post",post)
 
@@ -74,10 +74,15 @@ const SinglePost = () => {
                 <p id="post-info">Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
                 <br/>
             <div id="comments-wrapper">
-                <h2>Comments</h2>
+                <h2 id="post-title">Comments</h2>
                 {Object.values(commentsObj).length ? (
                     Object.values(commentsObj).map(comment=>{
-                        return (<p>{comment.body}</p>)
+                        return (
+                            <div>
+                                <p id="post-body">{comment.body}</p>
+                                <p id="post-info">Posted by: {comment.user.username} on {comment.created_at.slice(0,16)}</p>
+                            </div>
+                            )
                     })
                 )
                 :(<h3>Be the first to comment!</h3>)}

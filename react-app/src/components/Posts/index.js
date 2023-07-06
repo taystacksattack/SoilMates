@@ -7,7 +7,19 @@ import CreatePostModal from "../CreatePostModal"
 import DeletePostModal from "../DeletePostModal"
 import EditPostModal from "../EditPostModal"
 import './Posts.css'
+import { getAllCommentsThunk } from "../../store/comments"
 
+const commentCounter = (commentsObj) => {
+    const result = {}
+    for (let comment of Object.values(commentsObj)){
+        result[comment.postId] = 0
+    }
+    // console.log("result",result)
+    Object.values(commentsObj).forEach(comment => {
+        result[comment.postId] = (result[comment.postId]) + 1
+    })
+    return result
+}
 
 const CurrentPosts = () => {
     const dispatch = useDispatch()
@@ -19,11 +31,13 @@ const CurrentPosts = () => {
 
     const user = useSelector(state => state.session.user)
     const postsObj= useSelector(state => state.posts.allPosts)
+    const commentsObj= useSelector(state=>state.comments.allComments)
     // console.log(user)
 
     // WILL NEED TO GRAB RECOMMENDATIONS/COMMENTS/USERNAMES
     useEffect(()=>{
         dispatch(getPostsThunk())
+        dispatch(getAllCommentsThunk())
     }, [dispatch, ])
 
     const postsArr = Object.values(postsObj)
@@ -43,7 +57,8 @@ const CurrentPosts = () => {
 
 
 
-    if (!postsObj) return (<h2>Loading...</h2>)
+    if (!postsObj || !commentsObj) return (<h2>Loading...</h2>)
+    const commentCount = commentCounter(commentsObj)
 
     return (
         <div id="posts-whole-wrapper">
@@ -76,34 +91,38 @@ const CurrentPosts = () => {
 
                     {postsObj && posts.map(post => {
                         if (post.ownerId === user.id){ //filters out from all posts
-                        
+
                         return (
                             <div key={post.id} id="single-post-wrapper">
                                 <div id="upper-section">
                                     <Link exact to ={`/posts/${post.id}`} id="post-title">{post.title}</Link>
-                                </div>
-                                <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
-                                <div id="date-buttons-wrapper">
-                                    <p>Posted on {post.created_at.slice(0,16)}</p>
                                     <div id="buttons-wrappers">
-                                        <OpenModalButton
-                                            buttonText ="Delete Post"
-                                            modalComponent ={<DeletePostModal post={post}/>}
-                                        />
-                                        {/* <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink> */}
-                                        <div id="green-button-wrapper">
                                             <OpenModalButton
-                                                buttonText ="Edit post"
-                                                modalComponent ={<EditPostModal post={post} setRender={setRender} render={render}/>}
+                                                buttonText ="Delete Post"
+                                                modalComponent ={<DeletePostModal post={post}/>}
                                             />
+                                            {/* <NavLink exact to={`/posts/${post.id}/edit`}>Edit Post</NavLink> */}
+                                            <div id="green-button-wrapper">
+                                                <OpenModalButton
+                                                    buttonText ="Edit post"
+                                                    modalComponent ={<EditPostModal post={post} setRender={setRender} render={render}/>}
+                                                />
 
-                                        </div>
+                                            </div>
 
-                                        {/* buttonText ="Edit Post"
-                                        // modalComponent ={<EditPostModal post={post}/>}
-                                        /> */}
+                                            {/* buttonText ="Edit Post"
+                                            // modalComponent ={<EditPostModal post={post}/>}
+                                            /> */}
 
                                     </div>
+                                </div>
+                                <p id="body-preview">{`${post.body.slice(0,150)}...`}</p>
+                                <div id="date-comments-wrapper">
+                                    { commentCount[post.id] === undefined && (<p>No comments yet</p>)}
+                                    { commentCount[post.id] === 1 && (<p>{commentCount[post.id]} comment</p>)}
+                                    { commentCount[post.id] > 1 && (<p>{commentCount[post.id]} comment</p>)}
+                                    <p id="post-date">Posted on {post.created_at.slice(0,16)}</p>
+
                                 </div>
 
                                 {/* <Link exact to ={`/posts/${post.id}/edit`} id="post.id">{post.title}</Link> */}

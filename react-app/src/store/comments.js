@@ -37,7 +37,7 @@ export const getCommentsThunk = (postId) => async (dispatch) => {
     const response = await fetch(`/api/posts/${postId}/comments`)
     const data = await response.json()
     dispatch(getComments(data))
-    console.log(data)
+    // console.log(data)
     return data
 }
 

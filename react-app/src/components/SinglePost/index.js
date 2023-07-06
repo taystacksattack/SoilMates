@@ -43,6 +43,7 @@ const SinglePost = () => {
 
         const formData = new FormData()
         formData.append('body', comment)
+        console.log(formData['body'])
         const result = await dispatch(createCommentThunk(formData))
 
         setHasSubmitted(false)
@@ -50,14 +51,24 @@ const SinglePost = () => {
     }
 
     useEffect(()=>{
+        const errors = {}
+        if(comment.length < 5 || comment.length >=1500) errors['comment']="Please provide a comment between 5 and 1500 characters"
+        setValidationErrors(errors)
+    },[comment])
 
-    },[dispatch])
+    const errorLength = Object.values(validationErrors).length
+
+    useEffect(()=>{
+    //     console.log(hasSubmitted)
+        errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
+    },[errorLength, hasSubmitted])
 
 
     const post= postsObj[postId]
     if (!postsObj || !post || ! commentsObj) return (<h2>Loading...</h2>)
     if (!userObj) return( <h2>Please log in or sign up to view this content</h2>)
     // console.log("post",post)
+    console.log(comment)
 
     return (
         <div id="posts-whole-wrapper">
@@ -100,9 +111,9 @@ const SinglePost = () => {
                 <div id='soil-post-form-wrapper'>
                     <h2>New comment</h2>
                     <form onSubmit ={(e)=> submitComment(e)}>
-                        {hasSubmitted && validationErrors.title && (
+                        {hasSubmitted && validationErrors.comment && (
                             <div className="errors-info">
-                                <p>{validationErrors.title}</p>
+                                <p>{validationErrors.comment}</p>
                             </div>
                         )}
 

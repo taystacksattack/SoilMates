@@ -141,7 +141,7 @@ def get_comments(id):
     return comment_dicts
 
 
-@post_routes.route('/<int:id>/comments', methods=["GET", 'POST'])
+@post_routes.route('/<int:id>/comment', methods=["GET", 'POST'])
 def new_comment(id):
     form=CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']

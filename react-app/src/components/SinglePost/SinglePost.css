@@ -70,6 +70,15 @@
     border-top: var(--lt-green) solid 1px;
 }
 
+#comments-header-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+#comments-header-wrapper>div{
+    padding-top: 1rem;
+}
+
 #single-comment-wrapper{
     padding-bottom: 0.75rem;
     border-bottom: var(--lt-green) solid 1px;

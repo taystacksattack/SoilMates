@@ -120,7 +120,7 @@ const CurrentPosts = () => {
                                 <div id="date-comments-wrapper">
                                     { commentCount[post.id] === undefined && (<h3 id="comment-count">No comments yet</h3>)}
                                     { commentCount[post.id] === 1 && (<h3 id="comment-count">{commentCount[post.id]} comment</h3>)}
-                                    { commentCount[post.id] > 1 && (<h3 id="comment-count">{commentCount[post.id]} comment</h3>)}
+                                    { commentCount[post.id] > 1 && (<h3 id="comment-count">{commentCount[post.id]} comments</h3>)}
                                     <p id="post-date">Posted on {post.created_at.slice(0,16)}</p>
 
                                 </div>

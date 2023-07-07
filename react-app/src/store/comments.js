@@ -21,6 +21,13 @@ const getComments = (comments) => {
     }
 }
 
+const createComment = (comment) => {
+    return {
+        type: CREATE_COMMENT,
+        comment
+    }
+}
+
 // gets the all the comments...!
 export const getAllCommentsThunk = () => async(dispatch) => {
     const response = await fetch ("/api/comments")
@@ -32,7 +39,7 @@ export const getAllCommentsThunk = () => async(dispatch) => {
 
 //get all the comments for a particular post
 export const getCommentsThunk = (postId) => async (dispatch) => {
-    console.log("post id in thunk", postId)
+    // console.log("post id in thunk", postId)
     // console.log()
     const response = await fetch(`/api/posts/${postId}/comments`)
     const data = await response.json()
@@ -41,8 +48,22 @@ export const getCommentsThunk = (postId) => async (dispatch) => {
     return data
 }
 
-export const createCommentThunk = (comment) => async (dispatch)=> {
-    return
+export const createCommentThunk = (postId, comment) => async (dispatch)=> {
+    // console.log("postID in thunk", postId)
+    // console.log("comment in thunk", comment)
+    let response
+    try{
+        response = await fetch(`/api/posts/${postId}/comment`, {
+            method: 'POST',
+            body: comment
+        })
+        const data = await response.json()
+        dispatch(createComment(data))
+        // console.log(data)
+        return data
+    }catch(e){
+        return e
+    }
 }
 
 
@@ -57,7 +78,7 @@ export const commentReducer = (state = initialState, action) => {
                     allCommentsState.allComments[comment.id] = comment
                 })
             }
-        return allCommentsState
+            return allCommentsState
         case GET_COMMENTS:
             const newState = {allComments:{}}
             if (action.comments.length){
@@ -65,7 +86,11 @@ export const commentReducer = (state = initialState, action) => {
                     newState.allComments[comment.id] = comment
                 }))
             }
-        return newState
+            return newState
+        case CREATE_COMMENT:
+            const newCommentState = {...state, allComments:{...state.allComments}}
+            newCommentState.allComments[action.comment.id] = action.comment
+            return newCommentState
         default:
             return state
     }

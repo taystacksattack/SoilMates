@@ -24,7 +24,6 @@ const Footer = () => {
                     <NavLink exact to="/soils">Get Soil Data</NavLink>
                 </div>
             </div>
-
         </div>
     )
 }

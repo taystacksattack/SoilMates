@@ -14,7 +14,7 @@ const SinglePost = () => {
     const {postId} = useParams()
     const [render, setRender]= useState(true)
     const [comment, setComment] = useState('')
-    const [showCommentForm, setShowCommentForm] = useState(true)
+    const [showCommentForm, setShowCommentForm] = useState(false)
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled] = useState(false)
@@ -39,12 +39,15 @@ const SinglePost = () => {
     const submitComment = async (e) => {
         e.preventDefault()
         setHasSubmitted(true)
-        if(Object.values(validationErrors).length) return
+        if(Object.values(validationErrors).length){
+            // console.log("ok we're don'e here")
+            return
+        }
 
         const formData = new FormData()
         formData.append('body', comment)
-        console.log(formData['body'])
-        const result = await dispatch(createCommentThunk(formData))
+        // console.log("hereis that form data",formData['body'])
+        const result = await dispatch(createCommentThunk(postId, formData))
 
         setHasSubmitted(false)
         setComment('')
@@ -68,7 +71,7 @@ const SinglePost = () => {
     if (!postsObj || !post || ! commentsObj) return (<h2>Loading...</h2>)
     if (!userObj) return( <h2>Please log in or sign up to view this content</h2>)
     // console.log("post",post)
-    console.log(comment)
+    // console.log(comment)
 
     return (
         <div id="posts-whole-wrapper">
@@ -104,12 +107,22 @@ const SinglePost = () => {
                 </div>
                 <p id="post-body">{post.body}</p>
                 <p id="post-info">Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
+
                 <br/>
             <div id='soil-post-modal-wrapper'>
+        </div>
 
-            {showCommentForm && (
+            <div id="comments-wrapper">
+                <div id="comments-header-wrapper">
+                    <h2 id="post-title">Comments</h2>
+                    <div id="green-button-wrapper">
+                        <button disabled={disabled} id="submit-button" type='submit' onClick={e=> setShowCommentForm(!showCommentForm)}>Post a comment</button>
+                    </div>
+                </div>
+                {showCommentForm && (
                 <div id='soil-post-form-wrapper'>
-                    <h2>New comment</h2>
+                    {/* <h2>New comment</h2> */}
+                    <br></br>
                     <form onSubmit ={(e)=> submitComment(e)}>
                         {hasSubmitted && validationErrors.comment && (
                             <div className="errors-info">
@@ -141,10 +154,7 @@ const SinglePost = () => {
                     </form>
                 </div>
             )}
-        </div>
 
-            <div id="comments-wrapper">
-                <h2 id="post-title">Comments</h2>
                 {Object.values(commentsObj).length ? (
                     Object.values(commentsObj).map(comment=>{
                         return (

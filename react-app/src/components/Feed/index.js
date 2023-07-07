@@ -27,7 +27,7 @@ const Feed = () => {
     const postsObj= useSelector(state => state.posts.allPosts)
     const commentsObj= useSelector(state=>state.comments.allComments)
 
-    console.log(commentsObj)
+    // console.log(commentsObj)
     // console.log(Object.values(commentsObj))
 
     //Sorting helper function
@@ -57,7 +57,7 @@ const Feed = () => {
     if (!postsArr || !commentsObj) return (<h2>Loading...</h2>)
 
     const commentCount = commentCounter(commentsObj)
-    console.log("commentCount",commentCount)
+    // console.log("commentCount",commentCount)
 
     return (
         <div id="posts-whole-wrapper">

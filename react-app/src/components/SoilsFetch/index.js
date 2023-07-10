@@ -63,7 +63,7 @@ const SoilsFetch = () => {
 
 
         if(Object.values(validationErrors).length) {
-            console.log(validationErrors)
+            console.log("here are those errors you ordered", validationErrors)
             return
         }
 

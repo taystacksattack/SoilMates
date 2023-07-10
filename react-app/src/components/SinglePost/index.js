@@ -49,6 +49,7 @@ const SinglePost = () => {
         // console.log("hereis that form data",formData['body'])
         const result = await dispatch(createCommentThunk(postId, formData))
 
+        setShowCommentForm(false)
         setHasSubmitted(false)
         setComment('')
     }

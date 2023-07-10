@@ -83,3 +83,7 @@
     padding-bottom: 0.75rem;
     border-bottom: var(--lt-green) solid 1px;
 }
+
+#hidden{
+    display: none
+}

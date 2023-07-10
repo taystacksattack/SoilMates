@@ -28,6 +28,13 @@ const createComment = (comment) => {
     }
 }
 
+const deleteComment = (commentId) => {
+    return {
+        type: DELETE_COMMENT,
+        commentId
+    }
+}
+
 // gets the all the comments...!
 export const getAllCommentsThunk = () => async(dispatch) => {
     const response = await fetch ("/api/comments")
@@ -67,6 +74,19 @@ export const createCommentThunk = (postId, comment) => async (dispatch)=> {
 }
 
 
+export const deleteCommentThunk = (commentId) => async (dispatch) => {
+    try {
+        const response = await fetch(`/api/comments/${commentId}/delete`, {
+            method: "DELETE"
+        })
+        const result = await response.json()
+        dispatch(deleteComment(commentId))
+        return result
+    }catch(e){
+        return e
+    }
+}
+
 const initialState = {comments: {}}
 
 export const commentReducer = (state = initialState, action) => {
@@ -91,6 +111,10 @@ export const commentReducer = (state = initialState, action) => {
             const newCommentState = {...state, allComments:{...state.allComments}}
             newCommentState.allComments[action.comment.id] = action.comment
             return newCommentState
+        case DELETE_COMMENT:
+            const deleteState = {...state, allComments: {...state.allComments}}
+            delete deleteState.allComments[action.commentId]
+            return deleteState
         default:
             return state
     }

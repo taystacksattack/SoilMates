@@ -154,17 +154,17 @@ export default function postsReducer (state= initialState, action){
         case EDIT_POST:
 
             const editState = {...state, allPosts:{...state.allPosts}}
-            console.log("before",editState)
-            console.log("here is the action post", action.post)
+            // console.log("before",editState)
+            // console.log("here is the action post", action.post)
             editState.allPosts[action.post.id] = action.post
-            console.log("after",editState)
+            // console.log("after",editState)
             return editState
         case DELETE_POST:
             const deleteState= {...state, allPosts:{...state.allPosts}}
-            console.log("action.postId",action.postId)
-            console.log("delete state before",deleteState)
+            // console.log("action.postId",action.postId)
+            // console.log("delete state before",deleteState)
             delete deleteState.allPosts[action.postId]
-            console.log("delete state after",deleteState)
+            // console.log("delete state after",deleteState)
             return deleteState
         case CLEAR_POSTS:
             return {allposts:{}}

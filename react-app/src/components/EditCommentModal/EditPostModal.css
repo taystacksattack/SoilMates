@@ -1,0 +1,31 @@
+#edit-post-modal-wrapper{
+    background-color: var(--background);
+    border: 1px var(--nice-green) solid;
+    border-radius: 8pt;
+    /* margin: 1rem; */
+}
+
+#edit-post-modal-wrapper>h2 {
+    text-align: center;
+    color:var(--nice-green);
+    margin-top: 1rem;
+
+}
+
+#edit-post-form-body-input {
+    width: 37.5rem;
+    height: 20rem;
+    font-size: 13pt;
+    border: solid var(--nice-green)1px;
+    border-radius: 8px;
+    padding: .5rem;
+    resize: none;
+}
+
+#edit-form-wrapper{
+    margin: 0rem 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    /* border:  solid 1px */
+}

@@ -5,6 +5,8 @@ import { getPostsThunk } from "../../store/posts"
 import OpenModalButton from '../OpenModalButton'
 import DeletePostModal from '../DeletePostModal'
 import EditPostModal from "../EditPostModal"
+import EditCommentModal from "../EditCommentModal"
+import DeleteCommentModal from "../DeleteCommentModal"
 import './SinglePost.css'
 import { createCommentThunk, getCommentsThunk } from "../../store/comments"
 
@@ -18,6 +20,7 @@ const SinglePost = () => {
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled] = useState(false)
+    const [showButton, setShowButton] = useState(true)
 
 
     const postsObj = useSelector(state => state.posts.allPosts)
@@ -36,6 +39,12 @@ const SinglePost = () => {
 
     // console.log("postsobj",postsObj[postId])
 
+    const handleCommentForm = async (e) => {
+        e.preventDefault()
+        setShowCommentForm(!showCommentForm)
+        setShowButton(!showButton)
+    }
+
     const submitComment = async (e) => {
         e.preventDefault()
         setHasSubmitted(true)
@@ -49,6 +58,8 @@ const SinglePost = () => {
         // console.log("hereis that form data",formData['body'])
         const result = await dispatch(createCommentThunk(postId, formData))
 
+        setShowCommentForm(false)
+        setShowButton(!showButton)
         setHasSubmitted(false)
         setComment('')
     }
@@ -116,7 +127,7 @@ const SinglePost = () => {
                 <div id="comments-header-wrapper">
                     <h2 id="post-title">Comments</h2>
                     <div id="green-button-wrapper">
-                        <button disabled={disabled} id="submit-button" type='submit' onClick={e=> setShowCommentForm(!showCommentForm)}>Post a comment</button>
+                        <button disabled={disabled} id="submit-button" type='submit' onClick={e=> handleCommentForm(e)}>{showButton ? "Post a comment" : "Hide comment form"}</button>
                     </div>
                 </div>
                 {showCommentForm && (
@@ -159,8 +170,25 @@ const SinglePost = () => {
                     Object.values(commentsObj).map(comment=>{
                         return (
                             <div id="single-comment-wrapper">
-                                <p id="post-body">{comment.body}</p>
+                                    <p id="post-body">{comment.body}</p>
+                                <div id="single-comment-header-wrapper">
+                                    {userObj.id === comment.ownerId &&(
+                                        <div id="buttons-wrappers">
+                                            <div id="green-button-wrapper">
+                                                <OpenModalButton
+                                                buttonText ="Edit comment"
+                                                modalComponent ={<EditCommentModal comment={comment} setRender={setRender} render={render}/>}
+                                                />
+                                            </div>
+                                            <OpenModalButton
+                                            id="sort-button"
+                                            buttonText ="Delete Comment"
+                                            modalComponent ={<DeleteCommentModal comment={comment}/>}
+                                            />
+                                        </div>
+                                        )}
                                 <p id="post-info">Posted by: {comment.user.username} on {comment.created_at.slice(0,16)}</p>
+                                </div>
                             </div>
                             )
                     })

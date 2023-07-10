@@ -33,6 +33,7 @@ const Feed = () => {
     //Sorting helper function
     let postsArr = []
     if (postsObj) postsArr = Object.values(postsObj)
+
     useEffect(()=>{
         if (postsArr){
                 const sortedPosts = type =>{

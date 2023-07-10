@@ -170,23 +170,25 @@ const SinglePost = () => {
                     Object.values(commentsObj).map(comment=>{
                         return (
                             <div id="single-comment-wrapper">
-                                <p id="post-body">{comment.body}</p>
-                                {userObj.id === comment.ownerId &&(
-                                    <div id="buttons-wrappers">
-                                        <div id="green-button-wrapper">
+                                    <p id="post-body">{comment.body}</p>
+                                <div id="single-comment-header-wrapper">
+                                    {userObj.id === comment.ownerId &&(
+                                        <div id="buttons-wrappers">
+                                            <div id="green-button-wrapper">
+                                                <OpenModalButton
+                                                buttonText ="Edit comment"
+                                                modalComponent ={<EditCommentModal comment={comment} setRender={setRender} render={render}/>}
+                                                />
+                                            </div>
                                             <OpenModalButton
-                                            buttonText ="Edit comment"
-                                            modalComponent ={<EditCommentModal comment={comment} setRender={setRender} render={render}/>}
+                                            id="sort-button"
+                                            buttonText ="Delete Comment"
+                                            modalComponent ={<DeleteCommentModal comment={comment}/>}
                                             />
                                         </div>
-                                        <OpenModalButton
-                                        id="sort-button"
-                                        buttonText ="Delete Comment"
-                                        modalComponent ={<DeleteCommentModal comment={comment}/>}
-                                        />
-                                    </div>
-                                    )}
+                                        )}
                                 <p id="post-info">Posted by: {comment.user.username} on {comment.created_at.slice(0,16)}</p>
+                                </div>
                             </div>
                             )
                     })

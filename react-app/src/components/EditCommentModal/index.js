@@ -1,29 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState,useEffect } from 'react';
-import { editPostThunk, getPostsThunk } from '../../store/posts'
-import { useHistory, useParams } from 'react-router-dom';
+import { editCommentThunk} from '../../store/comments'
+import { useParams } from 'react-router-dom';
 import { useModal } from "../../context/Modal";
 import './EditPostModal.css'
 
 
-const EditPostModal = ({post, setRender, render}) => {
+const EditCommentModal = ({comment, setRender, render}) => {
     const dispatch = useDispatch()
-    const history = useHistory()
-    const postId = post.id
+    const commentId = comment.id
     const {closeModal} = useModal()
 
-    // useEffect(()=>{
-    //     dispatch(getPostsThunk())
-    // }, [dispatch])
-
-    const [title, setTitle] = useState(post?.title)
-    const [body, setBody] = useState(post?.body)
+    const [body, setBody] = useState(comment?.body)
     const [validationErrors, setValidationErrors] = useState({})
     const [hasSubmitted, setHasSubmitted] = useState(false)
     const [disabled, setDisabled]= useState(false)
     const [success, setSuccess]= useState(false)
 
-    const submitPost = async (e) => {
+    const submitComment = async (e) => {
         e.preventDefault()
 
         setHasSubmitted(true)
@@ -32,17 +26,15 @@ const EditPostModal = ({post, setRender, render}) => {
             return
         }
 
-        const updatedPost ={
-            title,
+        const updatedComment ={
             body
         }
 
-        const result = await dispatch(editPostThunk(postId, updatedPost))
+        const result = await dispatch(editCommentThunk(commentId, updatedComment))
 
         setHasSubmitted(false)
         setSuccess(true)
         setTimeout(closeModal, 2000)
-        setTitle('')
         setBody('')
         setRender(!render)
         // history.push(`/posts`)
@@ -50,14 +42,12 @@ const EditPostModal = ({post, setRender, render}) => {
 
     useEffect(()=>{
         const errors = {}
-        if(title.length < 5 || title.length >=100) errors['title']="Please provide a title between 5 and 100 characters"
-        if(body.length < 5 || body.length >=2000) errors['body']="Please provide a post between 5 and 2000 characters"
+        if(body.length < 5 || body.length >=1500) errors['body']="Please provide a comment between 5 and 1500 characters"
         setValidationErrors(errors)
-        console.log(title)
         // Object.values(validationErrors).length ? setDisabled(true) : setDisabled(false)
         // console.log(disabled)
         // console.log(validationErrors)
-    }, [title, body])
+    }, [body])
 
     const errorLength = Object.values(validationErrors).length
 
@@ -66,10 +56,6 @@ const EditPostModal = ({post, setRender, render}) => {
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
 
-    // useEffect(()=>{
-    // //     console.log(hasSubmitted)
-    //     Object.values(validationErrors).length ? setDisabled(true): setDisabled(false)
-    // },[Object.values(validationErrors).length])
 
     return (
         <div id='whole-post-modal-wrapper'>
@@ -80,24 +66,9 @@ const EditPostModal = ({post, setRender, render}) => {
             )}
             {!success && (
                 <div id="edit-post-modal-wrapper">
-                    <h2>Edit Post</h2>
+                    <h2>Edit Comment</h2>
                     <div id='edit-form-wrapper'>
-                        <form onSubmit ={(e)=> submitPost(e)} id='edit-form-wrapper'>
-                            {hasSubmitted && validationErrors.title && (
-                                <div className="errors-info">
-                                    <p>{validationErrors.title}</p>
-                                </div>
-                            )}
-                            <label>
-                                <input
-                                    placeholder = "Title"
-                                    id="soil-title-input"
-                                    type= "textarea"
-                                    value={title}
-                                    onChange={e=> setTitle(e.target.value)}
-                                >
-                                </input>
-                            </label>
+                        <form onSubmit ={(e)=> submitComment(e)} id='edit-form-wrapper'>
 
                             {hasSubmitted && validationErrors.body && (
                                 <div className="errors-info">
@@ -127,4 +98,4 @@ const EditPostModal = ({post, setRender, render}) => {
     )
 }
 
-export default EditPostModal
+export default EditCommentModal

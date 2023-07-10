@@ -27,6 +27,12 @@ const createComment = (comment) => {
         comment
     }
 }
+const editComment = (comment) => {
+    return {
+        type: EDIT_COMMENT,
+        comment
+    }
+}
 
 const deleteComment = (commentId) => {
     return {
@@ -73,6 +79,21 @@ export const createCommentThunk = (postId, comment) => async (dispatch)=> {
     }
 }
 
+export const editCommentThunk = (commentId, comment) => async (dispatch) => {
+    let response
+    try{
+        response = await fetch(`/api/comments/${commentId}/edit`, {
+            method: 'PUT',
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(comment)
+        })
+        const result = await response.json()
+        dispatch(editComment(result))
+        return
+    }catch(e){
+        return e
+    }
+}
 
 export const deleteCommentThunk = (commentId) => async (dispatch) => {
     try {
@@ -111,6 +132,10 @@ export const commentReducer = (state = initialState, action) => {
             const newCommentState = {...state, allComments:{...state.allComments}}
             newCommentState.allComments[action.comment.id] = action.comment
             return newCommentState
+        case EDIT_COMMENT:
+            const editState = {...state, allComments: {...state.allComments}}
+            editState.allComments[action.comment.id] = action.comment
+            return editState
         case DELETE_COMMENT:
             const deleteState = {...state, allComments: {...state.allComments}}
             delete deleteState.allComments[action.commentId]

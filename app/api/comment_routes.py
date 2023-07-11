@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Comment
+from app.models import Comment, User
 from ..models.db import db
 from ..forms.comment_form import CommentForm
 from datetime import datetime
@@ -60,7 +60,7 @@ def upvote_comment(id):
 
 @comment_routes.route('/<int:id>/downvote', methods=['DELETE'])
 @login_required
-def upvote_comment(id):
+def downvote_comment(id):
     user = User.query.get(current_user.id)
     comment = Comment.query.get(id)
     if user in comment.user_votes:

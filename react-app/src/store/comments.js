@@ -43,17 +43,17 @@ const deleteComment = (commentId) => {
     }
 }
 
-const upvoteComment = (commentId) => {
+const upvoteComment = (comment) => {
     return {
         type: UPVOTE_COMMENT,
-        commentId
+        comment
     }
 }
 
-const downvoteComment = (commentId) => {
+const downvoteComment = (comment) => {
     return {
         type: DOWNVOTE_COMMENT,
-        commentId
+        comment
     }
 }
 
@@ -125,6 +125,35 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
     }
 }
 
+
+export const upvoteCommentThunk = (commentId) => async (dispatch) => {
+    try{
+        const response = await fetch(`/api/comments/${commentId}/upvote`, {
+            method:"POST"
+        })
+        const result = await response.json()
+        dispatch(upvoteComment(result))
+        return result
+    }catch (e){
+        return e
+    }
+}
+
+
+export const downvoteCommentThunk = (commentId) => async (dispatch) => {
+    try{
+        const response = await fetch(`/api/comments/${commentId}/downvote`, {
+            method:"DELETE"
+        })
+        const result = await response.json()
+        dispatch(downvoteComment(result))
+        return result
+    }catch (e){
+        return e
+    }
+}
+
+
 const initialState = {comments: {}}
 
 export const commentReducer = (state = initialState, action) => {
@@ -157,6 +186,14 @@ export const commentReducer = (state = initialState, action) => {
             const deleteState = {...state, allComments: {...state.allComments}}
             delete deleteState.allComments[action.commentId]
             return deleteState
+        case UPVOTE_COMMENT:
+            const upvoteState = {...state, allComments: {...state.allComments}}
+            upvoteState.allcomments[action.comment.id] = action.comment
+            return upvoteState
+        case DOWNVOTE_COMMENT:
+            const downvoteState = {...state, allComments: {...state.allComments}}
+            downvoteState.allcomments[action.comment.id] = action.comment
+            return downvoteState
         default:
             return state
     }

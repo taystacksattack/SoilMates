@@ -8,7 +8,7 @@ import EditPostModal from "../EditPostModal"
 import EditCommentModal from "../EditCommentModal"
 import DeleteCommentModal from "../DeleteCommentModal"
 import './SinglePost.css'
-import { createCommentThunk, getCommentsThunk } from "../../store/comments"
+import { createCommentThunk, getCommentsThunk, upvoteCommentThunk, downvoteCommentThunk} from "../../store/comments"
 
 
 const SinglePost = () => {
@@ -64,6 +64,7 @@ const SinglePost = () => {
         setComment('')
     }
 
+    //handles displaying the errors
     useEffect(()=>{
         const errors = {}
         if(comment.length < 5 || comment.length >=1500) errors['comment']="Please provide a comment between 5 and 1500 characters"
@@ -72,6 +73,7 @@ const SinglePost = () => {
 
     const errorLength = Object.values(validationErrors).length
 
+    
     useEffect(()=>{
     //     console.log(hasSubmitted)
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
@@ -172,9 +174,9 @@ const SinglePost = () => {
                             <div id="single-comment-wrapper">
                                 <div id="votes-body-wrapper">
                                     <div id="voting-buttons-wrapper">
-                                        <i class="fa-regular fa-circle-up"></i>
+                                        <i onClick={e=>dispatch(upvoteCommentThunk(comment.id))} class="fa-regular fa-circle-up"></i>
                                         <h2>{(comment.votes).length}</h2>
-                                        <i class="fa-regular fa-circle-down"></i>
+                                        <i onClick={e=>dispatch(downvoteCommentThunk(comment.id))} class="fa-regular fa-circle-down"></i>
                                     </div>
                                     <p id="post-body">{comment.body}</p>
                                 </div>

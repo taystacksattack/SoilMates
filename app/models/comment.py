@@ -30,7 +30,7 @@ class Comment(db.Model):
             'body': self.body,
             'postId': self.postId,
             'ownerId': self.ownerId,
-            'votes': [user.id for user in self.user_votes],
+            'votes': [user.id for user in self.user_votes], 
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "user": self.owner.to_dict()

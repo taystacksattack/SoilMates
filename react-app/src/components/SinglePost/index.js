@@ -170,8 +170,16 @@ const SinglePost = () => {
                     Object.values(commentsObj).map(comment=>{
                         return (
                             <div id="single-comment-wrapper">
+                                <div id="votes-body-wrapper">
+                                    <div id="voting-buttons-wrapper">
+                                        <i class="fa-regular fa-circle-up"></i>
+                                        <h2>{(comment.votes).length}</h2>
+                                        <i class="fa-regular fa-circle-down"></i>
+                                    </div>
                                     <p id="post-body">{comment.body}</p>
+                                </div>
                                 <div id="single-comment-header-wrapper">
+                                    <p id="post-info">Posted by: {comment.user.username} on {comment.created_at.slice(0,16)}</p>
                                     {userObj.id === comment.ownerId &&(
                                         <div id="buttons-wrappers">
                                             <div id="green-button-wrapper">
@@ -187,7 +195,7 @@ const SinglePost = () => {
                                             />
                                         </div>
                                         )}
-                                <p id="post-info">Posted by: {comment.user.username} on {comment.created_at.slice(0,16)}</p>
+
                                 </div>
                             </div>
                             )

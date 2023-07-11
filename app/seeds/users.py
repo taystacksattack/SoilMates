@@ -12,7 +12,7 @@ def seed_users():
         username='bobbie', email='bobbie@aa.io', password='password')
     ginnie = User(
         username='ginnie', email='ginnie@aa.io', password='password')
-    ron = User(
+    ronjon = User(
         username='ronjon', email='ronjon@aa.io', password='password')
     weasel = User(
         username='weasel', email='weasel@aa.io', password='password')

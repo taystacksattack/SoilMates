@@ -55,7 +55,7 @@ def upvote_comment(id):
         comment.user_votes.append(user)
         db.session.commit()
         return comment.to_dict()
-    return{"message": "User already upvoted this comment."}
+    return {"errors": "User already upvoted this comment."}
 
 
 @comment_routes.route('/<int:id>/downvote', methods=['DELETE'])
@@ -67,4 +67,4 @@ def downvote_comment(id):
         comment.user_votes.remove(user)
         db.session.commit()
         return comment.to_dict()
-    return{"message": "User has not upvoted this comment."}
+    return{"errors": "User has not upvoted this comment."}

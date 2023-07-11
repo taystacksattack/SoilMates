@@ -127,15 +127,17 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
 
 
 export const upvoteCommentThunk = (commentId) => async (dispatch) => {
+    let response
     try{
-        const response = await fetch(`/api/comments/${commentId}/upvote`, {
+        response = await fetch(`/api/comments/${commentId}/upvote`, {
             method:"POST"
         })
         const result = await response.json()
+        if (result.errors) return result.errors
         dispatch(upvoteComment(result))
         return result
     }catch (e){
-        return e
+        return
     }
 }
 
@@ -146,6 +148,7 @@ export const downvoteCommentThunk = (commentId) => async (dispatch) => {
             method:"DELETE"
         })
         const result = await response.json()
+        if (result.errors) return result.errors
         dispatch(downvoteComment(result))
         return result
     }catch (e){
@@ -188,11 +191,11 @@ export const commentReducer = (state = initialState, action) => {
             return deleteState
         case UPVOTE_COMMENT:
             const upvoteState = {...state, allComments: {...state.allComments}}
-            upvoteState.allcomments[action.comment.id] = action.comment
+            upvoteState.allComments[action.comment.id] = action.comment
             return upvoteState
         case DOWNVOTE_COMMENT:
             const downvoteState = {...state, allComments: {...state.allComments}}
-            downvoteState.allcomments[action.comment.id] = action.comment
+            downvoteState.allComments[action.comment.id] = action.comment
             return downvoteState
         default:
             return state

@@ -44,3 +44,27 @@ def edit_comment(id):
 
         db.session.commit()
         return comment_to_update.to_dict()
+
+
+@comment_routes.route('/<int:id>/upvote', methods=['POST'])
+@login_required
+def upvote_comment(id):
+    user = User.query.get(current_user.id)
+    comment = Comment.query.get(id)
+    if user not in comment.user_votes:
+        comment.user_votes.append(user)
+        db.session.commit()
+        return comment.to_dict()
+    return{"message": "User already upvoted this comment."}
+
+
+@comment_routes.route('/<int:id>/downvote', methods=['DELETE'])
+@login_required
+def upvote_comment(id):
+    user = User.query.get(current_user.id)
+    comment = Comment.query.get(id)
+    if user in comment.user_votes:
+        comment.user_votes.remove(user)
+        db.session.commit()
+        return comment.to_dict()
+    return{"message": "User has not upvoted this comment."}

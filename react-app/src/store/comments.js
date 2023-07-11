@@ -4,6 +4,8 @@ const GET_COMMENTS = 'comments/GET_COMMENTS'
 const CREATE_COMMENT = 'comments/CREATE_COMMENT'
 const EDIT_COMMENT = 'comments/EDIT_COMMENT'
 const DELETE_COMMENT = 'comments/DELETE_COMMENT'
+const UPVOTE_COMMENT = 'comments/UPVOTE_COMMENT'
+const DOWNVOTE_COMMENT = 'comments/DOWNVOTE_COMMENT'
 
 
 // action collectors
@@ -40,6 +42,21 @@ const deleteComment = (commentId) => {
         commentId
     }
 }
+
+const upvoteComment = (commentId) => {
+    return {
+        type: UPVOTE_COMMENT,
+        commentId
+    }
+}
+
+const downvoteComment = (commentId) => {
+    return {
+        type: DOWNVOTE_COMMENT,
+        commentId
+    }
+}
+
 
 // gets the all the comments...!
 export const getAllCommentsThunk = () => async(dispatch) => {

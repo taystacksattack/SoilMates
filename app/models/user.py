@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from .vote import  Vote
 
 
 
@@ -20,6 +21,8 @@ class User(db.Model, UserMixin):
     posts = db.relationship("Post", back_populates="owner", cascade="all, delete-orphan")
     soils = db.relationship("Soil", back_populates="owner", cascade="all, delete-orphan")
     comments = db.relationship("Comment", back_populates="owner", cascade="all, delete-orphan")
+
+    comment_votes = db.relationship("Comment", secondary=Vote, back_populates="user_votes")
 
 
     @property

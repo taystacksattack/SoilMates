@@ -1,6 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from datetime import datetime
-
+from .vote import  Vote
 
 
 class Comment(db.Model):
@@ -19,6 +19,8 @@ class Comment(db.Model):
     # relationships
     owner = db.relationship("User", back_populates="comments")
     posts= db.relationship("Post", back_populates="comments")
+
+    user_votes = db.relationship("User", secondary=Vote, back_populates="comment_votes")
 
 
     def to_dict(self):

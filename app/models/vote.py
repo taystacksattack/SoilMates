@@ -10,4 +10,4 @@ Vote = db.Table(
 )
 
 if environment == "production":
-    comment_vote.schema = SCHEMA
+    Vote.schema = SCHEMA

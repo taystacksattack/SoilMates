@@ -85,7 +85,7 @@ export const createPostThunk = (post) => async (dispatch) => {
             body: post
         })
         const data = await response.json()
-        console.log("wasssup")
+        // console.log("wasssup")
         dispatch(createPost(data))
         // return data
     } catch(e){

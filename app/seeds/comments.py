@@ -253,7 +253,7 @@ def seed_comments():
     comment_41 = Comment(
         body="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Gravida quis blandit turpis cursus in hac habitasse platea. Nunc mi ipsum faucibus vitae aliquet. Eu mi bibendum neque egestas congue quisque egestas diam in.",
         user_votes= [users[9],users[3],users[6]],
-        postId = 210,
+        postId = 21,
         ownerId = 7
     )
     comment_42 = Comment(

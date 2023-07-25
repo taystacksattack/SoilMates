@@ -13,6 +13,7 @@ function SignupFormModal() {
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 	const [confirmPassword, setConfirmPassword] = useState("");
+	const [image, setImage] = useState("");
 	const [errors, setErrors] = useState([]);
 	const [validationErrors, setValidationErrors] = useState([])
 	const { closeModal } = useModal();
@@ -25,7 +26,15 @@ function SignupFormModal() {
 		if (Object.values(validationErrors).length) return
 
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password));
+
+			const formData = new FormData();
+			formData.append("username", username);
+			formData.append("email", email);
+			formData.append("password", password);
+			formData.append("image", image);
+			console.log("HERE IS THE IMAGE IN THE FORMDATA",image)
+			console.log("form data baby", formData)
+			const data = await dispatch(signUp(formData));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -59,7 +68,10 @@ function SignupFormModal() {
 		<>
 		<div id="signup-modal-wrapper">
 			<h1>Sign Up</h1>
-				<form onSubmit={handleSubmit}>
+				<form
+				onSubmit={handleSubmit}
+				encType="multipart/form-data"
+				>
 				<div id="signup-form-wrapper">
 					{/* <ul>
 						{errors.map((error, idx) => (
@@ -125,6 +137,20 @@ function SignupFormModal() {
 							value={confirmPassword}
 							onChange={(e) => setConfirmPassword(e.target.value)}
 							required
+						/>
+					</label>
+					{/* enctype="multipart/form-data" */}
+					<br/>
+					<label>
+						<h3>Choose a profile picture</h3>
+						<input
+							className="input-field"
+							label="Upload Avatar"
+							accept="image/*"
+							type="file"
+							// value={image}
+							onChange={(e) => setImage(e.target.files[0])}
+							// required
 						/>
 					</label>
 					<div id="signup-button-wrapper">

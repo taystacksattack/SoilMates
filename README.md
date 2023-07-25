@@ -1,7 +1,7 @@
 
-# Thank you for checking out out Soil Mates!
+# Thank you for checking out Soil Mates!
 
-SoilMates, a play on "soul mates," is a website clone of Stack Overflow, allowing users to collect soil data, makes posts regarding their soil data and farming needs, and interact with the community by receiving recommendations. Recommendations are upvoted by the community if the recommendation supports the farmer. Soil data requests are mediated using a map GUI to get a lat/lng coordinate, and an API fetch is made to the International Soil Research Information Center for soil data. 
+SoilMates, a play on "soul mates," allows users to collect soil data, make posts regarding their soil data and farming needs, and interact with the community by receiving recommendations - similar to Stack Overflow. Recommendations are upvoted by the community if the recommendation supports the farmer. Soil data requests are mediated using a map GUI to get a lat/lng coordinate, and an API fetch is made to the International Soil Research Information Center for soil data. 
 Feel free to visit the live site [here](https://soilmates.onrender.com/)
 
 ## Index

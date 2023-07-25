@@ -64,24 +64,26 @@ def sign_up():
     """
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    
+
     if form.validate_on_submit():
-        print("here is the full form data",form.data)
+        # print("here is the full form data",form.data)
         image = form.data["image"]
-        print("this is what we're getting from image",image)
+        # print("this is what we're getting from image",image)
+
         image.filename = get_unique_filename(image.filename)
         upload = upload_file_to_s3(image)
+        print("here is the damn upload!!!!!!!",upload)
 
         if "url" not in upload:
-            return upload.errors
+            return upload
 
-        url = upload['url']
+        # url = upload['url']
 
         user = User(
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password'],
-            image = url
+            image = upload['url']
         )
         db.session.add(user)
         db.session.commit()

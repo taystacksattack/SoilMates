@@ -32,7 +32,8 @@ function SignupFormModal() {
 			formData.append("email", email);
 			formData.append("password", password);
 			formData.append("image", image);
-
+			console.log("HERE IS THE IMAGE IN THE FORMDATA",image)
+			console.log("form data baby", formData)
 			const data = await dispatch(signUp(formData));
 			if (data) {
 				setErrors(data);
@@ -67,7 +68,10 @@ function SignupFormModal() {
 		<>
 		<div id="signup-modal-wrapper">
 			<h1>Sign Up</h1>
-				<form onSubmit={handleSubmit}>
+				<form
+				onSubmit={handleSubmit}
+				encType="multipart/form-data"
+				>
 				<div id="signup-form-wrapper">
 					{/* <ul>
 						{errors.map((error, idx) => (
@@ -142,11 +146,11 @@ function SignupFormModal() {
 						<input
 							className="input-field"
 							label="Upload Avatar"
+							accept="image/*"
 							type="file"
-							value={image}
+							// value={image}
 							onChange={(e) => setImage(e.target.files[0])}
-							required
-							enctype="multipart/form-data"
+							// required
 						/>
 					</label>
 					<div id="signup-button-wrapper">

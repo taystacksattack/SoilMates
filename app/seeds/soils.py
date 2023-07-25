@@ -46,7 +46,7 @@ def seed_soils():
         phh2o =7.1
     )
     soil_4 = Soil(
-        ownerId = 3,
+        ownerId = 4,
         title ="test sample #33",
         latitude = 29.719518,
         longitude = -97.433826,
@@ -60,7 +60,7 @@ def seed_soils():
         phh2o =7.2
     )
     soil_5 = Soil(
-        ownerId = 2,
+        ownerId = 9,
         title ="soil at Tom's and Kathy's spot",
         latitude = 29.679518,
         longitude = -74.493826,
@@ -73,12 +73,88 @@ def seed_soils():
         soc = 66,
         phh2o =6.8
     )
+    soil_6 = Soil(
+        ownerId = 8,
+        title ="by the river",
+        latitude = 29.679518,
+        longitude = -74.493826,
+        percent_sand = 19,
+        percent_silt = 50,
+        percent_clay = 31,
+        cec = 71,
+        bdod = 0.6,
+        nitrogen =32,
+        soc = 66,
+        phh2o =6.8
+    )
+    soil_7 = Soil(
+        ownerId = 4,
+        title ="flooded field sample",
+        latitude = 29.679518,
+        longitude = -74.493826,
+        percent_sand = 19,
+        percent_silt = 50,
+        percent_clay = 31,
+        cec = 71,
+        bdod = 0.6,
+        nitrogen =32,
+        soc = 66,
+        phh2o =6.8
+    )
+    soil_8 = Soil(
+        ownerId = 3,
+        title ="folks' backyard",
+        latitude = 29.679518,
+        longitude = -74.493826,
+        percent_sand = 19,
+        percent_silt = 50,
+        percent_clay = 31,
+        cec = 71,
+        bdod = 0.6,
+        nitrogen =32,
+        soc = 66,
+        phh2o =6.8
+    )
+    soil_9 = Soil(
+        ownerId = 8,
+        title ="by the railroad",
+        latitude = 29.679518,
+        longitude = -74.493826,
+        percent_sand = 19,
+        percent_silt = 50,
+        percent_clay = 31,
+        cec = 71,
+        bdod = 0.6,
+        nitrogen =32,
+        soc = 66,
+        phh2o =6.8
+    )
+    soil_10 = Soil(
+        ownerId = 8,
+        title ="someplace else",
+        latitude = 29.679518,
+        longitude = -74.493826,
+        percent_sand = 19,
+        percent_silt = 50,
+        percent_clay = 31,
+        cec = 71,
+        bdod = 0.6,
+        nitrogen =32,
+        soc = 66,
+        phh2o =6.8
+    )
+
 
     db.session.add(soil_1)
     db.session.add(soil_2)
     db.session.add(soil_3)
     db.session.add(soil_4)
     db.session.add(soil_5)
+    db.session.add(soil_6)
+    db.session.add(soil_7)
+    db.session.add(soil_8)
+    db.session.add(soil_9)
+    db.session.add(soil_10)
     db.session.commit()
 
 

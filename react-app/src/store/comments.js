@@ -4,6 +4,8 @@ const GET_COMMENTS = 'comments/GET_COMMENTS'
 const CREATE_COMMENT = 'comments/CREATE_COMMENT'
 const EDIT_COMMENT = 'comments/EDIT_COMMENT'
 const DELETE_COMMENT = 'comments/DELETE_COMMENT'
+const UPVOTE_COMMENT = 'comments/UPVOTE_COMMENT'
+const DOWNVOTE_COMMENT = 'comments/DOWNVOTE_COMMENT'
 
 
 // action collectors
@@ -40,6 +42,21 @@ const deleteComment = (commentId) => {
         commentId
     }
 }
+
+const upvoteComment = (comment) => {
+    return {
+        type: UPVOTE_COMMENT,
+        comment
+    }
+}
+
+const downvoteComment = (comment) => {
+    return {
+        type: DOWNVOTE_COMMENT,
+        comment
+    }
+}
+
 
 // gets the all the comments...!
 export const getAllCommentsThunk = () => async(dispatch) => {
@@ -108,6 +125,38 @@ export const deleteCommentThunk = (commentId) => async (dispatch) => {
     }
 }
 
+
+export const upvoteCommentThunk = (commentId) => async (dispatch) => {
+    let response
+    try{
+        response = await fetch(`/api/comments/${commentId}/upvote`, {
+            method:"POST"
+        })
+        const result = await response.json()
+        if (result.errors) return result.errors
+        dispatch(upvoteComment(result))
+        return result
+    }catch (e){
+        return
+    }
+}
+
+
+export const downvoteCommentThunk = (commentId) => async (dispatch) => {
+    try{
+        const response = await fetch(`/api/comments/${commentId}/downvote`, {
+            method:"DELETE"
+        })
+        const result = await response.json()
+        if (result.errors) return result.errors
+        dispatch(downvoteComment(result))
+        return result
+    }catch (e){
+        return e
+    }
+}
+
+
 const initialState = {comments: {}}
 
 export const commentReducer = (state = initialState, action) => {
@@ -140,6 +189,14 @@ export const commentReducer = (state = initialState, action) => {
             const deleteState = {...state, allComments: {...state.allComments}}
             delete deleteState.allComments[action.commentId]
             return deleteState
+        case UPVOTE_COMMENT:
+            const upvoteState = {...state, allComments: {...state.allComments}}
+            upvoteState.allComments[action.comment.id] = action.comment
+            return upvoteState
+        case DOWNVOTE_COMMENT:
+            const downvoteState = {...state, allComments: {...state.allComments}}
+            downvoteState.allComments[action.comment.id] = action.comment
+            return downvoteState
         default:
             return state
     }

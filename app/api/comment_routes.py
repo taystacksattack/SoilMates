@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
-from app.models import Comment
+from app.models import Comment, User
 from ..models.db import db
 from ..forms.comment_form import CommentForm
 from datetime import datetime
@@ -44,3 +44,27 @@ def edit_comment(id):
 
         db.session.commit()
         return comment_to_update.to_dict()
+
+
+@comment_routes.route('/<int:id>/upvote', methods=['POST'])
+@login_required
+def upvote_comment(id):
+    user = User.query.get(current_user.id)
+    comment = Comment.query.get(id)
+    if user not in comment.user_votes:
+        comment.user_votes.append(user)
+        db.session.commit()
+        return comment.to_dict()
+    return {"errors": "User already upvoted this comment."}
+
+
+@comment_routes.route('/<int:id>/downvote', methods=['DELETE'])
+@login_required
+def downvote_comment(id):
+    user = User.query.get(current_user.id)
+    comment = Comment.query.get(id)
+    if user in comment.user_votes:
+        comment.user_votes.remove(user)
+        db.session.commit()
+        return comment.to_dict()
+    return{"errors": "User has not upvoted this comment."}

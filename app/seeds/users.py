@@ -10,10 +10,31 @@ def seed_users():
         username='marnie', email='marnie@aa.io', password='password')
     bobbie = User(
         username='bobbie', email='bobbie@aa.io', password='password')
+    ginnie = User(
+        username='ginnie', email='ginnie@aa.io', password='password')
+    ronjon = User(
+        username='ronjon', email='ronjon@aa.io', password='password')
+    weasel = User(
+        username='weasel', email='weasel@aa.io', password='password')
+    harry = User(
+        username='harry', email='harry@aa.io', password='password')
+    hermione = User(
+        username='hermione', email='hermione@aa.io', password='password')
+    snape = User(
+        username='snape', email='snape@aa.io', password='password')
+    dumbledore = User(
+        username='dumbledore', email='dumbledore@aa.io', password='password')
 
     db.session.add(demo)
     db.session.add(marnie)
     db.session.add(bobbie)
+    db.session.add(ginnie)
+    db.session.add(ronjon)
+    db.session.add(weasel)
+    db.session.add(harry)
+    db.session.add(hermione)
+    db.session.add(snape)
+    db.session.add(dumbledore)
     db.session.commit()
 
 
@@ -28,5 +49,5 @@ def undo_users():
         db.session.execute(f"TRUNCATE table {SCHEMA}.users RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM users"))
-        
+
     db.session.commit()

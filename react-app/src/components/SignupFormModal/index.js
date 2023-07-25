@@ -26,7 +26,14 @@ function SignupFormModal() {
 		if (Object.values(validationErrors).length) return
 
 		if (password === confirmPassword) {
-			const data = await dispatch(signUp(username, email, password, image));
+
+			const formData = new FormData();
+			formData.append("username", username);
+			formData.append("email", email);
+			formData.append("password", password);
+			formData.append("image", image);
+
+			const data = await dispatch(signUp(formData));
 			if (data) {
 				setErrors(data);
 			} else {
@@ -137,7 +144,7 @@ function SignupFormModal() {
 							label="Upload Avatar"
 							type="file"
 							value={image}
-							onChange={(e) => setImage(e.target.value)}
+							onChange={(e) => setImage(e.target.files[0])}
 							required
 							enctype="multipart/form-data"
 						/>

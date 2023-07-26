@@ -143,6 +143,11 @@
 
 /* for the user button stuff */
 
+#user-image{
+  /* width:2rem; */
+  height:2rem;
+}
+
 #user-button{
   border: var(--text) 1px solid;
   border-radius: 30px;

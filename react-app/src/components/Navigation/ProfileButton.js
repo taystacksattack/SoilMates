@@ -46,7 +46,9 @@ function ProfileButton({ user }) {
 
       <div >
         <button onClick={openMenu}>
-          <i class="fa-solid fa-users-line" id="user-button"></i>
+          {user ? <img id="user-image" src={user.image}  alt={user.username}/> : <i class="fa-solid fa-users-line" id="user-button"></i> }
+          {/* <img id="user-image" src={user.image}  alt={user.username}/> */}
+          {/* <i class="fa-solid fa-users-line" id="user-button"></i> */}
         </button>
         <ul className={ulClassName} ref={ulRef}>
           {user ? (

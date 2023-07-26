@@ -15,7 +15,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(40), nullable=False, unique=True)
     email = db.Column(db.String(255), nullable=False, unique=True)
     hashed_password = db.Column(db.String(255), nullable=False)
-    image = db.Column(db.String(255))
+    image = db.Column(db.String(255), default="https://soilmates.s3.amazonaws.com/default_quilt.jpg")
 
 
     #relationship

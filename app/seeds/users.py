@@ -5,25 +5,25 @@ from sqlalchemy.sql import text
 # Adds a demo user, you can add other users here if you want
 def seed_users():
     demo = User(
-        username='Demo', email='demo@aa.io', password='password')
+        username='Demo', email='demo@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/default_quilt.jpg")
     marnie = User(
-        username='marnie', email='marnie@aa.io', password='password')
+        username='marnie', email='marnie@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/marnie.png")
     bobbie = User(
-        username='bobbie', email='bobbie@aa.io', password='password')
+        username='bobbie', email='bobbie@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/bobbie.jpeg")
     ginnie = User(
-        username='ginnie', email='ginnie@aa.io', password='password')
+        username='ginnie', email='ginnie@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/ginnie.png")
     ronjon = User(
-        username='ronjon', email='ronjon@aa.io', password='password')
+        username='ronjon', email='ronjon@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/ron.png")
     weasel = User(
-        username='weasel', email='weasel@aa.io', password='password')
+        username='weasel', email='weasel@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/weasel.webp")
     harry = User(
-        username='harry', email='harry@aa.io', password='password')
+        username='harry', email='harry@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/harry.avif")
     hermione = User(
-        username='hermione', email='hermione@aa.io', password='password')
+        username='hermione', email='hermione@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/Hermione.png")
     snape = User(
-        username='snape', email='snape@aa.io', password='password')
+        username='snape', email='snape@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/snape.png")
     dumbledore = User(
-        username='dumbledore', email='dumbledore@aa.io', password='password')
+        username='dumbledore', email='dumbledore@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/dumbledore.jpeg")
 
     db.session.add(demo)
     db.session.add(marnie)

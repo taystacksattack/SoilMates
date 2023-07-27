@@ -85,9 +85,6 @@ function Navigation({ isLoaded }){
 						</div>
 					</div>
 
-
-					{/* insert search bar feature and some buttons here */}
-
 					{isLoaded && (
 						<div>
 							<li>

@@ -17,10 +17,10 @@ import './index.css'
 import SplashPage from "./components/SplashPage";
 import Footer from "./components/Footer";
 import About from "./components/About";
+import SearchResults from './components/SearchResults'
 
 
-
-function App() {
+function App({query}) {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -66,6 +66,10 @@ function App() {
 
             <Route path="/posts">
               <Posts />
+            </Route>
+
+            <Route path="/search-results">
+              <SearchResults query={query}/>
             </Route>
 
             <Route path="/feed">

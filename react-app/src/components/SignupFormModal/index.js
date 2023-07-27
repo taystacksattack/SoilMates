@@ -63,7 +63,7 @@ function SignupFormModal() {
     //     console.log(hasSubmitted)
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
     },[errorLength, hasSubmitted])
-
+	console.log(validationErrors)
 	return (
 		<>
 		<div id="signup-modal-wrapper">

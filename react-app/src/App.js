@@ -18,11 +18,13 @@ import SplashPage from "./components/SplashPage";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import SearchResults from './components/SearchResults'
+import { QueryContext } from "./context/QueryContext";
 
 
-function App({query}) {
+function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  const [query, setQuery] = useState('')
 
   const userObj = useSelector(state => state.session.user)
 
@@ -32,6 +34,7 @@ function App({query}) {
 
   return (
     <>
+    <QueryContext.Provider value={{query, setQuery}}>
     <div id="whole-wrapper">
       <Navigation isLoaded={isLoaded} />
       <div id="main-body">
@@ -69,7 +72,7 @@ function App({query}) {
             </Route>
 
             <Route path="/search-results">
-              <SearchResults query={query}/>
+              <SearchResults />
             </Route>
 
             <Route path="/feed">
@@ -92,6 +95,7 @@ function App({query}) {
       </div>
       <Footer/>
     </div>
+    </QueryContext.Provider>
     </>
   );
 }

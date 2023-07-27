@@ -1,20 +1,24 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, createContext, useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import SideBar from '../SideBar'
 import './Navigation.css';
 import '../../index.css';
+import { useHistory } from 'react-router-dom';
+import { QueryContext } from '../../context/QueryContext';
 
 function Navigation({ isLoaded }){
+	const history = useHistory()
 	const sessionUser = useSelector(state => state.session.user);
 	const [sideBar, setSideBar] = useState(false)
-	const [query, setQuery] = useState('')
-	const [showMenu, setShowMenu] = useState(false);
+	// const [showMenu, setShowMenu] = useState(false);
+	const {query, setQuery} = useContext(QueryContext)
 
 	const submitQuery = async (e) => {
 		e.preventDefault()
-		alert("Feature coming soon!")
+		// setQuery(e.target.value)
+		history.push('/search-results')
 	}
 
 	useEffect(() => {
@@ -27,7 +31,7 @@ function Navigation({ isLoaded }){
     	return () => document.removeEventListener("click", closeMenu);
 	}, [sideBar]);
 
-
+	console.log("query in navigvation bar",query)
 	return (
 		<>
 			<div id="sticky-wrapper">

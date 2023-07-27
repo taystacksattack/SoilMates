@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton'
 import './feed.css'
 import { getAllCommentsThunk } from "../../store/comments"
 
+
 const commentCounter = (commentsObj) => {
     const result = {}
     for (let comment of Object.values(commentsObj)){
@@ -57,7 +58,7 @@ const Feed = () => {
 
     if (!postsArr || !commentsObj) return (<h2>Loading...</h2>)
 
-    const commentCount = commentCounter(commentsObj)
+    // const commentCount = commentCounter(commentsObj)
     // console.log("commentCount",commentCount)
 
     return (
@@ -95,9 +96,9 @@ const Feed = () => {
 
 
                                 <div id="date-comments-wrapper">
-                                    { commentCount[post.id] === undefined && (<h3 id="comment-count">No comments yet</h3>)}
-                                    { commentCount[post.id] === 1 && (<h3 id="comment-count">{commentCount[post.id]} comment</h3>)}
-                                    { commentCount[post.id] > 1 && (<h3 id="comment-count">{commentCount[post.id]} comments</h3>)}
+                                    { post.numComments === undefined && (<h3 id="comment-count">No comments yet</h3>)}
+                                    { post.numComments === 1 && (<h3 id="comment-count">{post.numComments} comment</h3>)}
+                                    { post.numComments > 1 && (<h3 id="comment-count">{post.numComments} comments</h3>)}
                                     <p id='post-info'>Posted by: {post.user.username} on {post.created_at.slice(0,16)}</p>
                                 </div>
                                 <p></p>

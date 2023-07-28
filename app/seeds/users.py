@@ -23,7 +23,7 @@ def seed_users():
     snape = User(
         username='snape', email='snape@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/snape.png")
     dumbledore = User(
-        username='dumbledore', email='dumbledore@aa.io', password='password')
+        username='dumbledore', email='dumbledore@aa.io', password='password', image="https://soilmates.s3.amazonaws.com/dumbledore.jpeg")
 
     db.session.add(demo)
     db.session.add(marnie)

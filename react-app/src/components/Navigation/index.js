@@ -15,6 +15,8 @@ function Navigation({ isLoaded }){
 	const [search, setSearch] = useState(false)
 	const {query, setQuery, submit, setSubmit} = useContext(QueryContext)
 
+
+
 	const handleSearch = async (e) => {
 		setSearch(e.target.value)
 	}
@@ -27,6 +29,7 @@ function Navigation({ isLoaded }){
 	}
 
 	useEffect(() => {
+		setSearch('')
 		if (!sideBar) return;
 
 		const closeMenu = (e) => {

@@ -12,12 +12,17 @@ function Navigation({ isLoaded }){
 	const history = useHistory()
 	const sessionUser = useSelector(state => state.session.user);
 	const [sideBar, setSideBar] = useState(false)
-	// const [showMenu, setShowMenu] = useState(false);
-	const {query, setQuery} = useContext(QueryContext)
+	const [search, setSearch] = useState(false)
+	const {query, setQuery, submit, setSubmit} = useContext(QueryContext)
+
+	const handleSearch = async (e) => {
+		setSearch(e.target.value)
+	}
 
 	const submitQuery = async (e) => {
 		e.preventDefault()
-		// setQuery(e.target.value)
+		setSubmit(!submit)
+		setQuery(search)
 		history.push('/search-results')
 	}
 
@@ -31,7 +36,7 @@ function Navigation({ isLoaded }){
     	return () => document.removeEventListener("click", closeMenu);
 	}, [sideBar]);
 
-	console.log("query in navigvation bar",query)
+	console.log("search in navigvation bar",search)
 	return (
 		<>
 			<div id="sticky-wrapper">
@@ -71,19 +76,19 @@ function Navigation({ isLoaded }){
 						</li>
 						<div id="form-wrapper">
 							<form
-							onSubmit ={(e)=> submitQuery(e)}
+							onSubmit ={submitQuery}
 							id="form-wrapper"
 							>
 								<input
-									placeholder = "Browse Questions"
-									id="search-input"
-									type= "textarea"
-									value= {query}
-									onChange={e=> setQuery(e.target.value)}
-									>
-								</input>
+								placeholder = "Browse Questions"
+								id="search-input"
+								type= "textarea"
+								value= {search}
+								onChange={e=> handleSearch(e)}
+								>
+							</input>
 								<div>
-									<button id="submit-button" type='submit'>Search</button>
+									<button id="submit-button" type='submit' onClick={submitQuery}>Search </button>
 								</div>
 							</form>
 						</div>

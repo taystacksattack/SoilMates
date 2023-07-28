@@ -10,7 +10,7 @@ import { QueryContext } from "../../context/QueryContext"
 
 const SearchResults = () => {
     const dispatch = useDispatch()
-    const query = useContext(QueryContext)
+    const {query, submit, setSubmit} = useContext(QueryContext)
 
     // console.log("query in search results", query)
 
@@ -26,10 +26,7 @@ const SearchResults = () => {
     if (postsObj) postsArr = Object.values(postsObj)
     let filteredArr = []
     if (postsArr) {
-        // console.log(query)
-        filteredArr = postsArr.filter(post => post.title.includes(query.query) || post.body.includes(query.query))
-        // console.log("postsArr as well",postsArr)
-        // console.log("filtered array",filteredArr)
+        filteredArr = postsArr.filter(post => post.title.includes(query) || post.body.includes(query))
     }
 
 
@@ -48,7 +45,7 @@ const SearchResults = () => {
             }
             sortedPosts(sortType)
         }
-    }, [sortType, postsArr.length])
+    }, [sortType, submit])
 
     useEffect(()=>{
         dispatch(getPostsThunk())
@@ -70,12 +67,18 @@ const SearchResults = () => {
 
 
                 {/* CONSIDER YOUR SORTING HERE */}
-                <div id="sort-wrapper">
-                    <h2>Displaying  {filteredArr.length} results </h2>
-                    <h3>Sort by:</h3>
-                    <div id="sort-buttons-wrapper">
-                        <button onClick={(e)=>setSortType("title")} className={sortType === 'title' ? "sort-button": "not-sorted"}>Title</button>
-                        <button onClick={e=>setSortType("created_at")} className={sortType === 'created_at' ? "sort-button": "not-sorted"}>Newest</button>
+                <div id="search-sort-wrapper">
+                    <div>
+                        {(filteredArr.length === 0 || filteredArr.length > 1)&& (<h2>Displaying  {filteredArr.length} results </h2>)}
+                        {(filteredArr.length === 1)&& (<h2>Displaying  {filteredArr.length} result </h2>)}
+
+                    </div>
+                    <div id="sort-wrapper">
+                        <h3>Sort by:</h3>
+                        <div id="sort-buttons-wrapper">
+                            <button onClick={(e)=>setSortType("title")} className={sortType === 'title' ? "sort-button": "not-sorted"}>Title</button>
+                            <button onClick={e=>setSortType("created_at")} className={sortType === 'created_at' ? "sort-button": "not-sorted"}>Newest</button>
+                        </div>
                     </div>
                 </div>
                 {/* <button>Trending</button> */}

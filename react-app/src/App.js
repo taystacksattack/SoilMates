@@ -24,7 +24,9 @@ import { QueryContext } from "./context/QueryContext";
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
+  // holds the search query input
   const [query, setQuery] = useState('')
+  const [submit, setSubmit] = useState(false)
 
   const userObj = useSelector(state => state.session.user)
 
@@ -34,7 +36,7 @@ function App() {
 
   return (
     <>
-    <QueryContext.Provider value={{query, setQuery}}>
+    <QueryContext.Provider value={{query, setQuery, submit, setSubmit}}>
     <div id="whole-wrapper">
       <Navigation isLoaded={isLoaded} />
       <div id="main-body">

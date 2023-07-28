@@ -1,23 +1,35 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, createContext, useContext} from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import SideBar from '../SideBar'
 import './Navigation.css';
 import '../../index.css';
+import { useHistory } from 'react-router-dom';
+import { QueryContext } from '../../context/QueryContext';
 
 function Navigation({ isLoaded }){
+	const history = useHistory()
 	const sessionUser = useSelector(state => state.session.user);
 	const [sideBar, setSideBar] = useState(false)
-	const [query, setQuery] = useState('')
-	const [showMenu, setShowMenu] = useState(false);
+	const [search, setSearch] = useState(false)
+	const {query, setQuery, submit, setSubmit} = useContext(QueryContext)
+
+
+
+	const handleSearch = async (e) => {
+		setSearch(e.target.value)
+	}
 
 	const submitQuery = async (e) => {
 		e.preventDefault()
-		alert("Feature coming soon!")
+		setSubmit(!submit)
+		setQuery(search)
+		history.push('/search-results')
 	}
 
 	useEffect(() => {
+		setSearch('')
 		if (!sideBar) return;
 
 		const closeMenu = (e) => {
@@ -27,7 +39,7 @@ function Navigation({ isLoaded }){
     	return () => document.removeEventListener("click", closeMenu);
 	}, [sideBar]);
 
-
+	console.log("search in navigvation bar",search)
 	return (
 		<>
 			<div id="sticky-wrapper">
@@ -67,26 +79,23 @@ function Navigation({ isLoaded }){
 						</li>
 						<div id="form-wrapper">
 							<form
-							onSubmit ={(e)=> submitQuery(e)}
+							onSubmit ={submitQuery}
 							id="form-wrapper"
 							>
 								<input
-									placeholder = "Browse Questions"
-									id="search-input"
-									type= "textarea"
-									value= {query}
-									onChange={e=> setQuery(e.target.value)}
-									>
-								</input>
+								placeholder = "Browse Questions"
+								id="search-input"
+								type= "textarea"
+								value= {search}
+								onChange={e=> handleSearch(e)}
+								>
+							</input>
 								<div>
-									<button id="submit-button" type='submit'>Search</button>
+									<button id="submit-button" type='submit' onClick={submitQuery}>Search </button>
 								</div>
 							</form>
 						</div>
 					</div>
-
-
-					{/* insert search bar feature and some buttons here */}
 
 					{isLoaded && (
 						<div>

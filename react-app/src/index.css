@@ -46,6 +46,7 @@
 button{
     font-size: 14pt;
     background-color: var(--background);
+    padding:0
 }
 button:hover{
     color: var(--nice-green);

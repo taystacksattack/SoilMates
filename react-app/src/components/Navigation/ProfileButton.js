@@ -33,6 +33,10 @@ function ProfileButton({ user }) {
     return () => document.removeEventListener("click", closeMenu);
   }, [showMenu]);
 
+  useEffect(()=>{
+
+  },[user])
+
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(logout());
@@ -41,12 +45,12 @@ function ProfileButton({ user }) {
 
   const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
   const closeMenu = () => setShowMenu(false);
-
+  // console.log("user image", user.image)
   return (
 
       <div >
         <button onClick={openMenu}>
-          <i class="fa-solid fa-users-line" id="user-button"></i>
+          {user ? <img id="user-image" src={user.image}  alt={user.username}/> : <i class="fa-solid fa-users-line" id="user-button"></i> }
         </button>
         <ul className={ulClassName} ref={ulRef}>
           {user ? (

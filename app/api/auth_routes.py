@@ -68,14 +68,15 @@ def sign_up():
     if form.validate_on_submit():
         # print("here is the full form data",form.data)
         image = form.data["image"]
-        # print("this is what we're getting from image",image)
+        print("this is what we're getting from image",image)
 
-        image.filename = get_unique_filename(image.filename)
-        upload = upload_file_to_s3(image)
-        print("here is the damn upload!!!!!!!",upload)
+        if image:
+            image.filename = get_unique_filename(image.filename)
+            upload = upload_file_to_s3(image)
+            print("here is the damn upload!!!!!!!",upload)
 
-        if "url" not in upload:
-            return upload
+            if "url" not in upload:
+                return upload
 
         # url = upload['url']
 
@@ -83,7 +84,7 @@ def sign_up():
             username=form.data['username'],
             email=form.data['email'],
             password=form.data['password'],
-            image = upload['url']
+            image = upload['url'] if image else None
         )
         db.session.add(user)
         db.session.commit()

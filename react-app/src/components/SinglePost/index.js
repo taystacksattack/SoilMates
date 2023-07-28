@@ -73,7 +73,7 @@ const SinglePost = () => {
 
     const errorLength = Object.values(validationErrors).length
 
-    
+
     useEffect(()=>{
     //     console.log(hasSubmitted)
         errorLength  && hasSubmitted ? setDisabled(true): setDisabled(false)
@@ -84,7 +84,7 @@ const SinglePost = () => {
     if (!postsObj || !post || ! commentsObj) return (<h2>Loading...</h2>)
     if (!userObj) return( <h2>Please log in or sign up to view this content</h2>)
     // console.log("post",post)
-    // console.log(comment)
+    // console.log(comment.votes)
 
     return (
         <div id="posts-whole-wrapper">
@@ -103,7 +103,7 @@ const SinglePost = () => {
                         {/* <NavLink exact to={`/posts/${postId}/edit`}>Edit Post</NavLink> */}
                         <OpenModalButton
                         id="sort-button"
-                        buttonText ="Delete Post"
+                        buttonText ="Delete post"
                         modalComponent ={<DeletePostModal post={post}/>}
                         />
 
@@ -161,7 +161,7 @@ const SinglePost = () => {
 
                         <br></br>
                         <div id="green-button-wrapper">
-                            <button disabled={disabled} id="submit-button" type='submit'>Post Comment!</button>
+                            <button disabled={disabled} id="submit-button" type='submit'>Post comment!</button>
                         </div>
                         <br></br>
                     </form>
@@ -175,7 +175,7 @@ const SinglePost = () => {
                                 <div id="votes-body-wrapper">
                                     <div id="voting-buttons-wrapper">
                                         <i onClick={e=>dispatch(upvoteCommentThunk(comment.id))} class="fa-regular fa-circle-up"></i>
-                                        <h2>{(comment.votes).length}</h2>
+                                        <h2 class={comment.votes.includes(userObj.id)? "voted" : null}>{(comment.votes).length}</h2>
                                         <i onClick={e=>dispatch(downvoteCommentThunk(comment.id))} class="fa-regular fa-circle-down"></i>
                                     </div>
                                     <p id="post-body">{comment.body}</p>

@@ -77,7 +77,7 @@ src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&
   * Logged in users can edit and delete their own posts.
   * Logged in users can view a main feed, or a feed of their posts.
 
-##Future features:
+## Future features:
 ### 1. Recommendations
   * Logged in users can view the recommendations on their post and the posts of their peers.
   * Logged in users can make recommendations on the posts to support the community with their expertise and input.
